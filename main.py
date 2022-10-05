@@ -1,0 +1,1 @@
+print("Hi, ich werde mal eine Studienarbeit zu Elliptischen Kurven")
