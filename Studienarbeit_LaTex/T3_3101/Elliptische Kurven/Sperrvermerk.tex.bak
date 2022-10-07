@@ -1,0 +1,27 @@
+% Sperrvermerk
+\begin{centering}
+\textbf{\Huge Sperrvermerk}\\
+\end{centering}
+\vspace{1.5cm}
+
+\begin{doublespacing}
+Die vorgelegte Praxisarbeit mit dem Titel "`Konzeptionierung und Planung einer neuen Netzwerkarchitektur für das unternehmenseigene Kraftwerk"' beinhaltet vertrauliche Informationen und Daten der Freudenberg Service KG.\\ 
+
+Diese Praxisarbeit darf nur von den für diese Arbeit selektierten Gutachtern sowie berechtigten Mitgliedern des Prüfungsausschusses eingesehen werden. Eine Vervielfältigung oder Veröffentlichung der Praxisarbeit 
+ist auch auszugsweise nicht gestattet.\\
+
+Dritten darf diese Arbeit nur mit der ausdrücklichen Genehmigung des Verfassers und des Unternehmens zugänglich gemacht werden. 
+\end{doublespacing}
+\vspace{2cm}
+
+\begin{tabular}{lp{12em}l}
+\hspace{5cm}  && \hspace{5cm} \\\cline{1-1}\cline{3-3}
+Ort, Datum    && Unterschrift Student
+\end{tabular}\\
+
+\vspace{2cm}
+
+\begin{tabular}{lp{12em}l}
+\hspace{5cm}  && \hspace{5cm} \\\cline{1-1}\cline{3-3}
+Ort, Datum    && Unterschrift Dualer Partner
+\end{tabular}\\
