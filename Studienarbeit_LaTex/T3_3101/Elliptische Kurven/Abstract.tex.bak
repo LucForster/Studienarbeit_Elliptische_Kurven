@@ -1,0 +1,15 @@
+% Abstract
+%\begin{footnotesize}
+\selectlanguage{ngerman}
+\begin{abstract}
+\thispagestyle{plain}
+Hier Text des Abstract in Deutsch.
+\end{abstract}
+
+\selectlanguage{english}
+\begin{abstract}
+\thispagestyle{plain}
+Hier Text des Abstract in Englisch. 
+\end{abstract}
+\selectlanguage{ngerman}
+%\end{footnotesize}

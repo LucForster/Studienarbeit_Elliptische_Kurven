@@ -1,0 +1,39 @@
+% Titelseite
+\begin{titlepage}
+\centering
+\title{		
+	\includegraphics[width=0.4\textwidth]{grafiken/dhbw.png}\\       		 
+	\vspace{1.3cm}
+          
+    \begin{singlespacing}
+    {\Large Elliptische Kurven in der Charakteristik p>3 und die Implementierung der Arithmetik in der Programmiersprache Python}	\\
+    \vspace{1.7cm}	
+    \begin{normalfont}
+	{\large Studienarbeit T3\_3101}
+	\end{normalfont}
+    \vspace{1.5cm}
+    \begin{onehalfspacing}
+    \begin{normalsize}
+	\begin{normalfont}
+	\begin{tabbing}
+	Hochschule: \hspace{2.7cm} \= Duale Hochschule Baden-Württemberg Mannheim\\
+	Kurs: \> TINF20IT2\\	
+	Name: \> Vorname Nachname\\
+	Matrikelnummer: \> XXXXXX\\	
+	E-Mail: \> sXXXXXX@student.dhbw-mannheim.de\\			
+	\vspace{1.0cm}\\
+	Studiengangsleiter:  \> Prof. Dr. Nathan Sudermann-Merx\\
+	Betreuer: \> Prof. Dr. Reinhold Hübl\\	
+	Bearbeitungszeitraum: \> 18.10.2022 - XX.XX.2023\\	
+	\vspace{1.0cm}\\
+	Unterschrift des Betreuers: \> {\rule{6cm}{1pt}}\\
+	\end{tabbing}
+	\end{normalfont}
+	\end{normalsize}
+	\end{onehalfspacing}
+	\end{singlespacing}	
+}
+\author{}
+\date{} 
+\maketitle		
+\end{titlepage}
