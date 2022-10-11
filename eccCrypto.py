@@ -57,8 +57,8 @@ class ECCcrypto:
 #        print(primes)
 
         for prime in primes:
-            for number in primes:
-                if (number != prime) & (number % prime == 0):
+            for number in primes[prime.__index__():]:
+                if number % prime == 0:
                     primes.remove(number)
 
         print(primes)
