@@ -49,3 +49,18 @@ class ECCcrypto:
                 i = i + 1
         print("Solution: " + str(value))
         return value
+
+    def eratosthenes(self, limit):
+        primes = []
+        for number in range(2, limit+1):
+            primes.append(number)
+#        print(primes)
+
+        for prime in primes:
+            for number in primes:
+                if (number != prime) & (number % prime == 0):
+                    primes.remove(number)
+
+        print(primes)
+        return primes
+
