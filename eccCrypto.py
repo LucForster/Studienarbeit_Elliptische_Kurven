@@ -25,6 +25,36 @@ class ECCcrypto:
             e = r
         return n
 
+    def erweiterterEukliedAlgo(self, a, b):
+        if a == 0:
+            return b, 0, 1
+        else:
+            gcd, x, y = self.erweiterterEukliedAlgo(b % a, a)
+            return gcd, y - (b // a) * x, x
+
+
+    def EEA(self, n, e):
+        nValues = []
+        eValues = []
+        rValues = []
+        while True:
+            r = n % e
+            nValues.append(n)
+            eValues.append(e)
+            rValues.append(r)
+            n = e
+            e = r
+            if rValues[-1] == 1:
+                break
+        print(r)
+        print(nValues[-1])
+        print(eValues[-1])
+        while True:
+            f1 = [1,1]
+            f2 = [1,1]
+            f1[1] = rValues.pop()
+            f2[1] = eValues.pop()
+
     def binExponantationInK(self, a, k, n):
         binary = bin(k)
         length = len(binary) - 2
@@ -82,5 +112,19 @@ class ECCcrypto:
         print(primes)
         return primes
 
- #   def chinesischerRestsatz(self, y, n):
-     #   for value in y:
+
+    def chinesischerRestsatz(self, a, modules):
+        for m in modules:
+            for mi in modules[modules.index(m) + 1:]:
+                if self.eukliedAlgo(m, mi) > 1:
+                    return "Module sind nicht teilerfremd"
+
+        m = 1
+        for mi in modules:
+            m = m * mi
+
+        b = []
+        for mi in modules:
+            b.append(m/mi)
+
+

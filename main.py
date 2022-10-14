@@ -10,8 +10,11 @@ prime_numbers = Primes()
 # crypto.eratosthenes(100000)
 # print(Primes.checkPrime(prime_numbers, 100000))
 
-values = [10000000000013, 94273, 94291, 94307, 94309, 94321, 94327, 94331, 94343, 94349, 94351, 94379, 94397, 94334]
-for value in values:
-    print(Primes.isPrime(prime_numbers, value))
+#values = [10000000000013, 94273, 94291, 94307, 94309, 94321, 94327, 94331, 94343, 94349, 94351, 94379, 94397, 94334]
+#for value in values:
+ #   print(Primes.isPrime(prime_numbers, value))
 
-print(prime_numbers.findPrimes(0, 10995))
+#print(prime_numbers.findPrimes(0, 10995))
+
+#crypto.EEA(28, 11)
+print(crypto.erweiterterEukliedAlgo(28, 11))
