@@ -82,5 +82,5 @@ class ECCcrypto:
         print(primes)
         return primes
 
-    def chinesischerRestsatz(self, y, n):
-        for value in y:
+ #   def chinesischerRestsatz(self, y, n):
+     #   for value in y:

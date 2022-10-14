@@ -14,4 +14,4 @@ values = [10000000000013, 94273, 94291, 94307, 94309, 94321, 94327, 94331, 94343
 for value in values:
     print(Primes.isPrime(prime_numbers, value))
 
-print(prime_numbers.findPrimes(1099000, 1099100))
+print(prime_numbers.findPrimes(0, 10995))

@@ -39,4 +39,5 @@ class Primes:
         for value in range(bottom, top):
             if self.isPrime(value):
                 primes.append(value)
+                print(value)
         return primes
