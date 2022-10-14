@@ -52,12 +52,12 @@ class ECCcrypto:
 
     def eratosthenes(self, limit):
         primes = []
-        for number in range(2, limit+1):
+        for number in range(2, limit + 1):
             primes.append(number)
-#        print(primes)
+        # print(primes)
 
         for prime in primes:
-            for number in primes[primes.index(prime)+1:]:
+            for number in primes[primes.index(prime) + 1:]:
                 if number % prime == 0:
                     primes.remove(number)
 
@@ -66,9 +66,9 @@ class ECCcrypto:
 
     def eratosthenes2(self, limit):
         primes = []
-        for number in range(2, limit+1):
+        for number in range(2, limit + 1):
             primes.append(number)
-#        print(primes)
+        # print(primes)
 
         for prime in primes:
             multiple = 1
@@ -81,3 +81,6 @@ class ECCcrypto:
 
         print(primes)
         return primes
+
+    def chinesischerRestsatz(self, y, n):
+        for value in y:

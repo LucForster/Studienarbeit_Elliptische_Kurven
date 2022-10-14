@@ -19,11 +19,12 @@ class Primes:
         end = False
         if n in primes:
             return True
+        return False
 
-        for x in primes:
-            if x == n:
-                end = True
-        return end
+    #        for x in primes:
+    #            if x == n:
+    #                end = True
+    #        return end
 
     def isPrime(self, n):
         for j in range(2, n):
