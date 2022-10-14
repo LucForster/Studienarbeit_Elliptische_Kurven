@@ -57,10 +57,27 @@ class ECCcrypto:
 #        print(primes)
 
         for prime in primes:
-            for number in primes[prime.__index__():]:
+            for number in primes[primes.index(prime)+1:]:
                 if number % prime == 0:
                     primes.remove(number)
 
         print(primes)
         return primes
 
+    def eratosthenes2(self, limit):
+        primes = []
+        for number in range(2, limit+1):
+            primes.append(number)
+#        print(primes)
+
+        for prime in primes:
+            multiple = 1
+            factor = 2
+            while multiple <= limit:
+                multiple = prime * factor
+                if multiple in primes:
+                    primes.remove(multiple)
+                factor = factor + 1
+
+        print(primes)
+        return primes
