@@ -25,6 +25,13 @@ class ECCcrypto:
             e = r
         return n
 
+    def eukliedAlgoRekursiv(self, n, e):
+        if e == 0:
+            return n
+        else:
+            ggt = self.eukliedAlgoRekursiv(e, n % e)
+            return ggt
+
     def erweiterterEukliedAlgo(self, a, b):
         if a == 0:
             return b, 0, 1

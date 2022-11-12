@@ -18,3 +18,4 @@ prime_numbers = Primes()
 
 #crypto.EEA(28, 11)
 print(crypto.erweiterterEukliedAlgo(28, 11))
+print(crypto.eukliedAlgoRekursiv(28, 11))
