@@ -1,0 +1,80 @@
+%Dokumentenklasse
+\documentclass[a4paper, 12pt, numbers=enddot]{scrreport}
+\usepackage[left=2.5cm, right=2.5cm, bottom=4cm, top=2cm]{geometry}
+
+%Dokumenteninformationen
+\usepackage[
+	pdftitle={TINF20IT2_T3_3101_Lacks_Forster}
+	pdfauthor={Aaron Lacks, Luc Forster}
+]{hyperref}
+
+%Standardpackages
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman,english]{babel}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{graphicx, subfigure}
+\graphicspath{ {grafiken/} }
+\usepackage{fancyhdr}
+\usepackage{lmodern}
+\usepackage{color}
+\usepackage{transparent}
+\usepackage{endnotes}
+\setcounter{secnumdepth}{3}
+\interfootnotelinepenalty=10000
+
+%Literatur
+\usepackage[
+%backend=biber,
+natbib=true,
+style=numeric,
+sorting=none
+]{biblatex}
+\addbibresource{literatur.bib}
+
+%Abkürzungsverzeichnis und Abstract
+\usepackage[footnote, printonlyused, withpage]{acronym}
+\usepackage[addtotoc]{abstract}
+
+%Seitenzahlen unten rechts
+%SUHN TU KOMM
+
+%Abstand Kapitel oberer Seitenrand
+\renewcommand*{\chapterheadstartvskip}{\vspace*{-0.3cm}} 
+%\usepackage{secdot}
+%\sectiondot{subsection}
+
+%Nicht einrücken nach Absatz
+\setlength{\parindent}{0pt}
+
+%Font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+
+% Dokument
+\begin{document}
+\pagenumbering{gobble}
+\input{Titelseite}	
+\newpage
+\input{Selbstständigkeitserklärung}
+\newpage
+\pagenumbering{Roman}
+\input{Abstract}
+\newpage
+\pagenumbering{gobble}
+\input{Inhaltsverzeichnis}
+\newpage
+\input{Abkürzungsverzeichnis}
+\newpage
+\listoffigures
+\newpage
+\begin{onehalfspacing}
+\pagenumbering{arabic}
+\input{1. Grundlagen}
+\newpage
+\end{onehalfspacing}
+\printbibliography
+\end{document}
