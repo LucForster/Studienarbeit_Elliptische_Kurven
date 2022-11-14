@@ -25,8 +25,33 @@
 \setcounter{secnumdepth}{3}
 \interfootnotelinepenalty=10000
 
+
+\usepackage{textcomp} 									%für besondere Symbole wie z.B €
+\usepackage{booktabs} 									%für Tabellen
 \usepackage{amssymb}									%für mathematische Symbole
 \usepackage{amsthm}										%für mathematische Umgebungen
+\usepackage{listings}									%für Programmcode 
+\usepackage{relsize}
+\usepackage{enumitem}									%für Aufzählungen
+\usepackage{float}										%für Platzierung von Grafiken etc.
+\lstset{ 												% General setup for the listings package
+    language=Python,
+    basicstyle=\small \ttfamily,%\sffamily,
+    breaklines=true,
+    breakautoindent=true,
+    numbers=left,
+    %numberstyle=\tiny,
+    frame=tb,
+    tabsize=4,
+    columns=fixed,
+    showstringspaces=false,
+    showtabs=false,
+    keepspaces,
+    commentstyle=\color{PineGreen},
+    keywordstyle=\color{Blue}
+}
+
+\linespread{1.25}
 
 %Literatur
 \usepackage[
