@@ -1,6 +1,6 @@
 %1. Grundlagen
 \chapter{Grundlagen}
-Diese Studienarbeit befasst sich mit dem komplexen Thema der Elliptischen Kurven in der Kryptographie. Die Kryptographie ist ein mathematisches Thema, bei welchem es zu Anfang der Legung einer Grundlage für das Verständnis der Inhalte dieser Studienarbeit bedarf. In diesem Kapitel werden sowohl die mathematischen als auch die kryptographischen Grundlagen zum Verständnis der Inhalte dieser Studienarbeit erläutert.
+Diese Studienarbeit befasst sich mit dem komplexen Thema der Elliptischen Kurven in der Kryptographie. Die Kryptographie ist ein mathematisches Thema, bei welchem es zu Anfang der Legung einer Grundlage für das Verständnis der Inhalte dieser Studienarbeit bedarf. In diesem Kapitel werden sowohl die mathematischen als auch die kryptographischen Grundlagen zum Verständnis der Inhalte dieser Studienarbeit gelegt.
 
 \begin{figure}[!h]
 \centering
@@ -10,13 +10,12 @@ Diese Studienarbeit befasst sich mit dem komplexen Thema der Elliptischen Kurven
 \end{figure}
 
 \section{Primzahlen}
-XXX
+In der Zahlentheorie, einem Teilbereich der Mathematik, werden viele unterschiedliche Eigenschaften von Zahlen untersucht. Durch die Untersuchung erhofft man sich neue Erkenntnisse für Wissenschaft und Technik. Die Primzahlen als mathematisches Forschungsgebiet sind hierbei ein Teilbereich der Zahlentheorie. Im Folgenden werden Primzahlen definiert und deren Eigenschaften erläutert. Anschließend wird untersucht, wie Primzahlen berechnet werden können. Am Ende wird erläutert, welche Rolle Primzahlen in der Kryptologie und modernen Kryptosystemen innehaben.
 
-\subsection{Definition}
-x
+\subsection{Definition und Eigenschaften}
+Es gibt viele unterschiedliche Zahlenmengen. Beispielsweise gibt es die Menge der reellen Zahlen $\mathbb{R}$. Diese beinhalten als Teilmenge die rationalen und die irrationalen Zahlen. Die natürlichen Zahlen $\mathbb{N}$ bilden hierbei alle positiven ganzen Zahlen ab. Dabei gibt es $\mathbb{N^{+}}$ exklusive der Zahl 0 als Teilmenge mit $\mathbb{N^{+}} = \{1, 2, 3, 4, ..., \infty\}$ und $\mathbb{N}_0$ inklusive der Zahl 0 als Teilmenge mit $\mathbb{N}_0 = \{0, 1, 2, 3, 4, ..., \infty\}$. Die Primzahlen $\mathbb{P}$ sind hierbei etwas ganz besonderes. Sie unterscheiden sich von anderen Zahlen. Obwohl sie eine Teilmenge der natürlichen Zahlen sind ist die Kardinalität ihrer Elemente unendlich respektive die Anzahl der Primzahlen ist unendlich. Die Unendlichkeit der Primzahlen konnte schon mit mehreren mathematischen Sätzen bewiesen werden., unter anderem dem Satz von Euklid.\\
 
-\subsection{Eigenschaften}
-x
+Doch wie genau sind Primzahlen definiert? Eine Primzahl p ist eine natürliche Zahl mit p > 0, wobei p nur durch 1 und sich selbst teilbar sein darf. Durch diese Eigenschaft können Primzahlen nicht durch Multiplikation von natürlichen Zahlen gebildet werden. Jede andere natürliche Zahl exklusive der Zahl 0 kann durch Primzahlen gebildet werden. Die Primzahlen bilden also das Grundgerüst zur Bildung von Zahlen, da man aus ihnen alle anderen natürlichen Zahlen durch Multiplikation bilden kann. Teilt man eine Zahl in ihr einzelnen Primfaktoren auf, dann nennt man dies Primfaktorzerlegung.
 
 \subsection{Bestimmung von Primzahlen}
 x
