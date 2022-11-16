@@ -78,8 +78,8 @@ sorting=none
 \setlength{\parindent}{0pt}
 
 %Font
-\usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
 
 
 % Dokument
