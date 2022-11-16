@@ -2,23 +2,25 @@
 \chapter{Grundlagen}
 Diese Studienarbeit befasst sich mit dem komplexen Thema der Elliptischen Kurven in der Kryptographie. Die Kryptographie ist ein mathematisches Thema, bei welchem es zu Anfang der Legung einer Grundlage für das Verständnis der Inhalte dieser Studienarbeit bedarf. In diesem Kapitel werden sowohl die mathematischen als auch die kryptographischen Grundlagen zum Verständnis der Inhalte dieser Studienarbeit gelegt.
 
+\section{Primzahlen}
+In der Zahlentheorie, einem Teilbereich der Mathematik, werden viele unterschiedliche Eigenschaften von Zahlen untersucht. Durch die Untersuchung erhofft man sich neue Erkenntnisse für Wissenschaft und Technik. Die Primzahlen als mathematisches Forschungsgebiet sind hierbei ein Teilbereich der Zahlentheorie. Im Folgenden werden Primzahlen definiert und deren Eigenschaften erläutert. Anschließend wird untersucht, wie Primzahlen berechnet werden können. Am Ende wird erläutert, welche Rolle Primzahlen in der Kryptologie und modernen Kryptosystemen innehaben.
+
+\subsection{Definition und Eigenschaften}
+Es gibt viele unterschiedliche Zahlenmengen. Beispielsweise gibt es die Menge der reellen Zahlen $\mathbb{R}$. Diese beinhalten als Teilmenge die rationalen und die irrationalen Zahlen. Die natürlichen Zahlen $\mathbb{N}$ bilden hierbei alle positiven ganzen Zahlen ab. Dabei gibt es $\mathbb{N^{+}}$ exklusive der Zahl 0 als Teilmenge mit $\mathbb{N^{+}} = \{1, 2, 3, 4, ..., \infty\}$ und $\mathbb{N}_0$ inklusive der Zahl 0 als Teilmenge mit $\mathbb{N}_0 = \{0, 1, 2, 3, 4, ..., \infty\}$. Die Primzahlen $\mathbb{P}$ sind hierbei etwas ganz besonderes. Sie unterscheiden sich von anderen Zahlen. Sie sind eine Teilmenge der natürlichen Zahlen und die Kardinalität ihrer Elemente ist unendlich respektive die Anzahl der Primzahlen ist unendlich. Die Unendlichkeit der Primzahlen konnte schon mit mehreren mathematischen Sätzen bewiesen werden, unter anderem dem Satz von Euklid. Auf die unendlichkeit der Primzahlen sowie deren bestimmung wird später in \ref{sec:bestimmung_primzahlen} eingegangen.\\
+
+Doch wie genau sind Primzahlen definiert? Dafür muss man erst geklärt werden, was zusammengesetzte Zahlen sind. Dadurch können die Primzahlen klarer von anderen natürlichen Zahlen abgegrenzt werden. Eine natürliche Zahl mit n $\geq$ 2 ist eine zusammengesetzte Zahl, falls es zwei natürliche Zahlen m und k mit den Eigenschaften m, k $\geq$ 2 und m, k $\neq$ n gibt, für die gilt: m*k = n. Natürliche Zahlen können also immer als Produkt zweier natürlicher Zahlen beschrieben werden. Primzahlen bilden hierz das Gegenstück. Eine Primzahl p ist eine natürliche Zahl mit p $\geq$ 1, wobei p nur durch 1 und sich selbst teilbar sein darf. Durch diese Eigenschaft sind Primzahlen nicht das Produkt von natürlichen Zahlen und können somit nicht durch Multiplikation gebildet werden. Nimmt man als Beispiel die natürliche Zahl 28. Sie kann durch Multiplikation aus den Zahlen 2 und 14 gebildet werden: $2*14=28$. Die Primzahl 7 hingegen lässt sich nicht als Produkt von natürlichen Zahlen darstellen.\\
+
+Eine weitere Eigenschaft von Primzahlen ist, dass sie das Grundgerüst zur Bildung von Zahlen sind, da man aus ihnen alle anderen natürlichen Zahlen bilden kann. Eine natürliche Zahl n mit n $\geq$ 2 kann wie bereits beschrieben immer als Produkt von (mindestens) zwei weiteren natürlichen Zahlen dargestellt werden. Jede natürliche Zahl kann in ihre Primfaktoren zerlegt werden. Dies nennt man Primfaktorzwerlegung. Dadurch ist die Zahl als Produkt von mehreren Primzahlen dargestellt. Nehmen wir als Beispiel die Zahl 28. Vorhin stellten wir dies durc die Multiplikation von 2 und 14 dar: $2*14=28$. Die Zahl 2 ist eine Primzahl. Die Zahl 14 ist noch nicht in ihre Primzahlfaktoren zerlegt. Sie lässt sich als folgendes Produkt darstellen: $2*7=14$. Da 7 auch eine Primzahl ist wwurden alle Primfaktoren gefunden. Die Zahl 28 lässt sich in ihrer Primfaktorzerlegung also wie folgt darstellen: $2*2*7=28$. Die Mehrfachheit von Primzahlen lässt sich auch als Potenz schreiben. Somit wird daraus $2^{2}*7=28$. Der Vorteil durch die Potenzen zeigt sich bei großen Primfaktorzerlegungen. Nimmt man als Beispiel die Zahl XXX
+
+\subsection{Bestimmung von Primzahlen}\label{sec:bestimmung_primzahlen}
+x
+
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\textwidth]{grafiken/aufgaben_redesign.png}
 \caption[Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur]{Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur \\ Quelle: \cite{Berghammer.2021}}
 \label{fig:aufgaben_redesign}
 \end{figure}
-
-\section{Primzahlen}
-In der Zahlentheorie, einem Teilbereich der Mathematik, werden viele unterschiedliche Eigenschaften von Zahlen untersucht. Durch die Untersuchung erhofft man sich neue Erkenntnisse für Wissenschaft und Technik. Die Primzahlen als mathematisches Forschungsgebiet sind hierbei ein Teilbereich der Zahlentheorie. Im Folgenden werden Primzahlen definiert und deren Eigenschaften erläutert. Anschließend wird untersucht, wie Primzahlen berechnet werden können. Am Ende wird erläutert, welche Rolle Primzahlen in der Kryptologie und modernen Kryptosystemen innehaben.
-
-\subsection{Definition und Eigenschaften}
-Es gibt viele unterschiedliche Zahlenmengen. Beispielsweise gibt es die Menge der reellen Zahlen $\mathbb{R}$. Diese beinhalten als Teilmenge die rationalen und die irrationalen Zahlen. Die natürlichen Zahlen $\mathbb{N}$ bilden hierbei alle positiven ganzen Zahlen ab. Dabei gibt es $\mathbb{N^{+}}$ exklusive der Zahl 0 als Teilmenge mit $\mathbb{N^{+}} = \{1, 2, 3, 4, ..., \infty\}$ und $\mathbb{N}_0$ inklusive der Zahl 0 als Teilmenge mit $\mathbb{N}_0 = \{0, 1, 2, 3, 4, ..., \infty\}$. Die Primzahlen $\mathbb{P}$ sind hierbei etwas ganz besonderes. Sie unterscheiden sich von anderen Zahlen. Obwohl sie eine Teilmenge der natürlichen Zahlen sind ist die Kardinalität ihrer Elemente unendlich respektive die Anzahl der Primzahlen ist unendlich. Die Unendlichkeit der Primzahlen konnte schon mit mehreren mathematischen Sätzen bewiesen werden., unter anderem dem Satz von Euklid.\\
-
-Doch wie genau sind Primzahlen definiert? Eine Primzahl p ist eine natürliche Zahl mit p > 0, wobei p nur durch 1 und sich selbst teilbar sein darf. Durch diese Eigenschaft können Primzahlen nicht durch Multiplikation von natürlichen Zahlen gebildet werden, jedoch können natürliche Zahl mit Ausnahme der Zahl 0 durch Primzahlen als Produkt gebildet werden. Die Primzahlen bilden also das Grundgerüst zur Bildung von Zahlen, da man aus ihnen alle anderen natürlichen Zahlen durch Multiplikation bilden kann. Teilt man eine Zahl so in ihr einzelnen Primfaktoren auf, dann nennt man dies Primfaktorzerlegung.
-
-\subsection{Bestimmung von Primzahlen}
-x
 
 \subsection{Rolle der Primzahlen in der Kryptologie}
 x
