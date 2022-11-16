@@ -37,15 +37,34 @@ Algebraische Strukturen unterscheiden sich grundsätzlich durch ihren Typ. Wirkl
 
 \subsection{Monoid}
 \paragraph{Definition: Monoid}
-Eine algebraische Struktur $(M,e,\cdot)$ des Typs (0,2) heißt ein Monoid, falls für alle $x,y,z\in M$ die folgenden Monoid Aciome gelten: $$x \cdot (y \cdot z) = (x \cdot y) \cdot z$$ $$ e \cdot x = x = x \cdot e$$ Gilt zusätzlich noch für alle $x,y \in M$ die Gleichung $x \cdot y = y \cdot x$, so heiß $(M,e,\cdot)$ ein \textbf{kommutatives Monoid}.
+Eine algebraische Struktur $(M,e,\cdot)$ des Typs (0,2) heißt ein Monoid, falls für alle $x,y,z\in M$ die folgenden Monoid Axiome gelten: 
+\begin{itemize}
+\item (Ass) $x \cdot (y \cdot z) = (x \cdot y) \cdot z$
+\item (Neu) $e \cdot x = x = x \cdot e$
+\end{itemize}  Gilt zusätzlich noch für alle $x,y \in M$ die Gleichung $x \cdot y = y \cdot x$, so heiß $(M,e,\cdot)$ ein \textbf{kommutatives Monoid}.\\
 
-Die erste und die letzte Gleichung bilden das Assoziativ- und Kommutativgesetz ab. Durch die mittlere Gleichung wird ein neutrales Element $e$ bezüglich der Operation gefordert, wobei sowohl die \textbf{Linksneutralität} als auch die \textbf{Rechtsneutralität} spezifiziert wird.
+Die erste und die letzte Gleichung bilden das Assoziativ- und Kommutativgesetz ab. Durch die mittlere Gleichung wird ein neutrales Element $e$ bezüglich der Operation gefordert, wobei sowohl die \textbf{Linksneutralität} als auch die \textbf{Rechtsneutralität} spezifiziert wird.\\
 
-Beispiele für Monoide sind $(\mathbb{N},0,+)$, $(\mathbb{N},1,\cdot)$ und $(\mathbb{Z},0,+)$.
+Einfache Beispiele für Monoide sind $(\mathbb{N},0,+)$, $(\mathbb{N},1,\cdot)$ und $(\mathbb{Z},0,+)$. Die  Potenzierung in solchen Monoiden ist folgendermaßen definiert.
+\paragraph{Definition: Potenzierung}
+In einem Monoid $(M,e,\cdot)$ definiert man die $n$-te \textbf{Potenz} $x^n$ von $x \in M$ durch $x^0 := e$ und $x^{x+1} = x \cdot x^n$ für alle $n \in \mathbb{N}$.\\
 
-\subsubsection{Gruppe}
-\subsubsection{Ring}
-\subsubsection{Körper}
+Daraus ergibt sich für den Monoid $(\mathbb{N},1,\cdot)$ die aus $\mathbb{R}$ gewohnte Potenzierung. Nach welcher für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 \cdot x_2 \cdot \dots \cdot x_n$ ergibt. Betrachtet man jedoch den Monoid $(\mathbb{N},0,+)$, so ergibt analog dazu für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 + x_2 + \dots + x_n = x \cdot n$, was also einer Multiplikation von $x$ mit $n$ entspricht.
+
+\subsection{Gruppe}
+\paragraph{Definition: Gruppe}
+Eine algebraische Struktur $(G,e,\cdot,inv)$ des Typs $(0,2,1)$ heißt \textbf{Gruppe}, falls für alle $x,y,z \in G$ die folgenden Axiome gelten:
+
+\begin{itemize}
+\item (Ass)	$x \cdot (y \cdot z) = (x \cdot y) \cdot z$
+\item (Neu)	$e \cdot x = x$$ $$inv(x) \cdot x = e$
+\item (Inv)	$inv(x) \cdot x = e$
+\end{itemize}
+
+Gilt wiederum die Gleichung $x \cdot y = y \cdot x$ für alle $x,y \in G$, so heißt $(G,e,\cdot,inv)$ eine \textbf{kommutative Gruppe}.
+
+\subsection{Ring}
+\subsection{Körper}
 
 \section{Allgemeines zur Verschlüsselung}
 XXX
