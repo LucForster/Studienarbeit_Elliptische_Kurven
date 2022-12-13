@@ -27,7 +27,33 @@ Nachdem die grundlegenen Eigenschaften der Primzahlen angeführt wurden, muss au
 \item[ (c) ]  der positive Wertebereich der Funktion ist identisch mit der Menge der Primzahlen
 \end{itemize}
 
-Ribenboin erklärt, dass die Bedingung, um (a) zu erfüllen schärfer sei als (b) und als (c). Die bisher erzielten Resultate zur Findung einer Formel zur Bestimmung von Primzahlen seien außerdem eher enttäuschend.
+Ribenboin erklärt, dass die Bedingung, um (a) zu erfüllen schärfer sei als (b) und als (c). Die bisher erzielten Resultate zur Findung einer Formel zur Bestimmung von Primzahlen seien außerdem eher enttäuschend. Doch wenn die Funktionen zur Bestimmung von Primzahlen bisher enttäuschend waren, wie wurden diese bisher bestimmt?\\
+
+Eine der simpelsten und sicher auch eine der ältesten Methoden ist das \glqq Sieb des Eratosthenes\grqq . Der Übersetzer Kai Brodersen beschreibt in seiner Übersetzung aus dem Jahre 2021 eines Buches aus dem Griechischen von Nikomachos von Gerasa, wie dieser sehr simpel die Funktionsweise des Siebes erläuterte \cite[vgl.][S. 7]{Nikomachos+2021+7+7}. Die Richtigkeit dieses Verfahrens wurde von Nikomachos im frühen 2. Jh. n. Chr. belegt. Bei dem Verfahren schreibt man alle natürlichen Zahlen von 2 bis zu einer gewählten Zahl n in eine Liste. Um die Primzahlen zu erhalten, siebt man jetzt die zusammengesetzten natürlichen Zahlen aus, indem man Vielfache streicht. Man beginnt bei der kleinsten Zahl, der 2. Man schreitet in der Liste fort und streicht alle Vielfachen der 2 bis zur höchsten gewählten Zahl n durch. Anschließend beginnt man mit der nächstgrößeren Zahl, welche nicht durchgestrichen ist respektive ausgesiebt wurde und streicht von dieser ebenfalls alle Vielfachen bis zur höchsten Zahl n durch. Den simplen Algorithmus führt man nun solange fort, bis man keine Vielfachen mehr streichen kann. Die übriggebliebenen Zahlen sind die Reihe der Primzahlen bis n. Die Darstellung in einer Tabelle ist heutzutage geläufig, da dies übersichtlicher ist. In der folgenden Tabelle wurde der Algorithmus des Siebes des Eratosthenes von 2 bis 100 angewandt:\\
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline 1 & 2 & 3 & $\not{4}$ & 5 &
+$\not{6}$ & 7 & $\not{8}$ & $\not{9}$ & $\not{10}$ \\ \hline 11 & $\not{12}$
+& 13 & $\not{14}$ & $\not{15}$ & $\not{16}$ & 17 & $\not{18}$ & 19 &
+$\not{20}$ \\ \hline $\not{21}$ & $\not{22}$ & 23 & $\not{24}$ & $\not{25}$
+& $\not{26}$ & $\not{27}$ & $\not{28}$ & 29 & $\not{30}$ \\ \hline 31 &
+$\not{32}$ & $\not{33}$ & $\not{34}$ & $\not{35}$ & $\not{36}$ & 37 &
+$\not{38}$ & $\not{39}$ & $\not{40}$ \\ \hline 41 & $\not{42}$ & 43 &
+$\not{44}$ & $\not{45}$ & $\not{46}$ & 47 & $\not{48}$ & $\not{49}$ &
+$\not{50}$ \\ \hline $\not{51}$ & $\not{52}$ & 53 & $\not{54}$ & $\not{55}$
+& $\not{56}$ & $\not{57}$ & $\not{58}$ & 59 & $\not{60}$ \\ \hline 61 &
+$\not{62}$ & $\not{63}$ & $\not{64}$ & $\not{65}$ & $\not{66}$ & 67 &
+$\not{68}$ & $\not{69}$ & $\not{70}$ \\ \hline 71 & $\not{72}$ & 73 &
+$\not{74}$ & $\not{75}$ & $\not{76}$ & $\not{77}$ & $\not{78}$ & 79 &
+$\not{80}$ \\ \hline $\not{81}$ & $\not{82}$ & 83 & $\not{84}$ & $\not{85}$
+& $\not{86}$ & $\not{87}$ & $\not{88}$ & 89 & $\not{90}$ \\ \hline
+$\not{91}$ & $\not{92}$ & $\not{93}$ & $\not{94}$ & $\not{95}$ & $\not{96}$
+& 97 & $\not{98}$ & $\not{99}$ & $\not{100}$ \\ \hline
+\end{tabular}
+\end{center}
+
+Hier kommt noch Text
 
 \subsection{Rolle der Primzahlen in der Kryptologie}
 x
