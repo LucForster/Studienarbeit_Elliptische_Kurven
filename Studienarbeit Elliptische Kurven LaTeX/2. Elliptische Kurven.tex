@@ -1,0 +1,21 @@
+%Elliptische Kurven
+
+
+\chapter{Elliptsiche Kurven}
+Als Basis für Asymentrische Kryptosysteme können elliptische Kurven dazu genutzt werden, die verschlüsselungstechnische Effektivität mathematischer Probleme, wie das des diskreten Logarithmus, zu erhöhen. Bei der Kryptographie unter Verwendung elliptsicher Kurven bei deutlich kürzerer Schlüssellänge ein gleichwertigers Ergebnis erzielt werden. Dieser Effekt wird durch die spezielle Arithmetik auf elliptischen Kurven erzielt, deren mathematische Grundlage, konkrete Eingenschaften und Funktionsweise im folgenden Kapitel erörtert werden soll.
+
+Elliptische Kurven können über beliebigen Körpern definiert werden. Für die Kryptographie interessant sind elliptische Kurven über Primkörpern.
+
+\section{Definition: Elliptische Kurven}
+ Sei \textit{p} eine \textit{Primzahl} $p>3$. Seien $a,b \in GF(p)$. Betrachte die Gleichung
+\begin{equation}
+    y^2 z = x^3 + axz^2 + bz^3.\label{eq:g1}
+\end{equation} Die \textit{Diskriminante}  dieser Gleichung ist
+\begin{equation}
+    \delta = -16(4a^3 + 27b^2).\label{eq:g2}
+\end{equation}
+Wir nehmen an, dass die Diskriminante $\delta$ nicht Null ist. Ist $(x,y,z) \in GF(p)^3$ eine Lösung dieser
+Gleichung, so ist für alle $c \in GF(p)$ auch $c(x,y,z)$ eine solche Lösung. Zwei Lösungen $(x,y,z)$ und $(x',y',z')$
+heißen \textit{äquivalent}, wenn es ein von Null verchiedenes $c \in GF(p)$ gibt mit $(x,y,z) = c(x',y',z')$. Dies
+definiert eine Äquivalenzrelation auf der Menge aller Lösungen der~\eqref{eq:g1}.
+

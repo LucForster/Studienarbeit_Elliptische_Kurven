@@ -2,6 +2,7 @@
 \chapter{Grundlagen}
 Diese Studienarbeit befasst sich mit dem komplexen Thema der Elliptischen Kurven in der Kryptographie. Die Kryptographie ist ein mathematisches Thema, bei welchem es zu Anfang der Legung einer Grundlage für das Verständnis der Inhalte dieser Studienarbeit bedarf. In diesem Kapitel werden sowohl die mathematischen als auch die kryptographischen Grundlagen zum Verständnis der Inhalte dieser Studienarbeit gelegt.
 
+
 \section{Primzahlen}
 In der Zahlentheorie, einem Teilbereich der Mathematik, werden viele unterschiedliche Eigenschaften von Zahlen untersucht. Durch die Untersuchung erhofft man sich neue Erkenntnisse für Wissenschaft und Technik. Die Primzahlen als mathematisches Forschungsgebiet sind hierbei ein Teilbereich der Zahlentheorie. Im Folgenden werden Primzahlen definiert und deren Eigenschaften erläutert. Anschließend wird untersucht, wie Primzahlen berechnet werden können. Am Ende wird erläutert, welche Rolle Primzahlen in der Kryptologie und modernen Kryptosystemen innehaben.
 
@@ -59,17 +60,18 @@ Hier kommt noch Text
 x
 
 \begin{figure}[!h]
-\centering
-\includegraphics[width=\textwidth]{grafiken/aufgaben_redesign.png}
-\caption[Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur]{Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur \\ Quelle: \cite{Berghammer.2021}}
-\label{fig:aufgaben_redesign}
+    \centering
+    \includegraphics[width=\textwidth]{grafiken/aufgaben_redesign.png}
+    \caption[Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur]{Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur \\ Quelle: \cite{Berghammer.2021}}
+    \label{fig:aufgaben_redesign}
 \end{figure}
+
 
 \section{Algebraische Strukturen}
 Definiert durch die Zahlentheorie und als zentraler Untersuchungsgegenstand des mathematischen Teilgebietes der universellen Algebra, liefern algebraische Strukturen die Basis zur Realisierung komplexer symmetrischer und asymmetrischer Kryptosysteme, weshalb wir im folgenden Kapitel die Eigenschaften relevanter algebraischer Strukturen näher betrachten wollen. Darüber hinaus möchten wir Ihnen auch einige Werkzeuge zum Rechnen in der jeweiligen algebraischen Struktur an die Hand geben, welche zur späteren Realisierung von Kryptosystemen benötigt werden.\\
 
-Unter einer sehr allgemeinen Betrachtung ist eine mathematische Struktur eine Liste nichtleerer Mengen, genannt Trägermengen, mit Elementen aus den Trägermengen, genannt Konstanten, und mengentheoretischer Konstruktionen über den Trägermengen. Diese sind konkret Funktionen über den Trägermengen.
-Im Weiteren beschränken wir uns auf den Fall einer einzigen Trägermenge, wodurch die Strukturen als homogen bezeichnet werden können.
+Unter einer sehr allgemeinen Betrachtung ist eine mathematische Struktur eine Liste nichtleerer Mengen, genannt Trägermengen, mit Elementen aus den Trägermengen, genannt Konstanten, und mengentheoretischer Konstruktionen über den Trägermengen. Diese sind konkret Funktionen über den Trägermengen. Im Weiteren beschränken wir uns auf den Fall einer einzigen Trägermenge, wodurch die Strukturen als homogen bezeichnet werden können.
+
 \paragraph{Definition: Homogene algebraische Struktur}
 Eine homogene algebraische Struktur ist ein Tupel $(M,c_1,\dots,c_m,f_1,\dots,f_n)$ mit $m,n \in \mathbb{N}$ und $n \geq 1$. Dabei ist $M$ eine nichtleere Menge, genannt \textbf{Trägermenge}, alle $c_i$ sind Elemente aus $M$, genannt die \textbf{Konstanten}, und alle $f_i$ sind $s_i$-stellige Funktionen $f_i:M \rightarrow M$ im Fall $s = 1$ und $f_i:M^{s_i} \rightarrow M$ im Fall $s_i>1$, genannt die (inneren) \textbf{Operationen}. Die lineare Liste$(0,\dots,0,s_1,\dots,s_n)$ mit $m$ Nullen heißt \textbf{Typ} oder die \textbf{Signatur}.\newline
 
@@ -78,35 +80,59 @@ Laut dieser Definition muss eine homogen algebraische Struktur nicht unbedingt K
 Algebraische Strukturen unterscheiden sich grundsätzlich durch ihren Typ. Wirklich charakterisiert werden sie aber erst durch die jeweils geltenden Axiome, d.h. bestimmte Eigenschaften, welche für die Konstanten und Operationen gefordert werden. Durch die Hinzunahme immer weiterer Axiome, entsteht eine Hierarchie immer feinerer Strukturen, an deren Anfang der Monoid steht.
 
 \subsection{Monoid}
+
 \paragraph{Definition: Monoid}
-Eine algebraische Struktur $(M,e,\cdot)$ des Typs (0,2) heißt ein Monoid, falls für alle $x,y,z\in M$ die folgenden Monoid Axiome gelten: 
+Eine algebraische Struktur $(M,e,\cdot)$ des Typs (0,2) heißt ein Monoid, falls für alle $x,y,z\in M$ die folgenden Monoid Axiome gelten:
 \begin{itemize}
-\item (Ass) $x \cdot (y \cdot z) = (x \cdot y) \cdot z$
-\item (Neu) $e \cdot x = x = x \cdot e$
+    \item (Ass) $x \cdot (y \cdot z) = (x \cdot y) \cdot z$
+    \item (Neu) $e \cdot x = x = x \cdot e$
 \end{itemize}  Gilt zusätzlich noch für alle $x,y \in M$ die Gleichung $x \cdot y = y \cdot x$, so heiß $(M,e,\cdot)$ ein \textbf{kommutatives Monoid}.\\
 
 Die erste und die letzte Gleichung bilden das Assoziativ- und Kommutativgesetz ab. Durch die mittlere Gleichung wird ein neutrales Element $e$ bezüglich der Operation gefordert, wobei sowohl die \textbf{Linksneutralität} als auch die \textbf{Rechtsneutralität} spezifiziert wird.\\
 
-Einfache Beispiele für Monoide sind $(\mathbb{N},0,+)$, $(\mathbb{N},1,\cdot)$ und $(\mathbb{Z},0,+)$. Die  Potenzierung in solchen Monoiden ist folgendermaßen definiert.
+Einfache Beispiele für Monoide sind $(\mathbb{N},0,+)$, $(\mathbb{N},1,\cdot)$ und $(\mathbb{Z},0,+)$. Die Potenzierung in solchen Monoiden ist folgendermaßen definiert.
+
 \paragraph{Definition: Potenzierung}
 In einem Monoid $(M,e,\cdot)$ definiert man die $n$-te \textbf{Potenz} $x^n$ von $x \in M$ durch $x^0 := e$ und $x^{x+1} = x \cdot x^n$ für alle $n \in \mathbb{N}$.\\
 
 Daraus ergibt sich für den Monoid $(\mathbb{N},1,\cdot)$ die aus $\mathbb{R}$ gewohnte Potenzierung. Nach welcher für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 \cdot x_2 \cdot \dots \cdot x_n$ ergibt. Betrachtet man jedoch den Monoid $(\mathbb{N},0,+)$, so ergibt analog dazu für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 + x_2 + \dots + x_n = x \cdot n$, was also einer Multiplikation von $x$ mit $n$ entspricht.
 
 \subsection{Gruppe}
+
 \paragraph{Definition: Gruppe}
 Eine algebraische Struktur $(G,e,\cdot,inv)$ des Typs $(0,2,1)$ heißt \textbf{Gruppe}, falls für alle $x,y,z \in G$ die folgenden Axiome gelten:
 
 \begin{itemize}
-\item (Ass)	$x \cdot (y \cdot z) = (x \cdot y) \cdot z$
-\item (Neu)	$e \cdot x = x$$ $$inv(x) \cdot x = e$
-\item (Inv)	$inv(x) \cdot x = e$
+    \item (Ass)    $x \cdot (y \cdot z) = (x \cdot y) \cdot z$
+    \item (Neu)    $e \cdot x = x$
+    \item (Inv)    $inv(x) \cdot x = e$
 \end{itemize}
 
-Gilt wiederum die Gleichung $x \cdot y = y \cdot x$ für alle $x,y \in G$, so heißt $(G,e,\cdot,inv)$ eine \textbf{kommutative Gruppe}.
+Gilt wiederum die Gleichung $x \cdot y = y \cdot x$ für alle $x,y \in G$, so heißt $(G,e,\cdot,inv)$ eine \textbf{kommutative Gruppe} oder Abelsche Gruppe.
+
+In jeder Gruppe $(G,e,\cdot,inv)$ gelten für alle $x \in G$ folgende Formeln:
+\begin{itemize}
+\item $x \cdot x = x \Rightarrow x = e$
+\item $x \cdot e = x$
+\item $x \cdot inv(x) = e$
+\item $(\forall z \in G: x \cdot z = z) \Rightarrow x = e$
+\item $x \cdot y = e \Rightarrow x = inv(y)$
+\item $inv(x \cdot y) = inv(x) \cdot inv(y)$
+\item $inv(inv(x)) = x$
+\item $inv(e) = e$
+\end{itemize}
 
 \subsection{Ring}
+Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(0,0,2,2,1)$ mit den folgenden Eigenschaften:
+\begin{enumerate}
+\item Es ist $(R,0,+,-)$ eine kommutative Gruppe
+\item Es ist $(R,1,\cdot)$ ein Monoid.
+\item Für alle $x,y,z \in R$ gelten die Distributivgesetze $x(y+z) = xy$ und $(y+z)x = yx +zx$
+\end{enumerate}
+Ist $(R,1,\cdot)$ ein kommutatives Monoid, so nennt man $(R,0,1,+,\cdot,-)$ einen kommutativen Ring.
+
 \subsection{Körper}
+
 
 \section{Allgemeines zur Verschlüsselung}
 XXX
@@ -117,8 +143,10 @@ x
 \subsection{Diffie-Hellmann}
 x
 
+
 \section{Ziel der Arbeit}
 XXX
+
 
 \section{Geplante Vorgehensweise}
 XXX
