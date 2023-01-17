@@ -54,17 +54,57 @@ $\not{91}$ & $\not{92}$ & $\not{93}$ & $\not{94}$ & $\not{95}$ & $\not{96}$
 \end{tabular}
 \end{center}
 
-Hier kommt noch Text
+Das Sieb des Eratosthenes ist eine Möglichkeit, Primzahlen genau zu bestimmen. Problematisch wird es jedoch bei großen Zahlen. Für jede Zahl müssen je alle anderen Zahlen durchgegangen werden und es muss eine Teilbarkeitsprüfung durchgeführt werden. Umso größer die Zahlen werden, umso rechenaufwendiger wird die Anwendung des Sieb des Eratosthenes, um Primzahlen zu finden. Dieses ist also kein optimaler Ansatz, große Primzahlen zu bestimmen. Neben dem Sieb des Eratosthenes gibt es viele weitere Methoden, Primzahlen zu bestimmen.\\
 
-\subsection{Rolle der Primzahlen in der Kryptologie}
-x
+Die Besprechung aller dieser Verfahren und Algorithmen soll nicht Thema dieser Arbeit sein, jedoch soll noch eine gängige Methode erläutert werden. Über Probabilistische Verfahrne kö
+
+WEITERSCHREIBEN
+
+\subsection{Rolle der Primzahlen in der Kryptografie}
+Gemäß dem Buch \glqq\textit{Kryptographie: Grundlagen, Algorithmen, Protokolle}\grqq von Dietmar Wätjen aus dem Jahr 2018
+beschreibt den Begriff der Kryptografie \cite[vgl.][S. 1]{Watjen.2018}. Diese ist die Wissenschaft vom geheimen Schreiben. Kernziel ist es dabei, einen unverschlüsselten Text, genannt Klartext in einen Chiffretext überführt. Dieser Vorgang heißt \textit{chiffrieren}. Der Vorgang, bei welchem der Chiffretext wieder in den Klartext überführt wird, heißt \textit{dechiffrieren}. Für beide Vorgänge werden Schlüssel notwendig. Die Abbildung \ref{fig:verschluesselung} stellt dies übersichtlich dar:
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=\textwidth]{grafiken/aufgaben_redesign.png}
-    \caption[Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur]{Hauptaufgaben der Ist-Analyse beim Redesign einer Netzwerkinfrastruktur \\ Quelle: \cite{Berghammer.2021}}
-    \label{fig:aufgaben_redesign}
+    \includegraphics[width=\textwidth]{grafiken/verschluesselung.png}
+    \caption[Kryptografische Verschlüsselung]{Kryptografische Verschlüsselung \\ Quelle: \cite{Watjen.2018}}
+    \label{fig:verschluesselung}
 \end{figure}
+
+Wätjen beshreibt Kryptografische System, auch Kryptosystem genannt, als ein System aus fünf Komponenten:
+
+\begin{itemize}
+\item[ 1. ]  Klartextraum $M$
+\item[ 2. ]  Chiffretextraum C
+\item[ 3. ]  Schlüsselraum K
+\item[ 4. ]  Familie von Chiffriertransformationen $E_K:M \rightarrow C$ mit $K \in K$
+\item[ 5. ]  Familie von Dehiffriertransformationen $D_K:C \rightarrow M$ mit $K \in K$
+\end{itemize}
+
+Laut Watjen sind $M$, $C$ und $K$ höchstens, abzählbare Mengen. Eine Chiffriertransformation $E_K$ wird durch einen Schlüssel $K$ und einen Chiffrieralgorithmus $E$ definiert, welcher für jede Familie gleich ist. Eine Dechiffriertransformation $D_K$ wird ebenfalls durch einen Schhlüssel $K$ durchgeführt. Desweiteren sollen die Kryptografischen Systeme nach Watjen die folgenden drei Eigenschaften aufweisen:
+
+\begin{itemize}
+\item[ (1) ]  Klartextraum $M$
+\item[ (2) ]  Chiffretextraum C
+\item[ (3) ]  Schlüsselraum K
+\end{itemize}
+
+Laut
+
+
+
+Durch die Kryptografie können dadurch Übertragungen von sensiblen Informationen zum einen sicherer als auch privater ablaufen, da ein abgefangenes Chiffrat nicht direkt lesbar ist. 
+
+
+
+
+
+
+Primzahlen sind aufgrund ihrer hervorragenden Eigenschaften für die Kryptologie nützlich. Viele Verfahren, welche den Klartext in einen Chiffretext überführen, benötigen für ihren Algorithmus Primzahlen. Ein gutes Beispiel ist der Diffie-Hellmann-Schlüsselaustausch 
+
+hier diffie-hellmann
+
+
 
 
 \section{Algebraische Strukturen}
