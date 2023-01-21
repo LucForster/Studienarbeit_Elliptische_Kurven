@@ -46,19 +46,58 @@ Eine elliptische Kurve ist nun eine spezielle Polynomgleichung, der Form $y^2 = 
 \end{figure}
 Damit elliptische Kurven sinnvoll in der Kryptologie eingesetzt werden können, muss die Polynomgleichung über einem Primkörper betrachtet werden. Das heißt einfach gesprochen, alle Berechnungen werden modulo $p$ durchgeführt.
 \paragraph{Definition: Elliptische Kurven über Primkörpern}
-Die \textit{elliptische Kurve} über $mathbb{F_p}$, ist die Menge aller Punkte $(x,y)$ mit $x,y \in \mathbb{F_p}$, welche die folgende Gleichung erfüllen: 
+Die \textit{elliptische Kurve} über $\mathbb{F_p}$, ist die Menge aller Punkte $(x,y)$ mit $x,y \in \mathbb{F_p}$, welche die folgende Gleichung erfüllen: 
 \begin{center}
 $y^2 \equiv x^3 + ax + b$ mod $p$, wobei $a,b \in \mathbb{F_p}$
 \end{center} 
 und die Bedingung  $$4a^3 + 27b^3 \neq 0$$ gelten müssen. Zu der elliptischen Kurve gehört des Weiteren auch der imaginäre \textit{Punkt im Unendlichen} $\mathcal{O}$.
 
-Durch die Bedingung XY werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht wohldefiniert ist; letzteres ist aber für das Rechnen auf elliptischen Kurven erforderlich.
+Durch die Bedingung XY werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht wohldefiniert ist, was für das Rechnen auf elliptischen Kurven jedoch erforderlich ist.
 
-Elliptische Kurven über endlichen Körpern können grafisch nicht sinnvoll dargestellt werden. Ihre Form und Arithmetik lassen sich jedoch gut veranschaulichen wenn man sie auf $\mathbb{R}$ abbildet. Im Folgenden betrachten wir eine Elliptische Kurve, dargestellt in einem kartesischen Koordinatensystem, um die Gruppeneigenschaften bezüglich der Punktaddition zu zeigen.
+Nachdem elliptische Kurven nun definiert wurden, stellt sich die Frage, wie diese nun in der Kryptographie eingesetzt werden können. Wenn wir uns an das in Kapitel XY zurückerinnern, wird für die Konstruktion eines \textbf{DLP}s eine zyklische Gruppe benötigt. Eine eben solche findet sich in der Punktmenge der elliptischen Kurve wieder. Offen bleibt wie die Gruppenoperation definiert ist. Diese muss die in Kapitel XY geforderten Gruppengesetze erfüllen.
 
-Wie in Abbildung XY gezeigt, wird durch die zu addierenden Punkte $P$ und $Q$ eine Gerade gelegt, welche aufgrund der Kurveneigenschaften immer einen dritten Schnittpunkt mit der Kurve hat. Der $y$-Wert des Schnittpunktes wird im folgenden Schritt invertiert, wodurch der Punkt an der $x$-Achse gespieglt wird. Der aus diesen Schritten resultierende Punkt $R$ ist als Ergebnis der Addition auf der elliptischen Kurve definiert.
+Als Symbol für die Gruppenoperation wird das Additionszeichen $+$ verwendet. Durch die Gruppenoperation muss aus zwei Punkten $P = (x_1, y_2)$ und $Q= (x_2, y_2)$ der Kurve ein dritter Punkt $R$ auf der Kurve berechnet werden. 
+$$P + Q = R$$ $$(x_1, y_1) +  (x_2, y_2) = (x_3, y_3)$$
+Am verständlichsten lässt sich diese Operation grafisch zeigen.
 
-In dem grade betrachteten Fall ist $P \neq Q$, dieser wird Punktaddition genannt. Im Fall, dass $P = Q$ wird von der Punktverdopplung gesprochen.
+Elliptische Kurven über endlichen Körpern können grafisch nicht sinnvoll dargestellt werden. Ihre Form und Arithmetik lassen sich jedoch gut veranschaulichen wenn man sie auf $\mathbb{R}$ abbildet. Im Folgenden betrachten wir eine Elliptische Kurve, dargestellt in einem kartesischen Koordinatensystem, um die Gruppeneigenschaften bezüglich der Punktaddition zu zeigen. Hierbei sind nun zwei Fälle zu unterscheiden. 
+
+\textbf{Punktaddition $P + Q$:}
+Falls $P \neq Q$ erfolgt die geometrische Konstruktion, indem zunächst eine Grade durch die beiden Punkte gelegt wird. Aufgrund der Kurveneigenschaften hat diese immer einen dritten Schnittpunkt mit der Kurve. Dieser wird an der $x$-Achse gespiegelt um den gesuchten Punkt $R$ zu erhalten. Abbildung XY zeigt die beschriebene Konstruktion.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{grafiken/Punktaddition.PNG}
+    \caption[Punktaddition]{r}
+    \label{fig:Punktaddition}
+\end{figure}
+
+\textbf{Punktverdopplung $P + P$:}
+Falls P und Q identisch sind erfolgt die geometrische Konstruktion, indem eine Tangente an den Punkt $P$ angelegt wird. Diese liefert wieder einen weiteren Schnittpunkt mit der Kurve, welcher an der $x$-Achse gespiegelt wird um den Punkt $R$ zu erhalten. Anstatt $R = P + Q$ schreibt man in diesem Fall $R = P + P = 2P$   Abbildung XY zeigt die beschriebene Konstruktion. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{grafiken/Punktverdopplung.PNG}
+    \caption[Punktverdopplung]{r}
+    \label{fig:Punktverdopplung}
+\end{figure}
+
+Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F_p}$ durchgeführt werden kann.
+
+\textbf{Formel: Punktaddition und -verdopplung auf elliptischen Kurven:}
+$$x_3 = s^2 - x_1 - x_2$$
+$$y_3 = s(x_1 - x_2) - y_1$$,
+wobei
+
+$$s = \begin{cases}
+	\frac{y_2 - y_1}{x_2 -x_1} & \text{, falls } P \neq Q \text{ (Punktaddition)}\\
+	\frac{3x_1^2 + a}{2y_1} & \text{, falls } P = Q \text{ (Punktverdopplung)}
+	\end{cases}
+$$
+ 
+
+
+
 
 
 
