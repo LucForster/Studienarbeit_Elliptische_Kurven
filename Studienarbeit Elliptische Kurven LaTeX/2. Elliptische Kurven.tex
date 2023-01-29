@@ -99,23 +99,48 @@ $$
  
  
 \section{Punktbestimmung}
-Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einige Beispiele näher erläutert. Danach wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit p > 3 durchführt und die Punkte anschließend in der Konsole ausgibt.
+Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einige Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit p > 3 durchführt und die Punkte anschließend in der Konsole ausgibt.
 
-\subsection{Allgemeines}
-Um dies am Anfang des Kapitels aufgeworfene Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Prof. Dr. Reinhold Hübl in seinem Manuskript der Kryptologie \cite[vgl.][S. 157]{reinholdhuebl} erläutert, ist eine elliptische Kurve mit den Charakteristiken char(k) = 0 oder char(k) = 3 eine Kurve mit der Form 
+\subsection{Rechnerische Grundlagen}
+Viele Mathematiker suchten auch eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher Aussagen über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[vgl.][S. 138]{silverman}. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[vgl.][S. 181]{reinholdhuebl} wie folgt beschrieben. Sei k = $\mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
 \begin{center}
-F(X, Y) = $Y^{2} - X^{3}$ - aX - b
+$p + 1 - 2 * \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 * \sqrt{p}$
+\end{center} 
+
+Was ist jedoch die Hauptaussage der Hasse-Weil-Schranke? Sie besagt, dass sich bei großen p die Anzahl der Elemente der elliptischen Kurve in der Größenoprdnung von p bewegen. Diese Schranke bildet hierbei eine obere und untere Grenze. Die Anzahl der Punkte bewegt sich also innerhalb dieser Schranke. Dies ist für elliptische Kurven mit kleinem p uninteressant, jedoch wird diese Schranke für elliptische Kurven mit großem gewählten p, was in der Kryptographie gängig ist, relevant.\\
+
+
+Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Prof. Dr. Reinhold Hübl in seinem Manuskript der Kryptologie \cite[vgl.][S. 157]{reinholdhuebl} erläutert, ist eine elliptische Kurve mit den Charakteristiken char(k) = 0 oder char(k) = 3 eine Kurve mit der Form 
+\begin{center}
+$F(X, Y) = Y^{2} - X^{3} - aX - b$
 \end{center} 
 
 mit $a, b \in k$, für die $4a^3 + 27b^2 \neq 0$ gilt.\\
 
-Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgendes:
+Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgendes Polynom:
 \begin{center}
-$y^{2} =  x^{3}$ + ax + b  mod p,
+$y^{2} =  x^{3}$ + ax + b  mod(p),
 \end{center}
 
-wobei $a, b \in Z_p $. Diese Gleichung ist der Schlüssel für die im Voraus aufgeworfene Frage, was ein Punkt einer elliptischen Kurve ist. Diese sind nämlich alle Punkte (x, y), welche die Gleichung lösen und gleichzeitig die Bedingung $4a^3 + 27b^2 \neq 0 mod p$ erfüllen.
- 
+wobei $a, b \in \mathbb{Z}_p$. Diese Gleichung ist der Schlüssel für die im Voraus aufgeworfene Frage, was ein Punkt einer elliptischen Kurve ist. Diese sind nämlich alle Punkte (x, y), welche die Gleichung lösen und gleichzeitig die Bedingung $4a^3 + 27b^2 \neq $ 0  mod(p) erfüllen.\\
+
+
+
+XXX
+
+\subsection{Rechnerische Beispiele}
+U
+
+\subsection{Implementierung in Python}
+U
+
+
+
+
+
+
+
+
 
 
 
