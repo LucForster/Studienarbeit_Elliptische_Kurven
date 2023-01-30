@@ -115,7 +115,7 @@ Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten
 $F(X, Y) = Y^{2} - X^{3} - aX - b$
 \end{center} 
 
-mit $a, b \in k$, für die $4a^3 + 27b^2 \neq 0$ gilt.\\
+mit $a, b \in k$, für die $4a^3 + 27b^2 \neq 0$  mod(p) gilt.\\
 
 Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgendes Polynom:
 \begin{center}
@@ -124,12 +124,27 @@ $y^{2} =  x^{3}$ + ax + b  mod(p),
 
 wobei $a, b \in \mathbb{Z}_p$. Diese Gleichung ist der Schlüssel für die im Voraus aufgeworfene Frage, was ein Punkt einer elliptischen Kurve ist. Diese sind nämlich alle Punkte (x, y), welche die Gleichung lösen und gleichzeitig die Bedingung $4a^3 + 27b^2 \neq $ 0  mod(p) erfüllen.\\
 
+Um die Punte auf einer Kurve zu berechnen, prüft man zunächst, ob es sich bei der betrachteten Kurve um eine elliptische Kurve mit p > 3 handelt. Dafür arbeitet man mit der Formel  $4a^3 + 27b^2 \neq 0$. Man setzt die Parameter a und b der vermeintlichen elliptischen Kurve ein. Wenn die linke Seite $\neq 0$ ist, dann handelt es sich bei der besagten Kurve tatsächlich um eine elliptische Kurve mit p > 3. Rechnen wir dies nun einmal schematisch durch. Gegeben ist eine Funktion F mit
+\begin{center}
+$F(X, Y) = Y^{2} - X^{3} + 3X - 3 \in \mathbb{F}_{13}$
+\end{center} 
 
+Wie man der Funktion entnehmen kann ist a = - 3 = 10 und b = 3 in $\mathbb{F}_{13}$. Diese setzen wir nun in die Formel ein.
+\begin{center}
+$4 * 10^3 + 27 * 3^2 = 6 \neq 0$ mod(13)
+\end{center} 
 
-XXX
+Da 6 $\neq$ 0 ist definiert die Funktion eine elliptische Kurve in $\mathbb{F}_{13}$. Die Abbildung \ref{fig:kurve_beispiel_1_punktberechnung} zeigt die Zeichnung der Funktion dieser elliptischen Kurve im Koordinatensystem kartesischen Koordinatensystem: 
 
-\subsection{Rechnerische Beispiele}
-U
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{grafiken/kurve_beispiel_1_punktberechnung.png}
+    \caption[Zeichnung der elliptischen Kurve]{Zeichnung der elliptischen Kurve \\ Quelle: Wolframalpha}
+    \label{fig:kurve_beispiel_1_punktberechnung}
+\end{figure}
+
+Nachdem man allgemein geprüft hat, ob es sich bei der besagten Funktion um eine elliptische Kurve ahndelt, geht es jetzt um die Findung der Lösungen der umgestellten Gleichung, um alle Punkte zu finden. 
+
 
 \subsection{Implementierung in Python}
 U
