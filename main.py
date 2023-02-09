@@ -1,21 +1,30 @@
-from eccCrypto import ECCcrypto
-from prim import Primes
+from ellipticCurveInR import EllipticCurveInR
+from drawEC import DrawCurves
 
-print("Hi, ich werde mal eine Studienarbeit zu Elliptischen Kurven")
+# Beispiel: Erstelle eine elliptische Kurve y^2 = x^3 - 3x + 1
+curve = EllipticCurveInR(-3, 1)
 
-crypto = ECCcrypto()
-prime_numbers = Primes()
-# ggt = crypto.eukliedAlgo(12, 15)
-# print(ggt)
-# crypto.eratosthenes(100000)
-# print(Primes.checkPrime(prime_numbers, 100000))
+# Prüft, ob die erstellte elliptische Kurve korrekt ist
+print(curve.is_elliptic_curve_correct())
 
-#values = [10000000000013, 94273, 94291, 94307, 94309, 94321, 94327, 94331, 94343, 94349, 94351, 94379, 94397, 94334]
-#for value in values:
- #   print(Primes.isPrime(prime_numbers, value))
+# Gibt alle definierten Punkte auf der Kurve aus
+xValues, f1Values, f2Values = curve.getPoints()
+# for i in range(len(xValues)):
+#    print(f"({xValues[i]}, {f1Values[i]}, {f2Values[i]}")
 
-#print(prime_numbers.findPrimes(0, 10995))
+# Prüfe ob (0,1) auf der Kurve liegt
+print(curve.is_point_on_curve(1.6999999999999762, 0.901665126307913))
 
-#crypto.EEA(28, 11)
-print(crypto.erweiterterEukliedAlgo(28, 11))
-print(crypto.eukliedAlgoRekursiv(28, 11))
+# Punkte: (-1.1989999999987306, -1.6950859568180212), (0.31584338205487406, 0.28978863911584507)
+# Führe Punktaddition von (0,1) und (0,1) durch
+x, y = curve.add_points(-1.1989999999987306, -1.6950859568180212, 0.31584338205487406, 0.28978863911584507)
+print(
+    f"Punktaddition von (-1.1989999999987306, -1.6950859568180212) und (0.31584338205487406, 0.28978863911584507): ({x}, {y})")
+
+# Zeichne die Kurve
+draw = DrawCurves()
+draw.add_plot(xValues, f1Values)
+draw.add_plot(xValues, f2Values)
+
+draw.add_point_addition(-1.1989999999987306, -1.6950859568180212, 0.31584338205487406, 0.28978863911584507, x, y)
+draw.draw()
