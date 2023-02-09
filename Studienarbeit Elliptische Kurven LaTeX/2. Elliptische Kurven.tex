@@ -167,7 +167,18 @@ Nachdem man allgemein geprüft hat, ob es sich bei der besagten Funktion um eine
 Neben dieser zwei gängigen Methoden werden in der Mathematik und in der Kryptografie auch die Barrett-Reduktion und weiterhin auch eine Methode, bei welcher sich die Symmetrie zur x-Achse der elliptischen Kurve zur Berechnung zunutze gemacht wird, genutzt. Um diese soll es jedoch nicht gehen. In den folgenden zwei Unterkapiteln wird die Berechnung der Punkte über Brute-Force sowie über die Punktaddition und -verdopplung erläutert und mittels Beispielen verständlich erklärt.
 
 \subsection{Punktberechnung: Brute-Force-Methode}
-Bei der Brute-Force-Methode wird für jeden möglichen Wert x in $\mathbb{F}_p$ von 0 bis p-1 geprüft, ob dieser ein Quadrat in $\mathbb{F}_p$ ist. Wenn bestätigt ist, dass der Wert x ein Quadrat ist, dann setzt man x in die umgestellte Gleichung der elliptischen Kurve in zwei Variablen ein, um die entsprechende y-Koordinate zum besagten x-Wert zu finden. Konnte ein y-Wert zu einem x-Wert gefunden werden, dann ist (x, y) $\in$ E. Beide Werte zusammen ergeben einen Punkt P(x, y) auf der elliptischen Kurve. Die Berechnung der Quadrate erfolgt über XXX
+Bei der Brute-Force-Methode wird für jeden möglichen Wert x in $\mathbb{F}_p$ von 0 bis p-1 geprüft, ob dieser ein Quadrat in $\mathbb{F}_p$ ist. Wenn bestätigt ist, dass der Wert x ein Quadrat ist, dann setzt man x in die umgestellte Gleichung der elliptischen Kurve in zwei Variablen ein, um die entsprechende y-Koordinate zum besagten x-Wert zu finden. Konnte ein y-Wert zu einem x-Wert gefunden werden, dann ist (x, y) $\in$ E. Beide Werte zusammen ergeben einen Punkt P(x, y) auf der elliptischen Kurve. Weiterhin kann 
+
+Um die Formel für den Brute-Force über den x-Wert zu erhalten, überführen wir die Ausgangsgleichung in zwei Variablen in eine Funktionsgleichung mit einer Variablen:
+\begin{center}
+$y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$  $\Longrightarrow$  $f(x) =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
+\end{center}
+
+Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Quadrate. Doch woher erkennt man, dass man ein Quadrat gefunden hat?Nachdem man die x-Werte durchiteriert und einsetzt muss folgende Bedingung erfüllt sein:
+\begin{center}
+$f(\mathbb{x}_n) =  x^{3}$ + ax + b  mod(p) vallah krise
+\end{center}
+
 
 \subsection{Punktberechnung: Punktaddition und -verdopplung}
 U
