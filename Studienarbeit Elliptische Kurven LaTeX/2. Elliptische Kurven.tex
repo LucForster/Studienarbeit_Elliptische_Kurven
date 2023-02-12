@@ -84,22 +84,35 @@ Falls P und Q identisch sind erfolgt die geometrische Konstruktion, indem eine T
     \label{fig:Punktverdopplung}
 \end{figure}
 
-Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F_p}$ durchgeführt werden kann.\\
+Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F}_p$ durchgeführt werden kann.\\
 
 Die Formeln für die Punktaddition und - verdopplung auf elliptischen Kurven können anhand der grade gezeigten Veranschaulichung hergeleitet werden. Das Vorgehen hierbei ist prinzipiell recht simpel.\\ 
 
 Gegeben ist die Gleichung der elliptischen Kurve $y^2 = x^3 +ax + b$ und die Punkte $P = (x_1, y_1)$ und $Q = (x_2, y_2)$. Zunächst ist die Geradengleichung der Sekante durch $P$ und $Q$ zu ermitteln. Eine Grade im Allgemeinen hat die Form $$g: y = sx + m.$$ Der Parameter $s$ ist dabei die Steigung der Geraden und $m$ ist der Schnittpunkt mit der $y$-Achse. Die Steigung $s$ lässt sich wie gewohnt durch Anlegen des Steigungsdreiecks berechnen, also mit der Formel $$s = \frac{y_2 - y_1}{x_2  - x_1}.$$
+
 Zur Bestimmung des Schnittpunkts mit der $y$-Achse kann nun einer der beiden Punkte $P$ oder $Q$ in die Geradengleichung $y = \frac{y_2 - y_1}{x_2  - x_1} * x + m$ eingesetzt werden. Wenn wir $P = (x_1, y_1)$ einsetzen erhalten wir die folgende Gleichung $$y_1 = \frac{y_2 - y_1}{x_2  - x_1} * x_1 + m\text{,}$$ welche nach $m$ aufgelöst folgendermaßen aussieht: $$m = y_1 - \frac{y_2 - y_1}{x_2  - x_1} * x_1$$
-Durch Einsetzten aller Parameter in die obige Geradengleichung ergibt sich $$y = \frac{y_2 - y_1}{x_2  - x_1} * x + y_1 - \frac{y_2 - y_1}{x_2  - x_1} * x_1$$ für die gesuchte Gerade $g$ durch die Punkte $P$ und $Q$. Um den dritten Schnittpunkt dieser Geraden $g$ mit der elliptischen Kurve $E$ zu ermitteln, sind beide Kurven gleichzusetzen. Da es für das weitere Vorgehen keine Rolle spielt und es der Übersichtlichkeit dient, werden im Folgenden wieder die Parameter $s$ und $m$ statt eben gezeigten Konkretisierungen verwendet. Es ergibt sich die Gleichung $$(sx+m)^2 = x^3 + ax + b\text{.}$$ Im Normalfall ist das allgemeine Lösen eines solchen kubischen Polynoms nicht trivial. Wir haben hier jedoch den Vorteil, dass zwei der drei Schnittpunkte von $g$ mit $E$ schon bekannt sind. Im Grunde sind wir auf der Suche nach den Nullstellen des kubischen Polynoms, weshalb wir zur Verringerung des Funktionsgrades die Polynomdivision anwenden können, wobei die schon bekannten Nullstellen eben die $x$-Koordinaten der schon bekannten Schnittpunkte sind. Vorher wollen wird die Gleichung durch Umformung auf eine Seite bringen: $$0 =  x^3 - s^2x^2-ax-2smx-m^2+b$$
-Die Nullstellen sind $x_1 = x_1$ und $x_2 = x_2$.
-Daraus ergibt sich die folgende Polynomdivision:
-%$$(x^3 - s^2x^2-ax-2smx-m^2+b) : ((x-x_1)(x-x_2))$$
+Durch Einsetzten aller Parameter in die obige Geradengleichung ergibt sich $$y = \frac{y_2 - y_1}{x_2  - x_1} * x + y_1 - \frac{y_2 - y_1}{x_2  - x_1} * x_1$$ für die gesuchte Gerade $g$ durch die Punkte $P$ und $Q$. Um den dritten Schnittpunkt dieser Geraden $g$ mit der elliptischen Kurve $E$ zu ermitteln, sind beide Kurven gleichzusetzen. Da es für das weitere Vorgehen keine Rolle spielt und es der Übersichtlichkeit dient, werden im Folgenden wieder die Parameter $s$ und $m$ statt eben gezeigten Konkretisierungen verwendet. Es ergibt sich die Gleichung $$(sx+m)^2 = x^3 + ax + b\text{.}$$ Nach ausmultiplizieren erhalten wir $$0 =  x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b$$
+
+Im Normalfall ist das allgemeine Lösen eines solchen kubischen Polynoms nicht trivial. Wir haben hier jedoch den Vorteil, dass zwei der drei Schnittpunkte von $g$ mit $E$ schon bekannt sind. Fassen wir das Polynom als Funktion $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b$$ auf, so sind wir Im Grunde auf der Suche nach den Nullstellen dieser kubischen Funktion. Da die Punkte $P$ und $Q$ auf der Geraden g sowie auf der elliptischen Kurve E liegen, lösen sie die obige F
+Gleichung, sind also Nullstellen der Funktion $f(x)$. Daraus folgt, dass die Funktion $f(x)$ restlos durch $(x-x_1)$ und $(x-x_2)$ geteilt werden kann um den Funktionsgrad zu verringern.
+$$f(x) \div (x-x_1) \cdot (x-x_2) = l(x) \text{  Rest }0$$
+Da $f(x)$ den Grad 3 hat, muss $l(x)$ den Grad 1 haben und durch $l(x) = ux + v$ beschrieben werden können. Da $$l(x) + (x-x_1) \cdot (x-x_2) = g(x)\text{,}$$ muss auch gelten $$u \cdot x \cdot x \cdot x  = x^3\text{,}$$ weshalb $u = 1$ gelten muss. Daraus ergibt sich $$l(x) = x + v \text{.}$$ Somit ist $x_3 = -v$ eine weitere Nullstelle von $f(x)$. Es folgt also $$g(x) = (x-x_1) \cdot (x-x_2) \cdot (x-x_3)$$, woraus durch ausmultiplizieren $$f(x) = x^3 - (x_1 + x_2 + x_3) \cdot x^2 + (x_1 x_2 + x_1 x_3 + x_2 x_3) * x - x_1 x_2 x_3$$ entsteht. Vergleicht man nun diese Darstellung mit der obigen also $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b$$, so folgt durch Koeffizientenvergleich $$s^2 = x_1 + x_2 +x_3$$ also $$x_3 = x^2 -x_1 - x_2$$
+
+Um die Formel für $y_3$ zu ermitteln kann nun der Punkt $R$ in die Formel für $s$ eingesetzt werden. Dies ist möglich, da der Punkt $R$ auf der Gleichen geraden wie $P$ und $Q$ liegt, weshalb aus die Steigung $s$ identisch ist.
+Es gilt also $$s = \frac{y_2 - y_1}{x_2  - x_1} = \frac{y_3 - y_1}{x_3  - x_1}.$$ 
+Aufgelöst nach $y_3$ ergibt sich also $$y_3 = s \cdot (x_3 - x_1) + y_1 \text{.}$$
+Da der Schnittpunkt an der $x$-Achse gespiegelt wird um $R$ zu erhalten müssen die Vorzeichen in der Formel für $y$ noch gedreht werden. Final ergeben sich also die Formeln:
+$$x_3 = s^2 + x_1 - x_2$$
+$$y_3 = s \cdot (x_1 - x_3) y_1$$
+
+
+
 
 
 
 \textbf{Formel: Punktaddition und -verdopplung auf elliptischen Kurven:}
 $$x_3 = s^2 - x_1 - x_2$$
-$$y_3 = s(x_1 - x_2) - y_1$$,
+$$y_3 = s(x_1 - x_3) - y_1$$,
 wobei
 
 $$s = \begin{cases}

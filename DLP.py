@@ -31,13 +31,17 @@ class DLPonEC:
         return current_point
 
 
-curve = EllipticCurveInFp(3, 1, 7)
+curve = EllipticCurveInFp(2, 2, 17)
 dlp = DLPonEC(curve)
-startpoint = [0, 1]
-for i in range(30):
-    print(dlp.doubble_and_add(i, startpoint))
+startpoint = [5, 1]
+# for i in range(10):
+#     print(dlp.doubble_and_add(i, startpoint))
 
-print("===================")
-for i in range(30):
-    startpoint[0], startpoint[1] = curve.add_points(startpoint[0], startpoint[1], startpoint[0], startpoint[1])
-    print(startpoint)
+# print("===================")
+# for i in range(10):
+#     startpoint[0], startpoint[1] = curve.add_points(startpoint[0], startpoint[1], startpoint[0], startpoint[1])
+#     print(startpoint)
+
+
+startpoint[0], startpoint[1] = curve.add_points(startpoint[0], startpoint[1], startpoint[0], startpoint[1])
+print(startpoint)
