@@ -174,11 +174,11 @@ Nachdem man allgemein geprüft hat, ob es sich bei der besagten Funktion um eine
 
 \begin{itemize}
 \item Brute-Force
-\item Algorithmischer Brute-Force
 \item Punktaddition und Punktverdopplung
+\item Algorithmischer Brute-Force
 \end{itemize}
 
-Neben dieser drei gängigen Methoden werden in der Mathematik und in der Kryptografie auch die Barrett-Reduktion und weiterhin auch eine Methode, bei welcher sich die Symmetrie zur x-Achse der elliptischen Kurve zur Berechnung zunutze gemacht wird, genutzt. Um diese soll es jedoch nicht gehen. In den folgenden zwei Unterkapiteln wird die Berechnung der Punkte über Brute-Force sowie über die Punktaddition und -verdopplung erläutert und mittels Beispielen verständlich erklärt.
+Neben dieser drei gängigen Methoden werden in der Mathematik und in der Kryptografie auch die Barrett-Reduktion und weiterhin auch eine Methode, bei welcher sich die Symmetrie zur x-Achse der elliptischen Kurve zur Berechnung zunutze gemacht wird, genutzt. Um diese soll es jedoch nicht gehen. In den folgenden zwei Unterkapiteln wird die Berechnung der Punkte über Brute-Force mit zwei Methoden sowie über die Punktaddition und -verdopplung erläutert und mittels Beispielen verständlich erklärt.
 
 \subsection{Punktberechnung: Brute-Force-Methode}
 Wie bereits erläutert wurde, ist die umgestellte Gleichung der elliptischen Kurve in zwei Variablen folgende:
@@ -191,20 +191,78 @@ Da die linke Seite mit $y^{2}$ offensichtlich quadratisch ist, muss am Ende auf 
 $0 = 0^{2} \qquad 1 = 1^{2} = 4^{2} \qquad 4 = 2^{2} = 3^{2}$
 \end{center}
 
-Die Zahlen 0, 1 und 4 sind demnach in $\mathbb{F}_{5}$ Quadrate. Die Wurzeln wurden der Vollständigkeit halber ebenfalls obig notiert. Ein weiteres beispiel für die Quadrate eines Körpers ist
+Die Zahlen 0, 1 und 4 sind demnach in $\mathbb{F}_{5}$ Quadrate. Die Wurzeln wurden der Vollständigkeit halber ebenfalls obig rechts des Quadrates notiert. Man berechnet die Quadrate nach folgendem Schema:
 
+\begin{enumerate}
+\item Man hat k mit k $\in \mathbb{F}_{p}$
+\item Man beginnt bei k = 0
+\item Es wird quadriert mit $k^{2}$
+\item Der Wert von $k^{2}$ in $\mathbb{F}_{p}$ wird ermittelt, dafür rechnet man $k^{2}$ mod(p)
+\item Die ermittelte Zahl ist ein Quadrat in $\mathbb{F}_{p}$
+\item Man wiederholt alle Schritte mit allen k von 0 bis p-1
+\item Am Ende hat man alle Quadrate und ihre zugehörigen Wurzeln
+\end{enumerate}
 
-Bei der Brute-Force-Methode wird für jeden möglichen Wert x in $\mathbb{F}_p$ von 0 bis p-1 geprüft, ob dieser ein Quadrat in $\mathbb{F}_p$ ist. Wenn bestätigt ist, dass der Wert x ein Quadrat ist, dann setzt man x in die umgestellte Gleichung der elliptischen Kurve in zwei Variablen ein, um die entsprechende y-Koordinate zum besagten x-Wert zu finden. Konnte ein y-Wert zu einem x-Wert gefunden werden, dann ist (x, y) $\in$ E. Beide Werte zusammen ergeben einen Punkt P(x, y) auf der elliptischen Kurve. Weiterhin kann 
+Dies wird anhand eines ausführlichen Beispiels deutlich. Sei p = 11 und somit $\mathbb{F}_{p}$ = $\mathbb{F}_{11}$. 
 
-Um die Formel für den Brute-Force über den x-Wert zu erhalten, überführen wir die Ausgangsgleichung in zwei Variablen in eine Funktionsgleichung mit einer Variablen:
+\begin{itemize}
+\item $0^{2} \equiv 0 $  mod(11)
+\item $1^{2} \equiv 1 $  mod(11)
+\item $2^{2} \equiv 4 $  mod(11)
+\item $3^{2} \equiv 9 $  mod(11)
+\item $4^{2} \equiv 5 $  mod(11)
+\item $5^{2} \equiv 3 $  mod(11)
+\item $6^{2} \equiv 3 $  mod(11)
+\item $7^{2} \equiv 5 $  mod(11)
+\item $8^{2} \equiv 9 $  mod(11)
+\item $9^{2} \equiv 4 $  mod(11)
+\item $10^{2} \equiv 1 $  mod(11)
+\end{itemize}
+
+Wenn man die Null dazuzählt, hat $\mathbb{F}_{11}$ die Quadrate 0, 1, 3, 4, 5, 9. Im Folgenden sind die Quadrate mitsamt ihrer Wurzeln aufgeschrieben:
+
+\begin{itemize}
+\item Quadrat: 0 $\quad$ Wurzel 1: $0^{2}$
+\item Quadrat: 1 $\quad$ Wurzel 1: $1^{2} \quad$ Wurzel 2: $10^{2}$
+\item Quadrat: 3 $\quad$ Wurzel 1: $5^{2} \quad$ Wurzel 2: $6^{2}$
+\item Quadrat: 4 $\quad$ Wurzel 1: $2^{2} \quad$ Wurzel 2: $9^{2}$
+\item Quadrat: 5 $\quad$ Wurzel 1: $4^{2} \quad$ Wurzel 2: $7^{2}$
+\item Quadrat: 9 $\quad$ Wurzel 1: $3^{2} \quad$ Wurzel 2: $8^{2}$
+\end{itemize}
+
+Die berechneten Quadrate und Wurzeln sind nötig, um die Punkte zu bestimmen. Um dies zu bewerkstelligen, wird die Gleichung der elliptischen Kurve in zwei Variablen benötigt. Um die benötigte Formel zu erhalten, überführen wir die Ausgangsgleichung in zwei Variablen in eine Funktionsgleichung mit einer Variablen:
 \begin{center}
 $y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p} \qquad \Longrightarrow \qquad f(x) =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
 \end{center}
 
-Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Quadrate. Doch woher erkennt man, dass man ein Quadrat gefunden hat?Nachdem man die x-Werte durchiteriert und einsetzt muss folgende Bedingung erfüllt sein:
+Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Punkte. Man setzt nun alle x-Werte von 0 bis p-1 in die Funktionsgleichung ein. Jene x-Werte, welche die Quadrate ergeben, werden für die Punktbestimmung benötigt. Nehme als Beispiel p = 11. Wir haben die Quadrate und die Wurzeln oben bereits ausgerechnet. Sei weiterhin die Gleichung einer elliptischen Kurve E gegeben mit
 \begin{center}
-$f(\mathbb{x}_n) =  x^{3}$ + ax + b  mod(p)
+$F(X, Y) =  Y^{2} - X^{3}$ - X - 3  $\in \mathbb{F}_{11}$
 \end{center}
+
+Damit ist die umgestellte Gleichung in zwei Variablen und die Funktionsgleichung mit einer Variablen
+\begin{center}
+$y^{2} =  x^{3}$ + x + 3 $\qquad \Longrightarrow \qquad f(x) =  x^{3}$ + x + 3 $\in \mathbb{F}_{11}$
+\end{center}
+Setzen wir nun alle Elemente von 0 bis p-1 in die FUnktionsgleichung ein und schauen uns die Ergebnisse an.
+
+\begin{itemize}
+\item $f(0) =  0^{3}$ + 0 + 3 = 3 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(1) =  1^{3}$ + 1 + 3 = 5 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(2) =  2^{3}$ + 2 + 3 = 2 $\in \mathbb{F}_{11}$
+\item $f(3) =  3^{3}$ + 3 + 3 = 0 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(4) =  4^{3}$ + 4 + 3 = 5 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(5) =  5^{3}$ + 5 + 3 = 1 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(6) =  6^{3}$ + 6 + 3 = 5 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(7) =  7^{3}$ + 7 + 3 = 1 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(8) =  8^{3}$ + 8 + 3 = 6 $\in \mathbb{F}_{11}$
+\item $f(9) =  9^{3}$ + 9 + 3 = 4 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(10) = 10^{3}$ + 10 + 3 = 1 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\end{itemize}
+
+Die Ergebnisse zeigen dass die folgenden x-Werte Quadrate definieren: 0, 1, 3, 4, 5, 6, 7, 9, 10. Bis jetzt wurde der einfache Brute-Force durchgeführt. Man muss nur noch wenige Schritte durchführen, um die Punkte auf der elliptischen Kurve zu bestimmen. Wir haben jetzt die Quadrate, die dazugehörigen Wurzeln sowie die x-Werte, welche Quadrate sind. Wie kombiniert man diese, um die Punkte auf der elliptischen Kurve zu erhalten?
+
+Konnte ein y-Wert zu einem x-Wert gefunden werden, dann ist (x, y) $\in$ E. Beide Werte zusammen ergeben einen Punkt P(x, y) auf der elliptischen Kurve. IST TRASH, WIRD ABER FÜR COPY PASTE BENÖTIGT
 
 \subsection{Punktberechnung: Algorithmische Brute-Force-Methode}
 U
