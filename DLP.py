@@ -17,7 +17,6 @@ class DLPonEC:
     def doubble_and_add(self, kPriv, start_point):
         binary = bin(kPriv)
         binary = binary[3:]
-        # print(binary)
         current_point = start_point
         for digit in binary:
             # Doubble

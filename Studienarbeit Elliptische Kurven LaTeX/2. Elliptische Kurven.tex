@@ -151,7 +151,7 @@ $y^{2} =  x^{3}$ + ax + b  mod(p),
 
 wobei $a, b \in \mathbb{F}_p$. Diese Gleichung ist der Schlüssel für die im Voraus aufgeworfene Frage, was ein Punkt einer elliptischen Kurve ist. Diese sind nämlich alle Punkte (x, y), welche die Gleichung lösen.\\
 
-Um die Punkte auf einer Kurve zu berechnen, prüft man zunächst, ob es sich bei der betrachteten Kurve um eine elliptische Kurve mit p > 3 handelt. Dafür arbeitet man mit der Formel  $4a^3 + 27b^2 \neq 0$. Man setzt die Parameter a und b der vermeintlichen elliptischen Kurve ein. Wenn die linke Seite $\neq 0$ ist, dann handelt es sich bei der besagten Kurve tatsächlich um eine elliptische Kurve mit p > 3. Rechnen wir dies nun einmal schematisch durch. Gegeben ist eine Funktion F mit
+Um die Punte auf einer Kurve zu berechnen, prüft man zunächst, ob es sich bei der betrachteten Kurve um eine elliptische Kurve mit p > 3 handelt. Dafür arbeitet man mit der Formel  $4a^3 + 27b^2 \neq 0$. Man setzt die Parameter a und b der vermeintlichen elliptischen Kurve ein. Wenn die linke Seite $\neq 0$ ist, dann handelt es sich bei der besagten Kurve tatsächlich um eine elliptische Kurve mit p > 3. Rechnen wir dies nun einmal schematisch durch. Gegeben ist eine Funktion F mit
 \begin{center}
 $F(X, Y) = Y^{2} - X^{3} + 3X - 3 \in \mathbb{F}_{13}$
 \end{center} 
@@ -170,44 +170,28 @@ Da 6 $\neq$ 0 ist definiert die Funktion eine elliptische Kurve in $\mathbb{F}_{
     \label{fig:kurve_beispiel_1_punktberechnung}
 \end{figure}
 
-Nachdem man allgemein geprüft hat, ob es sich bei der besagten Funktion um eine elliptische Kurve handelt, geht es jetzt um die Findung der Lösungen der umgestellten Gleichung, um alle Punkte zu finden. Dafür gibt es mehrere Möglichkeiten. Die Möglichkeiten haben unterschiedliche Zeit- und Rechenkomplexitäten, wodurch sich die Lösungsmöglichkeiten differenzieren lassen. Je nach Anwendungsfall lohnt sich die Implementierung einer anderen Lösung. Im Folgenden sind drei Möglichkeiten zur Berechnung aller Punkte auf elliptischen Kurven aufgezählt:
+Nachdem man allgemein geprüft hat, ob es sich bei der besagten Funktion um eine elliptische Kurve handelt, geht es jetzt um die Findung der Lösungen der umgestellten Gleichung, um alle Punkte zu finden. Dafür gibt es mehrere Möglichkeiten. Die Möglichkeiten haben unterschiedliche Zeit- und Rechenkomplexitäten, wodurch sich die Lösungsmöglichkeiten differenzieren lassen. Je nach Anwendungsfall lohnt sich die Implementierung einer anderen Lösung. Im Folgenden sind zwei Möglichkeiten zur Berechnung aller Punkte auf elliptischen Kurven aufgezählt:
 
 \begin{itemize}
 \item Brute-Force
-\item Algorithmischer Brute-Force
 \item Punktaddition und Punktverdopplung
 \end{itemize}
 
-Neben dieser drei gängigen Methoden werden in der Mathematik und in der Kryptografie auch die Barrett-Reduktion und weiterhin auch eine Methode, bei welcher sich die Symmetrie zur x-Achse der elliptischen Kurve zur Berechnung zunutze gemacht wird, genutzt. Um diese soll es jedoch nicht gehen. In den folgenden zwei Unterkapiteln wird die Berechnung der Punkte über Brute-Force sowie über die Punktaddition und -verdopplung erläutert und mittels Beispielen verständlich erklärt.
+Neben dieser zwei gängigen Methoden werden in der Mathematik und in der Kryptografie auch die Barrett-Reduktion und weiterhin auch eine Methode, bei welcher sich die Symmetrie zur x-Achse der elliptischen Kurve zur Berechnung zunutze gemacht wird, genutzt. Um diese soll es jedoch nicht gehen. In den folgenden zwei Unterkapiteln wird die Berechnung der Punkte über Brute-Force sowie über die Punktaddition und -verdopplung erläutert und mittels Beispielen verständlich erklärt.
 
 \subsection{Punktberechnung: Brute-Force-Methode}
-Wie bereits erläutert wurde, ist die umgestellte Gleichung der elliptischen Kurve in zwei Variablen folgende:
-\begin{center}
-$y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
-\end{center}
-
-Da die linke Seite mit $y^{2}$ offensichtlich quadratisch ist, muss am Ende auf beiden Seiten der Gleichung die Quadratwurzel gezogen werden, um die Gleichung zu lösen und im weiteren Sinne Punkte auf der Kurve zu finden. Da dies umständlich und im endlichen Körper $\mathbb{F}_{p}$ schwer zu realisieren ist, wird die rechte Seite bis zu einem Quadrat aufgelöst. Dafür muss man als erstes bestimmen, welche Werte in der entsprechenden Restklasse der elliptischen Kurve Quadrate sind. Die Quadratprüfung ist dabei simpel: Man geht jedes Element in $\mathbb{F}_{p}$ von 0 bis p-1 durch und prüft, ob das quadrierte Element in der Restklasse ein Quadrat ist. Hierbei geht es um keine komplexe Rechnung, sondern lediglich um stupides ausprobieren. Zur Verdeutlichung folgendes Beispiel: Wir haben den Körper $\mathbb{F}_{5}$. Der Körper beinhaltet die Elemente $\mathbb{F}_{5}$ = {0, 1, 2, 3, 4}. Die Quadrate mitsamt ihrer Wurzeln sind folgende:
-\begin{center}
-$0 = 0^{2} \qquad 1 = 1^{2} = 4^{2} \qquad 4 = 2^{2} = 3^{2}$
-\end{center}
-
-Die Zahlen 0, 1 und 4 sind demnach in $\mathbb{F}_{5}$ Quadrate. Die Wurzeln wurden der Vollständigkeit halber ebenfalls obig notiert. Ein weiteres beispiel für die Quadrate eines Körpers ist
-
-
 Bei der Brute-Force-Methode wird für jeden möglichen Wert x in $\mathbb{F}_p$ von 0 bis p-1 geprüft, ob dieser ein Quadrat in $\mathbb{F}_p$ ist. Wenn bestätigt ist, dass der Wert x ein Quadrat ist, dann setzt man x in die umgestellte Gleichung der elliptischen Kurve in zwei Variablen ein, um die entsprechende y-Koordinate zum besagten x-Wert zu finden. Konnte ein y-Wert zu einem x-Wert gefunden werden, dann ist (x, y) $\in$ E. Beide Werte zusammen ergeben einen Punkt P(x, y) auf der elliptischen Kurve. Weiterhin kann 
 
 Um die Formel für den Brute-Force über den x-Wert zu erhalten, überführen wir die Ausgangsgleichung in zwei Variablen in eine Funktionsgleichung mit einer Variablen:
 \begin{center}
-$y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p} \qquad \Longrightarrow \qquad f(x) =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
+$y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$  $\Longrightarrow$  $f(x) =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
 \end{center}
 
 Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Quadrate. Doch woher erkennt man, dass man ein Quadrat gefunden hat?Nachdem man die x-Werte durchiteriert und einsetzt muss folgende Bedingung erfüllt sein:
 \begin{center}
-$f(\mathbb{x}_n) =  x^{3}$ + ax + b  mod(p)
+$f(\mathbb{x}_n) =  x^{3}$ + ax + b  mod(p) vallah krise
 \end{center}
 
-\subsection{Punktberechnung: Algorithmische Brute-Force-Methode}
-U
 
 \subsection{Punktberechnung: Punktaddition und -verdopplung}
 U
