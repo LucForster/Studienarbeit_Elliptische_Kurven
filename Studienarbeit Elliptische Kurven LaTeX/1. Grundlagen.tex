@@ -161,6 +161,58 @@ In jeder Gruppe $(G,e,\cdot,inv)$ gelten für alle $x \in G$ folgende Formeln:
 \item $inv(e) = e$
 \end{itemize}
 
+Um Gruppen ein wenig anschaulicher zu machen, betrachten wir im Folgenden ein paar Beispiele:
+\begin{itemize}
+\item $(\mathbb{Z}, +)$ ist eine Gruppe. $\mathbb{Z} = \{\dots, -1, 0, 1, \dots \}$ ist die Menge der ganzen Zahlen, welche zusammen mit der Addition als Gruppenoperation eine abelsche Gruppe bildet, wobei $e = 0$ das neutrale Element und $-a$ das Inverse eines beliebigen Elements $a \in \mathbb{Z}$ ist.
+\item Ein Gegenbeispiel ist $(\mathbb{Z} \setminus \{0\}, \cdot)$. Die Menge der ganzen Zahlen (ohne die 0) mit der Multiplikation als Gruppenoperation bildet keine Gruppe, da es kein Inverses Element $a^(-1)$ für jedes Element $a \in \mathbb{Z}$ gibt.
+\end{itemize}
+\subsection{Zyklische Gruppe}
+Die eben eingeführten Gruppen besitzen unendlich viele Elemente. Für die Kryptographie interessant sind jedoch endliche algebraische Strukturen, weshalb im Folgenden die endlichen Gruppen eingeführte werden.
+
+\paragraph{Definition: Endliche Gruppe}
+Eine Gruppe $(G, \circ)$ ist \textit{endlich}, wenn sie eine endliche Anzahl an Elementen hat. Die Anzahl der Elemente der Gruppe wird als 
+\textit{Kardinalität} oder \textit{Ordnung} der Gruppe $G$ mit $|G|$ bezeichnet.
+
+Beispiele für endliche Gruppen sind:
+\begin{itemize}
+\item $(\mathbb{Z}_n, +):$ Die Kardinalität von $\mathbb{Z}_n$ ist $|\mathbb{Z}_n| = n$, da $\mathbb{Z}_n = \{0,1,2,\dots ,n-1\}$.
+\item $(\mathbb{Z}^*_n, \cdot):$ Die Menge $\mathbb{Z}^*_n$ besteht aus den positiven Zahlen kleiner $n$, die teilerfremd zu $n$ sind, d.h. es gilt $ggt(a,n) = 1$ für jedes $a \in \mathbb{Z}^*_n$. Die Kardinalität ist daher durch die eulersche Phi-Funktion gegeben, d.h. $|\mathbb{Z}^*_n| = \Phi(n)$. So hat beispielsweise die Gruppe $\mathbb{Z}^*_9$ eine Kardinalität von $\Phi(9) = 3^2 - 3^1 = 6$. Die sechs Gruppenelemente sind ${1,2,4,5,7,8}$.
+\end{itemize}
+
+Für die Konstruktion eines DLPs wird eine weitere Spezialisierung der endlichen Gruppen benötigt, die sogenannten zyklischen Gruppen. Einleitend dazu wollen wir zunächst den Begriff der Ordnung eines Elements definieren.
+
+\paragraph{Definition: Ordnung eines Elements}
+Die \textit{Ordnung}  $ord(a)$ eines Elements $a$ einer Gruppe $(G, \circ)$ ist die kleinste positive ganze Zahl $k$ mit $$a^k = \underbrace{a \circ a \circ \dots \circ a}_{\text{$k$ mal}} = e$$ wobei $e$ neutrales Element von $G$ ist.
+
+Nachfolgend wollen wir ein Beispiel betrachten:
+
+Wir suchen die Ordnung von $a=3$ in der Gruppe $\mathbb{Z}^*_{11}$. Dazu berechnen wir die Potenzen von $a$ bis wir das neutrale Element 1 erhalten.
+\begin{align*}
+&a^1 = 3 \\
+&a^2 = a \cdot a = 9\\
+&a^3 = a^2 \cdot a =  27 \equiv 5 \text{ mod } 11\\
+&a^4 = a^3 \cdot a =  15 \equiv 4 \text{ mod } 11\\
+&a^5 = a^4 \cdot a =  12 \equiv 1 \text{ mod } 11\\
+\end{align*}
+Aus der letzten Zeile folgt ord(3) $= 5$ in $\mathbb{Z}^*_{11}$.
+
+Es ist interessant zu sehen, was passiert, wenn man weiter mit $a$ multipliziert:
+\begin{align*}
+&a^6 = a^5 \cdot a = 1 \cdot a \equiv 3 \text{ mod } 11\\
+&a^7 = a^5 \cdot a^2 = 1 \cdot a^2 \equiv 9 \text{ mod } 11\\
+&a^8 = a^5 \cdot a^3 = 1 \cdot a^3 \equiv 5 \text{ mod } 11\\
+&a^9 = a^5 \cdot a^4 = 1 \cdot a^4 \equiv 4 \text{ mod } 11\\
+&a^{10} = a^5 \cdot a^5 = 1 \cdot a^5 \equiv 1 \text{ mod } 11\\
+&a^{11} = a^{10} \cdot a = 1 \cdot a \equiv 3 \text{ mod } 11\\
+&\qquad \vdots
+\end{align*}
+Wie zu sehen ist, durchlaufen die Potenzen von $a$ nach Erreichen des neutralen Elements $e$ immer wieder die Sequenz $\{3,9,5,4,1\}$. Mit diesem Wissen können wir jetzt eine zyklische Gruppe definieren.
+
+\paragraph{Definition: Zyklische Gruppe}
+Eine Gruppe $G$, die ein Element $\alpha$ mit der maximalen Ordnung ord($\alpha$) $= |G|$ enthält nennt man \textit{zyklisch}. Elemente mit maximaler Ordnung nennt man \textit{primitive Elemente} oder \textit{Generatoren}.\\
+
+Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i = a$ des primitiven Elements jedes andere Gruppenelement dargestellt werden kann, also die gesamte Gruppe \textit{generiert}. Das folgende Beispiel zeigt die Erzeugung der zyklischen Gruppe $\mathbb{Z}^{11}_p$ durch das primitive Element $\alpha = 2$.
+
 \subsection{Ring}
 Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(0,0,2,2,1)$ mit den folgenden Eigenschaften:
 \begin{enumerate}
@@ -178,6 +230,9 @@ XXX
 
 \subsection{Symmetrische und Asymmetrische Verschlüsselung}
 x
+
+\section{Das diskrete Logarithmusproblem}
+
 
 \subsection{Diffie-Hellmann}
 x
