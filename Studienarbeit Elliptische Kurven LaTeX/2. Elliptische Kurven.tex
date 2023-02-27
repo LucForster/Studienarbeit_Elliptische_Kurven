@@ -272,12 +272,16 @@ Die Ergebnisse zeigen dass für die folgenden $x$-Werte $f(x)$ ein Quadrat ist: 
 Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. Insbesondere, wenn das gewählte p groß ist, dann ist diese Brute-Force-Methode sehr aufwendig. Es müssen alle Quadrate in $\mathbb{F}_{p}$ und deren zugehörigen Wurzeln berechnet werden. Weiterhin entsteht Zeit- und Rechenaufwand beim Einsetzen in die Funktionen. In der Kryptografie ist jedoch die Wahl besonders großer p gängig, um ein hohes Sicherheitsniveau zu erreichen. Aus diesem Grund werden im Folgenden die beiden anderen angeführten Lösungsmöglichkeiten angeführt. 
 
 \subsection{Punktberechnung: Punktaddition und -verdopplung}
-Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss. Dieser muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein Punkt ist gegeben. Die offene Frage ist jedoch, ob jeder Punkt 
+Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss. Dieser muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein Punkt ist gegeben. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen. Um dies herauszufinden, müssen noch einmal die Gruppenregeln auf elliptischen Kurven betrachtet werden.\\
+
+Der unendlich kleine Punkt $\mathcal O$ fällt demnach aus der Betrachtung heraus, da dieser ein neutrales Gruppenelement ist. Mit diesem können sich die anderen Punkte nicht bestimmen lassen.
 
 
-Lagrange Theorem -> wenn p prim, dann ist jeder punkt außer unendlich kleiner punkt erzeuger
+Lagrange Theorem -> wenn p prim, dann ist jeder punkt außer unendlich kleiner punkt erzeuger bzw. generator
+
+
 \subsection{Punktberechnung: Algorithmische Brute-Force-Methode}
-U
+brute force mit
 
 
 \subsection{Implementierung in Python}
