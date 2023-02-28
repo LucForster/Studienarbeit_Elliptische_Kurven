@@ -230,7 +230,7 @@ Die berechneten Quadrate und Wurzeln sind nötig, um die Punkte zu bestimmen. Um
 $y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p} \qquad \Longrightarrow \qquad f(x) =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
 \end{center}
 
-Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Punkte. Man setzt nun alle x-Werte von 0 bis p-1 in die Funktionsgleichung ein. Jene x-Werte, welche die Quadrate ergeben, werden für die Punktbestimmung benötigt. Nehme als Beispiel p = 11. Wir haben die Quadrate und die Wurzeln oben bereits ausgerechnet. Sei weiterhin die Gleichung einer elliptischen Kurve E gegeben mit
+Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Punkte. Man setzt nun alle x-Werte von 0 bis p-1 in die Funktionsgleichung ein. Jene x-Werte, welche die Quadrate ergeben, werden für die Punktbestimmung benötigt. Nehme als Beispiel p = 11. Wir haben die Quadrate und die Wurzeln oben bereits ausgerechnet. Sei weiterhin die Gleichung einer elliptischen Kurve E gegeben durch
 \begin{center}
 $F(X, Y) =  Y^{2} - X^{3} + 10 \cdot X + 8 \in \mathbb{F}_{11}$
 \end{center}
@@ -272,12 +272,29 @@ Die Ergebnisse zeigen dass für die folgenden $x$-Werte $f(x)$ ein Quadrat ist: 
 Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. Insbesondere, wenn das gewählte p groß ist, dann ist diese Brute-Force-Methode sehr aufwendig. Es müssen alle Quadrate in $\mathbb{F}_{p}$ und deren zugehörigen Wurzeln berechnet werden. Weiterhin entsteht Zeit- und Rechenaufwand beim Einsetzen in die Funktionen. In der Kryptografie ist jedoch die Wahl besonders großer p gängig, um ein hohes Sicherheitsniveau zu erreichen. Aus diesem Grund werden im Folgenden die beiden anderen angeführten Lösungsmöglichkeiten angeführt. 
 
 \subsection{Punktberechnung: Punktaddition und -verdopplung}
-Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss. Dieser muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein Punkt ist gegeben. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen. Um dies herauszufinden, müssen noch einmal die Gruppenregeln auf elliptischen Kurven betrachtet werden.\\
+Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss. Dieser muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein Punkt ist gegeben. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen.\\
 
-Der unendlich kleine Punkt $\mathcal O$ fällt demnach aus der Betrachtung heraus, da dieser ein neutrales Gruppenelement ist. Mit diesem können sich die anderen Punkte nicht bestimmen lassen.
+Um dies herauszufinden, müssen noch einmal die Gruppeneigenschaften von elliptischen Kurven über $\mathbb{F}_{p}$ betrachtet werden. Hankerson, Menezes und Vanstone beschreiben in ihrem Buch \glqq\textit{Guide to Elliptic Curve Cryptography}\grqq diese Gruppeneigenschaften und erklären damit, wie man herausfindet, ob es sich um eine zyklische Gruppe handelt und damit in welterem Sinne, welche Punkte auf der elliptischen KLurve Generatoren sind \cite[vgl.][S. 82-84]{Hankerson2004}. Sei E eine elliptische Kurve über $\mathbb{F}_{p}$. Die Anzahl der Punkte in E($\mathbb{F}_{p}$), bezeichnet als
+$\overline{E}(\mathbb{F}_{p})$, wird als die Ordnung von E über $\mathbb{F}_{p}$ bezeichnet. Dabei ist der imaginäre Punkt im Unendlichen inkludiert. Im Folgenden ist es wichtig herauszufinden, ob E eine zyklische Gruppe ist. Eine elliptische Kurve E über $\mathbb{F}_{p}$ ist eine zyklische Gruppe, wenn $\overline{E}(\mathbb{F}_{p})$ eine Primzahl ist. Die bereits angeführte Hasse-Weil-Schranke hilft dabei, eine Abschätzung darüber abzugeben.
+\begin{center}
+$p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
+\end{center} 
+
+Diese gibt eine obere und untere Schranke für $\overline{E}$ an. Liegt innerhalb dieser Schranke eine Primzahl, so ist die Wahrscheinlichkeit dafür, dass E eine zyklische Gruppe über $\mathbb{F}_{p}$ definiert, sehr hoch. Ist eine elliptische Kurve E eine zyklische Gruppe, dann hat sie genau ein Element, welches ein Erzeuger der Gruppe ist. Mit diesem Element lassen sich alle anderen Elemente der Gruppe durch Punktverdopplung bzw. Punktaddition erzeugen. Der Punkt hat damit die gleiche Ordnung wie E. Ist der Erzeuger und ein weiterer Punkt gegeben, so lassen sich auch über die Punktaddition weitere Punkte finden. Weiterhin sei gesagt, dass der Punkt im Unendlichen kein Erzeuger sein kann. Die Berechnung aller Punkte auf der Kurve ist trivial, wenn der Erzeuger bekannt ist. Nehmen wir als Beispiel eine elliptische Kurve E gegeben durch
+\begin{center}
+$y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
+\end{center}
+
+Der Erzeuger der Gruppe ist der Punkt P = (5, 1). Um zu zeigen, dass dieser Punkt ein Erzeuger oder Generator ist, muss er mit sich selbst so oft addiert werden, bis er den Punkt im Unendlichen ergibt. Bei dem gegebenen Punkt ist dies bei 19 $\cdot$ P der Fall. Gegeben sei außerdem 18 $\cdot$ P = (5, -1). Da 19 $\cdot$ P = 18 $\cdot$ P + P = (5, 1) + (5, -1) = $\mathcal O$. Dieses kurze Beispiel macht deutlich, dass es aufwendig sein kann zu prüfen, ob ein Punkt P ein Erzeuger ist. In der Praxis werden in Kryptosystemen Punktgeneratoren mit großer Ordnung gewählt, um die Sicherheit in den verwendeten kryptografischen System zu gewährleisten. Der Erzeuger der Gruppe ist so nicht einfach berechenbar. In den sobald folgenden Beispielen ist jedoch ein Erzeuger gegeben, damit die Punktaddition bzw. die Punkterdopplung trivial ist.\\
+
+Gegeben sei eine elliptishce Kurve E
 
 
-Lagrange Theorem -> wenn p prim, dann ist jeder punkt außer unendlich kleiner punkt erzeuger bzw. generator
+
+
+
+Lagrange Theorem -> wenn ordnung p prim, dann ist jeder punkt außer unendlich kleiner punkt erzeuger bzw. generator
+
 
 
 \subsection{Punktberechnung: Algorithmische Brute-Force-Methode}
