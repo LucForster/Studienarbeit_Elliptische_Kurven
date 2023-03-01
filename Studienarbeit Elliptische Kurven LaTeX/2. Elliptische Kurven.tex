@@ -287,25 +287,25 @@ $y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
 
 Der Erzeuger der Gruppe ist der Punkt P = (5, 1). Um zu zeigen, dass dieser Punkt ein Erzeuger oder Generator ist, muss er mit sich selbst so oft addiert werden, bis er den Punkt im Unendlichen ergibt. Bei dem gegebenen Punkt ist dies bei 19 $\cdot$ P der Fall. Gegeben sei außerdem 18 $\cdot$ P = (5, -1). Da 19 $\cdot$ P = 18 $\cdot$ P + P = (5, 1) + (5, -1) = $\mathcal O$. Dieses kurze Beispiel macht deutlich, dass es aufwendig sein kann zu prüfen, ob ein Punkt P ein Erzeuger ist. In der Praxis werden in Kryptosystemen Punktgeneratoren mit großer Ordnung gewählt, um die Sicherheit in den verwendeten kryptografischen System zu gewährleisten. Der Erzeuger der Gruppe ist so nicht einfach berechenbar. In den folgenden Beispielen ist jedoch ein Erzeuger gegeben, damit die Punktaddition respektive die Punkterdopplung trivial ist.\\
 
-Bevor das Beispiel durchgegangen wird, werden noch einmal die benötigten Formeln und die Vorgehensweise erläutert. Es sei ein Erzeugerpunkt P gegeben mit $P = (x_1, y_2)$. Da nur dieser gegeben ist, wird er mit sich selbst addiert. Somit gilt: 2 $\cdot$ P = P + P. Durch die Punktverdopplung entsteht ein neuer Punkt. P kann jetzt mit 2 $\cdot$ P addiert werden. Dies wird solange fortgeführt, bis der Punkt im Unendlichen herauskommt. Anschließend hat man alle Punkte auf E berechnet. Im Folgenden wird die Vorgehensweise über Pseudocode in Python erläutert, wenn ein Erzeugerpunkt gegeben ist. Es soll gesagt sein, dass es sich hierbei um eine starke Vereinfachung handelt. Beispielsweise wird nicht darauf eingegangen, dass das p des Primkörpers für die Durchführung der Addition von Punkten benötigt wird:
+Bevor das Beispiel durchgegangen wird, werden noch einmal die benötigten Formeln und die Vorgehensweise erläutert. Es sei ein Erzeugerpunkt P gegeben mit $P = (x_1, y_2)$. Da nur dieser gegeben ist, wird er mit sich selbst addiert. Somit gilt: 2 $\cdot$ P = P + P. Durch die Punktverdopplung entsteht ein neuer Punkt. P kann jetzt mit 2 $\cdot$ P addiert werden. Dies wird solange fortgeführt, bis der Punkt im Unendlichen herauskommt. Anschließend hat man alle Punkte auf E berechnet. Im Folgenden wird die Vorgehensweise über Pseudocode in Python erläutert, wenn ein Erzeugerpunkt gegeben ist. Es soll gesagt sein, dass es sich hierbei um eine starke Vereinfachung handelt. Beispielsweise wird nicht darauf eingegangen, dass das p des Primkörpers für die Durchführung der Addition von Punkten benötigt wird:\\
 
 \begin{lstlisting}[caption={Punktberechnung in Python}, captionpos=b]
-def punktbestimmung(P, Q):
+function punktbestimmung(P, Q):
 	Punkte = []	
 	if P = UNENDLICH:
-		return FEHLER
+		return FEHLER		
+	zaehler = 0
 	while 1:
-		zaehler = 0
 		if P = Q
 			Punkte[zaehler] = P + P
 			Q = Punkte[zaehler]
 			if Q = UNENDLICH
-				break	
+			zaehler = zaehler + 1	
 		if P != Q
 			Punkte[zaehler] = P + Q
 			Q = Punkte[zaehler]
 			if Q = UNENDLICH
-				break
+			zaehler = zaehler + 1
 	return Punkte
 \end{lstlisting}
 

@@ -2,12 +2,6 @@
 \chapter{Grundlagen}
 Diese Studienarbeit befasst sich mit dem komplexen Thema der Elliptischen Kurven in der Kryptographie. Die Kryptographie ist ein mathematisches Thema, bei welchem es zu Anfang der Legung einer Grundlage für das Verständnis der Inhalte dieser Studienarbeit bedarf. In diesem Kapitel werden sowohl die mathematischen als auch die kryptographischen Grundlagen zum Verständnis der Inhalte dieser Studienarbeit gelegt.
 
-\begin{lstlisting}[caption={Erzeugung des initialen Master Secrets}, captionpos=b, language=Python]
-system_random = secrets.SystemRandom()
-init_master_sec_int = system_random.randint(pow(16, 31), pow(16, 32))
-init_master_sec = bytearray(int.to_bytes(init_master_sec_int, 16, byteorder='big', signed=False))
-\end{lstlisting}
-
 \section{Primzahlen}
 In der Zahlentheorie, einem Teilbereich der Mathematik, werden viele unterschiedliche Eigenschaften von Zahlen untersucht. Durch die Untersuchung erhofft man sich neue Erkenntnisse für Wissenschaft und Technik. Die Primzahlen als mathematisches Forschungsgebiet sind hierbei ein Teilbereich der Zahlentheorie. Im Folgenden werden Primzahlen definiert und deren Eigenschaften erläutert. Anschließend wird untersucht, wie Primzahlen berechnet werden können. Am Ende wird erläutert, welche Rolle Primzahlen in der Kryptologie und modernen Kryptosystemen innehaben.
 
@@ -58,8 +52,9 @@ $\not{91}$ & $\not{92}$ & $\not{93}$ & $\not{94}$ & $\not{95}$ & $\not{96}$
 & 97 & $\not{98}$ & $\not{99}$ & $\not{100}$ \\ \hline
 \end{tabular}
 \end{center}
+\vspace{8mm}
 
-Das Sieb des Eratosthenes ist eine Möglichkeit, Primzahlen genau zu bestimmen. Problematisch wird es jedoch bei großen Zahlen. Für jede Zahl müssen je alle anderen Zahlen durchgegangen werden und es muss eine Teilbarkeitsprüfung durchgeführt werden. Umso größer die Zahlen werden, umso rechenaufwendiger wird die Anwendung des Sieb des Eratosthenes, um Primzahlen zu finden. Dieses ist also kein optimaler Ansatz, große Primzahlen zu bestimmen. Neben dem Sieb des Eratosthenes gibt es viele weitere Methoden, Primzahlen zu bestimmen.\\
+Das Sieb des Eratosthenes ist eine Möglichkeit, Primzahlen genau zu bestimmen. Problematisch wird es jedoch bei großen Zahlen. Für jede Zahl müssen je alle anderen Zahlen durchgegangen werden und es muss eine Teilbarkeitsprüfung durchgeführt werden. Umso größer die Zahlen werden, desto rechenaufwendiger wird die Anwendung des Sieb des Eratosthenes, um Primzahlen zu finden. Dieses ist also kein optimaler Ansatz, große Primzahlen zu bestimmen. Neben dem Sieb des Eratosthenes gibt es viele weitere Methoden, Primzahlen zu bestimmen.\\
 
 Die Besprechung aller dieser Verfahren und Algorithmen soll nicht Thema dieser Arbeit sein, jedoch soll noch eine gängige Methode erläutert werden. Über Probabilistische Verfahrne kö
 
