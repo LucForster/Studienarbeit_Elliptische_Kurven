@@ -211,7 +211,16 @@ Wie zu sehen ist, durchlaufen die Potenzen von $a$ nach Erreichen des neutralen 
 \paragraph{Definition: Zyklische Gruppe}
 Eine Gruppe $G$, die ein Element $\alpha$ mit der maximalen Ordnung ord($\alpha$) $= |G|$ enthält nennt man \textit{zyklisch}. Elemente mit maximaler Ordnung nennt man \textit{primitive Elemente} oder \textit{Generatoren}.\\
 
-Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i = a$ des primitiven Elements jedes andere Gruppenelement dargestellt werden kann, also die gesamte Gruppe \textit{generiert}. Das folgende Beispiel zeigt die Erzeugung der zyklischen Gruppe $\mathbb{Z}^{11}_p$ durch das primitive Element $\alpha = 2$.
+Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i = a$ des primitiven Elements jedes andere Gruppenelement dargestellt werden kann, also die gesamte Gruppe \textit{generiert} wird. Das folgende Beispiel zeigt die Erzeugung der zyklischen Gruppe $\mathbb{Z}^{11}_p$ durch das primitive Element $\alpha = 2$.
+\begin{align*}
+&a = 2 \qquad \qquad \qquad a^6 \equiv 9 \text{ mod } 11\\
+&a^2 = 4 \qquad \qquad \qquad a^7 \equiv 7 \text{ mod } 11\\
+&a^3 = 8 \qquad \qquad \qquad a^8 \equiv 3 \text{ mod } 11\\
+&a^4 \equiv 5 \text{ mod } 11 \qquad a^9 \equiv 6 \text{ mod } 11\\
+&a^5 \equiv 10 \text{ mod } 11 \qquad a^{10} \equiv 1 \text{ mod } 11\\
+\end{align*}
+
+Aus der letzten Gleichung folgt, dass ord$(a=2)=10=|\mathbb{Z}^*_(11)$. Damit ist gezeigt, dass das Element $a = 2$ wirklich ein Generator der zyklischen Gruppe $\mathbb{Z}^*_(11)$ ist.
 
 \subsection{Ring}
 Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(0,0,2,2,1)$ mit den folgenden Eigenschaften:
