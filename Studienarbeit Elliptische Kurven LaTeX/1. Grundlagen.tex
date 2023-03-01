@@ -211,7 +211,7 @@ Wie zu sehen ist, durchlaufen die Potenzen von $a$ nach Erreichen des neutralen 
 \paragraph{Definition: Zyklische Gruppe}
 Eine Gruppe $G$, die ein Element $\alpha$ mit der maximalen Ordnung ord($\alpha$) $= |G|$ enthält nennt man \textit{zyklisch}. Elemente mit maximaler Ordnung nennt man \textit{primitive Elemente} oder \textit{Generatoren}.\\
 
-Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i = a$ des primitiven Elements jedes andere Gruppenelement dargestellt werden kann, also die gesamte Gruppe \textit{generiert} wird. Das folgende Beispiel zeigt die Erzeugung der zyklischen Gruppe $\mathbb{Z}^{11}_p$ durch das primitive Element $\alpha = 2$.
+Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i = a$ des primitiven Elements jedes andere Gruppenelement $a$ dargestellt werden kann, also die gesamte Gruppe \textit{generiert} wird. Das folgende Beispiel zeigt die Erzeugung der zyklischen Gruppe $\mathbb{Z}^*_{11}$ durch das primitive Element $\alpha = 2$.
 \begin{align*}
 &a = 2 \qquad \qquad \qquad a^6 \equiv 9 \text{ mod } 11\\
 &a^2 = 4 \qquad \qquad \qquad a^7 \equiv 7 \text{ mod } 11\\
@@ -220,7 +220,56 @@ Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i =
 &a^5 \equiv 10 \text{ mod } 11 \qquad a^{10} \equiv 1 \text{ mod } 11\\
 \end{align*}
 
-Aus der letzten Gleichung folgt, dass ord$(a=2)=10=|\mathbb{Z}^*_(11)$. Damit ist gezeigt, dass das Element $a = 2$ wirklich ein Generator der zyklischen Gruppe $\mathbb{Z}^*_(11)$ ist.
+Aus der letzten Gleichung folgt, dass ord$(a=2)=10=|\mathbb{Z}^*_{11}|$. Damit ist gezeigt, dass das Element $a = 2$ wirklich ein Generator der zyklischen Gruppe $\mathbb{Z}^*_{11}$ ist.
+
+Wie man aus den eben gezeigten Beispielen erkennen kann, sind einige Gruppenelemente Generatoren der Gruppe und andere nicht. Welche Ordnungen der Elemente in einer zyklischen Gruppe vorkommen hängt davon ab, welche natürlichen Zahlen die Gruppenkardinalität teilen. Betrachten wir nun wieder die Gruppe $\mathbb{Z}^*_{11}$, deren Kardinalität $|\mathbb{Z}^*_{11}| = 10$ ist, so ergeben sich mögliche Ordnungen der Elemente von $1,2,5 \text{ und }10$, da diese die einzigen natürlichen Zahlen sind die $10$ teilen. Folgende Veranschaulichung zeigt dies.
+\begin{align*}
+&\text{ord }(1) = 1 \qquad \text{ord }(6) = 10\\
+&\text{ord }(2) = 10 \qquad \text{ord }(7) = 10\\
+&\text{ord }(3) = 5 \qquad \text{ord }(8) = 10\\
+&\text{ord }(4) = 5 \qquad \text{ord }(9) = 5\\
+&\text{ord }(5) = 5 \qquad \text{ord }(10) = 2\\
+\end{align*}
+
+\paragraph{Satz: Primitive Elemente in einer zyklischen Gruppe $G$}
+Ist $G$ eine zyklische Gruppe, dann gilt:
+\begin{enumerate}
+\item Die Anzahl der primitiven Elemente in $G$ ist $\Phi (|G|)$.
+\item Ist $|G|$ prim, dann sind alle Elemente $a \neq 1 \in G$ primitiv.
+\end{enumerate}
+
+Die erste Eigenschaft kann leicht gezeigt werden durch, $\Phi(10) = (5-1)(2-1) = 4$. Es muss also vier primitive Elemente in $\mathbb{Z}^*_{11}$ geben, welche konkret die Elemente $2,6,7$ und $8$ sind. Die zweite Eigenschaft folgt implizit aus der ersten, da bei einer primen Kardinalität der Gruppe keine natürliche Zahl außer der $1$ und der Kardinalität selber die Gruppenkardinalität teilt, und diese somit die einzigen möglichen Elementordnungen sind. Da nur das Element $1$ die Ordnung $1$ haben kann, haben alle anderen Elemente die Ordnung $|G|$, sind also Generatoren der Gruppe.
+
+\subsection{Untergruppen}
+Untermengen innerhalb zyklischer Gruppe können wiederum selbst Gruppen sein. Solche werden als Untergruppen bezeichnet. Im Fall von zyklischen Gruppen ist die Anzahl der jeweiligen Untergruppen leicht zu ermitteln. Sie entspricht nämlich genau der Anzahl an natürlichen Teilern der Gruppenkardinalität, wie aus dem folgenden Satz von Lagrange hervorgeht.
+
+\paragraph{Satz: Satz von Lagrange}
+Sei $H$ eine Untegruppe von $G$. Dann teilt $|H|$ die Gruppenkardinalität $|G|$.
+
+Das \textit{Finden} zyklischer Untergruppen innerhalb einer zyklischen Gruppe wird durch folgenden Satz gezeigt.
+
+\paragraph{Satz: zyklische Untergruppen}
+Sei $(G, \circ)$ eine zyklische Gruppe. Dann ist jedes Element $a \in G$ mit ord$(a) = s$ ein primitives Element einer zyklischen Untergruppe mit $s$ Elementen.
+
+Die Kernaussage dieses Satzes ist, dass jedes Element einer zyklischen Gruppe Generator einer zyklischen Untergruppe ist.  Wir betrachten erneut die zyklische Gruppe $\mathbb{Z}^*_{11}$. Wie oben bereits gezeigt hat das Gruppenelement $a=3$ die Ordnung $5$, ist also Generator einer Untergruppe mit mit $5$ Elementen. Die Elemente dieser Untergruppe sind eben jene, welche durch die Potenzierung von $3$ mod $11$ erzeugt werden können, also $\{3,9,5,4,1\}$. So kann für jedes Element verfahren werden, alle Untergruppen von $\mathbb{Z}^*_{11}$ gezeigt werden können. Folgende Aufstellung zeigt beispielhaft alle Untergruppen von $\mathbb{Z}^*_{11}$.
+\begin{align*}
+&\text{Ordnung: } 1 \text{ Generatoren: } \{1\} \text{ Elemente: }\{1\}\\
+&\text{Ordnung: } 2 \text{ Generatoren: } \{10\} \text{ Elemente: }\{1,10\}\\
+&\text{Ordnung: } 5 \text{ Generatoren: } \{3,4,5,9\} \text{ Elemente: }\{1,3,4,5,9\}\\
+&\text{Ordnung: } 10 \text{ Generatoren: } \{2,5,7,8\} \text{ Elemente: } \{1,2,3,4,5,6,7,8,9,10\}\\
+\end{align*}
+Wie zu erkennen ist, kann es mehrere Generatoren der selben Untergruppe geben. Außerdem interessant ist die Tatsache, dass Untergruppen primer Ordnung $p$ abgesehen von dem neutralen $1$ keine Überschneidungen mit anderen Untergruppen primer Ordnung aufweisen, da jedes Element die Ordnung $p$ hat und somit Generator der Untergruppe ist. Dies verdeutlicht, dass der Satz \textit{ Primitive Elemente in einer zyklischen Gruppe} auch für zyklische Untergruppen gilt.
+
+Der folgende Satz fasst die Erkenntnisse des letzten Abschnitts zusammen und gibt eine Methode zur Konstruktion einer Untergruppe für eine gegebene zyklische Gruppe.
+
+\paragraph{Satz: Konstruktion einer zyklischen Untergruppe}
+Sei $G$ eine endliche zyklische Gruppe der Ordnung $n$ und sei $\alpha$ ein Generator von $G$. Dann existiert für jede ganze Zahl $k$, die $n$ teilt, genau eine zyklische Untergruppe $H$ von $G$ mit der Ordnung $k$. Diese Untergruppe wird erzeugt von $\alpha^{n/k}$. $H$ besteht genau aus den Elementen $a \in G$, die die Bedingung $a^k = 1$ erfüllen. Es gibt keine weiteren Untergruppen.
+
+Mit anderen Worten sagt dieser Satz, dass lediglich ein primitives Element $\alpha$ und die Ordnung einer zyklischen Gruppe $|G|$ benötigt wird, um alle Untergruppen von $G$ zu konstruieren. Im folgenden Beispiel wollen wir dies zu Konstruktion einer Untergruppe anwenden.
+
+Betrachten wird erneut die zyklische Gruppe $\mathbb{Z}^*_{11}$ und das primitive Element $\alpha = 6$. Wenn wir nun eine Generator $\beta$ der Untergruppe mit der Ordnung $k = 5$ finden möchten, berechnen wir:
+$$\beta = \alpha^{n/k} = 6^{10/5} = 6^2 = 36 \equiv 3 \text{ mod } 11$$
+Wie wir oben schon gezeigt haben ist $3$ tatsächlich ein Generator der Untergruppe $\{1,3,4,5,9\}$ mit $k = 5$ Elementen.
 
 \subsection{Ring}
 Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(0,0,2,2,1)$ mit den folgenden Eigenschaften:
