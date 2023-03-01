@@ -1,6 +1,4 @@
 %Elliptische Kurven
-
-
 \chapter{Elliptische Kurven}
 
 
@@ -128,13 +126,13 @@ Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbe
 \subsection{Rechnerische Grundlagen}
 Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[vgl.][S. 138]{silverman}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[vgl.][S. 181]{reinholdhuebl} wie folgt beschrieben. Sei k = $\mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
 \begin{center}
-$p + 1 - 2 * \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 * \sqrt{p}$
+$p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
 \end{center} 
 
 Was ist jedoch die Hauptaussage der Hasse-Weil-Schranke? Sie besagt, dass sich bei großen p die Anzahl der Elemente der elliptischen Kurve in der Größenoprdnung von p bewegen. Diese Schranke bildet hierbei eine obere und untere Grenze. Die Anzahl der Punkte bewegt sich also innerhalb dieser Schranke. Dies ist für elliptische Kurven mit kleinem p uninteressant, jedoch wird diese Schranke für elliptische Kurven mit großem gewählten p, was in der Kryptographie gängig ist, relevant.\\
 
 
-Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Reinhold Hübl in seinem Manuskript der Kryptologie \cite[vgl.][S. 157]{reinholdhuebl} erläutert, ist eine elliptische Kurve mit den Charakteristiken char(k) = 0 oder char(k) = 3 eine Kurve, die durch ein Polynom der Form
+Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Reinhold Hübl in seinem Manuskript der Kryptologie \cite[vgl.][S. 157]{reinholdhuebl} erläutert, ist eine elliptische Kurve mit den Charakteristiken char(k) = 0 oder char(k) > 3 eine Kurve, die durch ein Polynom der Form
 \begin{center}
 $F(X, Y) = Y^{2} - X^{3} - aX - b$
 \end{center} 
@@ -155,7 +153,7 @@ $F(X, Y) = Y^{2} - X^{3} + 3X - 3 \in \mathbb{F}_{13}$
 
 Wie man der Funktion entnehmen kann ist a = - 3 = 10 und b = 3 in $\mathbb{F}_{13}$. Diese setzen wir nun in die Formel ein.
 \begin{center}
-$4 * 10^3 + 27 * 3^2 = 6 \neq 0$ mod(13)
+$4 \cdot 10^3 + 27 \cdot 3^2 = 6 \neq 0$ mod(13)
 \end{center} 
 
 Da 6 $\neq$ 0 ist definiert die Funktion eine elliptische Kurve in $\mathbb{F}_{13}$. Die Abbildung \ref{fig:kurve_beispiel_1_punktberechnung} zeigt die Zeichnung der Funktion dieser elliptischen Kurve über den reellen Zahlen im kartesischen Koordinatensystem: 
@@ -183,7 +181,7 @@ Wie bereits erläutert wurde, ist die umgestellte Gleichung der elliptischen Kur
 $y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
 \end{center}
 
-Da die linke Seite mit $y^{2}$ offensichtlich quadratisch ist, muss am Ende auf beiden Seiten der Gleichung die Quadratwurzel gezogen werden, um die Gleichung zu lösen und im weiteren Sinne Punkte auf der Kurve zu finden. Da dies umständlich und im endlichen Körper $\mathbb{F}_{p}$ schwer zu realisieren ist, wird die rechte Seite bis zu einem Quadrat aufgelöst. Dafür muss man als erstes bestimmen, welche Werte in der entsprechenden Restklasse der elliptischen Kurve Quadrate sind. Die Quadratprüfung ist dabei simpel: Man geht jedes Element in $\mathbb{F}_{p}$ von 0 bis p-1 durch und prüft, ob das quadrierte Element in der Restklasse ein Quadrat ist. Hierbei geht es um keine komplexe Rechnung, sondern lediglich um stupides ausprobieren. Zur Verdeutlichung folgendes Beispiel: Wir haben den Körper $\mathbb{F}_{5}$. Der Körper beinhaltet die Elemente $\mathbb{F}_{5}$ = {0, 1, 2, 3, 4}. Die Quadrate mitsamt ihrer Wurzeln sind folgende:
+Da die linke Seite mit $y^{2}$ offensichtlich quadratisch ist, muss am Ende auf beiden Seiten der Gleichung die Quadratwurzel gezogen werden, um die Gleichung zu lösen und im weiteren Sinne Punkte auf der Kurve zu finden. Da dies umständlich und im endlichen Körper $\mathbb{F}_{p}$ schwer zu realisieren ist, wird die rechte Seite bis zu einem Quadrat aufgelöst. Dafür muss man als erstes alle Punkte x $\in \mathbb{F}_{p}$ bestimmen, für die $x^{3} + ax + b$ ein Quadrat in $\mathbb{F}_{p}$ sind. Die Quadratprüfung ist dabei simpel: Man geht jedes Element in $\mathbb{F}_{p}$ von 0 bis p-1 durch und prüft, ob das quadrierte Element in der Restklasse ein Quadrat ist. Hierbei geht es um keine komplexe Rechnung, sondern lediglich um stupides ausprobieren. Zur Verdeutlichung folgendes Beispiel: Wir haben den Körper $\mathbb{F}_{5}$. Der Körper beinhaltet die Elemente $\mathbb{F}_{5}$ = {0, 1, 2, 3, 4}. Die Quadrate mitsamt ihrer Wurzeln sind folgende:
 \begin{center}
 $0 = 0^{2} \qquad 1 = 1^{2} = 4^{2} \qquad 4 = 2^{2} = 3^{2}$
 \end{center}
@@ -219,12 +217,12 @@ Dies wird anhand eines ausführlichen Beispiels deutlich. Sei p = 11 und somit $
 Wenn man die Null dazuzählt, hat $\mathbb{F}_{11}$ die Quadrate 0, 1, 3, 4, 5, 9. Im Folgenden sind die Quadrate mitsamt ihrer Wurzeln aufgeschrieben:
 
 \begin{itemize}
-\item Quadrat: 0 $\quad$ Wurzel 1: $0^{2}$
-\item Quadrat: 1 $\quad$ Wurzel 1: $1^{2} \quad$ Wurzel 2: $10^{2}$
-\item Quadrat: 3 $\quad$ Wurzel 1: $5^{2} \quad$ Wurzel 2: $6^{2}$
-\item Quadrat: 4 $\quad$ Wurzel 1: $2^{2} \quad$ Wurzel 2: $9^{2}$
-\item Quadrat: 5 $\quad$ Wurzel 1: $4^{2} \quad$ Wurzel 2: $7^{2}$
-\item Quadrat: 9 $\quad$ Wurzel 1: $3^{2} \quad$ Wurzel 2: $8^{2}$
+\item Quadrat: 0 $\quad$ Wurzel 1: $0$
+\item Quadrat: 1 $\quad$ Wurzel 1: $1 \quad$ Wurzel 2: $10$
+\item Quadrat: 3 $\quad$ Wurzel 1: $5 \quad$ Wurzel 2: $6$
+\item Quadrat: 4 $\quad$ Wurzel 1: $2 \quad$ Wurzel 2: $9$
+\item Quadrat: 5 $\quad$ Wurzel 1: $4 \quad$ Wurzel 2: $7$
+\item Quadrat: 9 $\quad$ Wurzel 1: $3 \quad$ Wurzel 2: $8$
 \end{itemize}
 
 Die berechneten Quadrate und Wurzeln sind nötig, um die Punkte zu bestimmen. Um dies zu bewerkstelligen, wird die Gleichung der elliptischen Kurve in zwei Variablen benötigt. Um die benötigte Formel zu erhalten, überführen wir die Ausgangsgleichung in zwei Variablen in eine Funktionsgleichung mit einer Variablen:
@@ -232,9 +230,9 @@ Die berechneten Quadrate und Wurzeln sind nötig, um die Punkte zu bestimmen. Um
 $y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p} \qquad \Longrightarrow \qquad f(x) =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
 \end{center}
 
-Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Punkte. Man setzt nun alle x-Werte von 0 bis p-1 in die Funktionsgleichung ein. Jene x-Werte, welche die Quadrate ergeben, werden für die Punktbestimmung benötigt. Nehme als Beispiel p = 11. Wir haben die Quadrate und die Wurzeln oben bereits ausgerechnet. Sei weiterhin die Gleichung einer elliptischen Kurve E gegeben mit
+Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Punkte. Man setzt nun alle x-Werte von 0 bis p-1 in die Funktionsgleichung ein. Jene x-Werte, welche die Quadrate ergeben, werden für die Punktbestimmung benötigt. Nehme als Beispiel p = 11. Wir haben die Quadrate und die Wurzeln oben bereits ausgerechnet. Sei weiterhin die Gleichung einer elliptischen Kurve E gegeben durch
 \begin{center}
-$F(X, Y) =  Y^{2} - X^{3}$ + 10*X + 8  $\in \mathbb{F}_{11}$
+$F(X, Y) =  Y^{2} - X^{3} + 10 \cdot X + 8 \in \mathbb{F}_{11}$
 \end{center}
 
 Damit ist die umgestellte Gleichung in zwei Variablen und die Funktionsgleichung mit einer Variablen
@@ -257,7 +255,7 @@ Setzen wir nun alle Elemente von 0 bis p-1 in die Funktionsgleichung ein und bet
 \item $f(10) = 10^{3}$ + 10 + 3 = 1 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
 \end{itemize}
 
-Die Ergebnisse zeigen dass die folgenden x-Werte Quadrate definieren: 0, 1, 3, 4, 5, 6, 7, 9, 10. Bis jetzt wurde der einfache Brute-Force durchgeführt. Man muss nur noch wenige Schritte durchführen, um die Punkte auf der elliptischen Kurve zu bestimmen. Wir haben jetzt die Quadrate, die dazugehörigen Wurzeln sowie die x-Werte, welche Quadrate sind. Wie kombiniert man diese, um die Punkte auf der elliptischen Kurve zu erhalten? Es gilt, die Informationen der Punkte P mit P = (x, y) der elliptischen Kurve zu erhalten. Für den x-Wert der Punkte nimmt man das Ergebnis des eingesetzten x von 0 bis p-1 in die Funktion. Man nimmt als x-Wert das vorhandene Quadrat. Die y-Werte der Punkte ergeben sich aus dem Ergebnis des eingesetzten x in die umgestellte Funktion mit einer Variablen. Man nimmt die Wurzeln des zugehörigen Quadrates zum Ergebnis. Daraus ergeben sich die folgenden Punkte auf der obig eingeführten elliptischen Kurve E:
+Die Ergebnisse zeigen dass für die folgenden $x$-Werte $f(x)$ ein Quadrat ist: 0, 1, 3, 4, 5, 6, 7, 9, 10. Bis jetzt wurde der einfache Brute-Force durchgeführt. Man muss nur noch wenige Schritte durchführen, um die Punkte auf der elliptischen Kurve zu bestimmen. Wir haben jetzt die Quadrate, die dazugehörigen Wurzeln sowie die x-Werte, welche Quadrate sind. Wie kombiniert man diese, um die Punkte auf der elliptischen Kurve zu erhalten? Es gilt, die Informationen der Punkte P mit P = (x, y) der elliptischen Kurve zu erhalten. Für den x-Wert der Punkte nimmt man das Ergebnis des eingesetzten x von 0 bis p-1 in die Funktion. Man nimmt als x-Wert das vorhandene Quadrat. Die y-Werte der Punkte ergeben sich aus dem Ergebnis des eingesetzten x in die umgestellte Funktion mit einer Variablen. Man nimmt die Wurzeln des zugehörigen Quadrates zum Ergebnis. Daraus ergeben sich die folgenden Punkte auf der obig eingeführten elliptischen Kurve E:
 
 \begin{itemize}
 \item $f(0) = 3 \quad \Longrightarrow \quad$ Punkt 1: $(0, 5) \quad$ Punkt 2: $(0, 6)$
@@ -274,10 +272,33 @@ Die Ergebnisse zeigen dass die folgenden x-Werte Quadrate definieren: 0, 1, 3, 4
 Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. Insbesondere, wenn das gewählte p groß ist, dann ist diese Brute-Force-Methode sehr aufwendig. Es müssen alle Quadrate in $\mathbb{F}_{p}$ und deren zugehörigen Wurzeln berechnet werden. Weiterhin entsteht Zeit- und Rechenaufwand beim Einsetzen in die Funktionen. In der Kryptografie ist jedoch die Wahl besonders großer p gängig, um ein hohes Sicherheitsniveau zu erreichen. Aus diesem Grund werden im Folgenden die beiden anderen angeführten Lösungsmöglichkeiten angeführt. 
 
 \subsection{Punktberechnung: Punktaddition und -verdopplung}
-U
+Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss. Dieser muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein Punkt ist gegeben. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen.\\
+
+Um dies herauszufinden, müssen noch einmal die Gruppeneigenschaften von elliptischen Kurven über $\mathbb{F}_{p}$ betrachtet werden. Hankerson, Menezes und Vanstone beschreiben in ihrem Buch \glqq\textit{Guide to Elliptic Curve Cryptography}\grqq diese Gruppeneigenschaften und erklären damit, wie man herausfindet, ob es sich um eine zyklische Gruppe handelt und damit in welterem Sinne, welche Punkte auf der elliptischen KLurve Generatoren sind \cite[vgl.][S. 82-84]{Hankerson2004}. Sei E eine elliptische Kurve über $\mathbb{F}_{p}$. Die Anzahl der Punkte in E($\mathbb{F}_{p}$), bezeichnet als
+$\overline{E}(\mathbb{F}_{p})$, wird als die Ordnung von E über $\mathbb{F}_{p}$ bezeichnet. Dabei ist der imaginäre Punkt im Unendlichen inkludiert. Im Folgenden ist es wichtig herauszufinden, ob E eine zyklische Gruppe ist. Eine elliptische Kurve E über $\mathbb{F}_{p}$ ist eine zyklische Gruppe, wenn $\overline{E}(\mathbb{F}_{p})$ eine Primzahl ist. Die bereits angeführte Hasse-Weil-Schranke hilft dabei, eine Abschätzung darüber abzugeben.
+\begin{center}
+$p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
+\end{center} 
+
+Diese gibt eine obere und untere Schranke für $\overline{E}$ an. Liegt innerhalb dieser Schranke eine Primzahl, so ist die Wahrscheinlichkeit dafür, dass E eine zyklische Gruppe über $\mathbb{F}_{p}$ definiert, sehr hoch. Ist eine elliptische Kurve E eine zyklische Gruppe, dann hat sie genau ein Element, welches ein Erzeuger der Gruppe ist. Mit diesem Element lassen sich alle anderen Elemente der Gruppe durch Punktverdopplung bzw. Punktaddition erzeugen. Der Punkt hat damit die gleiche Ordnung wie E. Ist der Erzeuger und ein weiterer Punkt gegeben, so lassen sich auch über die Punktaddition weitere Punkte finden. Weiterhin sei gesagt, dass der Punkt im Unendlichen kein Erzeuger sein kann. Die Berechnung aller Punkte auf der Kurve ist trivial, wenn der Erzeuger bekannt ist. Nehmen wir als Beispiel eine elliptische Kurve E gegeben durch
+\begin{center}
+$y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
+\end{center}
+
+Der Erzeuger der Gruppe ist der Punkt P = (5, 1). Um zu zeigen, dass dieser Punkt ein Erzeuger oder Generator ist, muss er mit sich selbst so oft addiert werden, bis er den Punkt im Unendlichen ergibt. Bei dem gegebenen Punkt ist dies bei 19 $\cdot$ P der Fall. Gegeben sei außerdem 18 $\cdot$ P = (5, -1). Da 19 $\cdot$ P = 18 $\cdot$ P + P = (5, 1) + (5, -1) = $\mathcal O$. Dieses kurze Beispiel macht deutlich, dass es aufwendig sein kann zu prüfen, ob ein Punkt P ein Erzeuger ist. In der Praxis werden in Kryptosystemen Punktgeneratoren mit großer Ordnung gewählt, um die Sicherheit in den verwendeten kryptografischen System zu gewährleisten. Der Erzeuger der Gruppe ist so nicht einfach berechenbar. In den sobald folgenden Beispielen ist jedoch ein Erzeuger gegeben, damit die Punktaddition bzw. die Punkterdopplung trivial ist.\\
+
+Gegeben sei eine elliptishce Kurve E
+
+
+
+
+
+Lagrange Theorem -> wenn ordnung p prim, dann ist jeder punkt außer unendlich kleiner punkt erzeuger bzw. generator
+
+
 
 \subsection{Punktberechnung: Algorithmische Brute-Force-Methode}
-U
+brute force mit
 
 
 \subsection{Implementierung in Python}
