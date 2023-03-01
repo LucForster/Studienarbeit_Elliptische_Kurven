@@ -289,7 +289,7 @@ Der Erzeuger der Gruppe ist der Punkt P = (5, 1). Um zu zeigen, dass dieser Punk
 
 Bevor das Beispiel durchgegangen wird, werden noch einmal die benötigten Formeln und die Vorgehensweise erläutert. Es sei ein Erzeugerpunkt P gegeben mit $P = (x_1, y_2)$. Da nur dieser gegeben ist, wird er mit sich selbst addiert. Somit gilt: 2 $\cdot$ P = P + P. Durch die Punktverdopplung entsteht ein neuer Punkt. P kann jetzt mit 2 $\cdot$ P addiert werden. Dies wird solange fortgeführt, bis der Punkt im Unendlichen herauskommt. Anschließend hat man alle Punkte auf E berechnet. Im Folgenden wird die Vorgehensweise über Pseudocode in Python erläutert, wenn ein Erzeugerpunkt gegeben ist. Es soll gesagt sein, dass es sich hierbei um eine starke Vereinfachung handelt. Beispielsweise wird nicht darauf eingegangen, dass das p des Primkörpers für die Durchführung der Addition von Punkten benötigt wird:
 
-\begin{listings}
+\begin{lstlisting}
 def punktbestimmung(P, Q):
 	Punkte = []	
 	if P = UNENDLICH:
@@ -311,7 +311,7 @@ def punktbestimmung(P, Q):
 		
 	If P[0] = Q[0] and P[1] != Q[1]:
 		Return infinity
-\end{listings}
+\end{lstlisting}
 
 
 Gegeben sei eine elliptische Kurve E

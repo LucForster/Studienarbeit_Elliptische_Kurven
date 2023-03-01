@@ -2,6 +2,11 @@
 \chapter{Grundlagen}
 Diese Studienarbeit befasst sich mit dem komplexen Thema der Elliptischen Kurven in der Kryptographie. Die Kryptographie ist ein mathematisches Thema, bei welchem es zu Anfang der Legung einer Grundlage für das Verständnis der Inhalte dieser Studienarbeit bedarf. In diesem Kapitel werden sowohl die mathematischen als auch die kryptographischen Grundlagen zum Verständnis der Inhalte dieser Studienarbeit gelegt.
 
+\begin{lstlisting}[caption={Erzeugung des initialen Master Secrets}, captionpos=b, language=Python]
+system_random = secrets.SystemRandom()
+init_master_sec_int = system_random.randint(pow(16, 31), pow(16, 32))
+init_master_sec = bytearray(int.to_bytes(init_master_sec_int, 16, byteorder='big', signed=False))
+\end{lstlisting}
 
 \section{Primzahlen}
 In der Zahlentheorie, einem Teilbereich der Mathematik, werden viele unterschiedliche Eigenschaften von Zahlen untersucht. Durch die Untersuchung erhofft man sich neue Erkenntnisse für Wissenschaft und Technik. Die Primzahlen als mathematisches Forschungsgebiet sind hierbei ein Teilbereich der Zahlentheorie. Im Folgenden werden Primzahlen definiert und deren Eigenschaften erläutert. Anschließend wird untersucht, wie Primzahlen berechnet werden können. Am Ende wird erläutert, welche Rolle Primzahlen in der Kryptologie und modernen Kryptosystemen innehaben.
