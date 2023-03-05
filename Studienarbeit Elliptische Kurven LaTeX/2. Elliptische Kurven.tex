@@ -274,7 +274,7 @@ Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. I
 \subsection{Punktberechnung: Punktaddition und -verdopplung}
 Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss. Dieser muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein Punkt ist gegeben. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen.\\
 
-Um dies herauszufinden, müssen noch einmal die Gruppeneigenschaften von elliptischen Kurven über $\mathbb{F}_{p}$ betrachtet werden. Hankerson, Menezes und Vanstone beschreiben in ihrem Buch \glqq\textit{Guide to Elliptic Curve Cryptography}\grqq diese Gruppeneigenschaften und erklären damit, wie man herausfindet, ob es sich um eine zyklische Gruppe handelt und damit in welterem Sinne, welche Punkte auf der elliptischen KLurve Generatoren sind \cite[vgl.][S. 82-84]{Hankerson2004}. Sei E eine elliptische Kurve über $\mathbb{F}_{p}$. Die Anzahl der Punkte in E($\mathbb{F}_{p}$), bezeichnet als
+Um dies herauszufinden, müssen noch einmal die Gruppeneigenschaften von elliptischen Kurven über $\mathbb{F}_{p}$ betrachtet werden. Hankerson, Menezes und Vanstone beschreiben in ihrem Buch \glqq\textit{Guide to Elliptic Curve Cryptography}\grqq diese Gruppeneigenschaften und erklären damit, wie man herausfindet, ob es sich um eine zyklische Gruppe handelt und damit in welterem Sinne, welche Punkte auf der elliptischen Kurve Generatoren sind \cite[vgl.][S. 82-84]{Hankerson2004}. Sei E eine elliptische Kurve über $\mathbb{F}_{p}$. Die Anzahl der Punkte in E($\mathbb{F}_{p}$), bezeichnet als
 $\overline{E}(\mathbb{F}_{p})$, wird als die Ordnung von E über $\mathbb{F}_{p}$ bezeichnet. Dabei ist der imaginäre Punkt im Unendlichen inkludiert. Im Folgenden ist es wichtig herauszufinden, ob E eine zyklische Gruppe ist. Eine elliptische Kurve E über $\mathbb{F}_{p}$ ist eine zyklische Gruppe, wenn $\overline{E}(\mathbb{F}_{p})$ eine Primzahl ist. Die bereits angeführte Hasse-Weil-Schranke hilft dabei, eine Abschätzung darüber abzugeben.
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
@@ -287,25 +287,25 @@ $y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
 
 Der Erzeuger der Gruppe ist der Punkt P = (5, 1). Um zu zeigen, dass dieser Punkt ein Erzeuger oder Generator ist, muss er mit sich selbst so oft addiert werden, bis er den Punkt im Unendlichen ergibt. Bei dem gegebenen Punkt ist dies bei 19 $\cdot$ P der Fall. Gegeben sei außerdem 18 $\cdot$ P = (5, -1). Da 19 $\cdot$ P = 18 $\cdot$ P + P = (5, 1) + (5, -1) = $\mathcal O$. Dieses kurze Beispiel macht deutlich, dass es aufwendig sein kann zu prüfen, ob ein Punkt P ein Erzeuger ist. In der Praxis werden in Kryptosystemen Punktgeneratoren mit großer Ordnung gewählt, um die Sicherheit in den verwendeten kryptografischen System zu gewährleisten. Der Erzeuger der Gruppe ist so nicht einfach berechenbar. In den folgenden Beispielen ist jedoch ein Erzeuger gegeben, damit die Punktaddition respektive die Punkterdopplung trivial ist.\\
 
-Bevor das Beispiel durchgegangen wird, werden noch einmal die benötigten Formeln und die Vorgehensweise erläutert. Es sei ein Erzeugerpunkt P gegeben mit $P = (x_1, y_2)$. Da nur dieser gegeben ist, wird er mit sich selbst addiert. Somit gilt: 2 $\cdot$ P = P + P. Durch die Punktverdopplung entsteht ein neuer Punkt. P kann jetzt mit 2 $\cdot$ P addiert werden. Dies wird solange fortgeführt, bis der Punkt im Unendlichen herauskommt. Anschließend hat man alle Punkte auf E berechnet. Im Folgenden wird die Vorgehensweise über Pseudocode in Python erläutert, wenn ein Erzeugerpunkt gegeben ist. Es soll gesagt sein, dass es sich hierbei um eine starke Vereinfachung handelt. Beispielsweise wird nicht darauf eingegangen, dass das p des Primkörpers für die Durchführung der Addition von Punkten benötigt wird:
+Bevor das Beispiel durchgegangen wird, werden noch einmal die benötigten Formeln und die Vorgehensweise erläutert. Es sei ein Erzeugerpunkt P gegeben mit $P = (x_1, y_2)$. Da nur dieser gegeben ist, wird er mit sich selbst addiert. Somit gilt: 2 $\cdot$ P = P + P. Durch die Punktverdopplung entsteht ein neuer Punkt. P kann jetzt mit 2 $\cdot$ P addiert werden. Dies wird solange fortgeführt, bis der Punkt im Unendlichen herauskommt. Anschließend hat man alle Punkte auf E berechnet. Im Folgenden wird die Vorgehensweise über Pseudocode in Python erläutert, wenn ein Erzeugerpunkt gegeben ist. Es soll gesagt sein, dass es sich hierbei um eine starke Vereinfachung handelt. Beispielsweise wird nicht darauf eingegangen, dass das p des Primkörpers für die Durchführung der Addition von Punkten benötigt wird:\\
 
 \begin{lstlisting}[caption={Punktberechnung in Python}, captionpos=b]
-def punktbestimmung(P, Q):
+function punktbestimmung(P, Q):
 	Punkte = []	
 	if P = UNENDLICH:
-		return FEHLER
+		return FEHLER		
+	zaehler = 0
 	while 1:
-		zaehler = 0
 		if P = Q
 			Punkte[zaehler] = P + P
 			Q = Punkte[zaehler]
 			if Q = UNENDLICH
-				break	
+			zaehler = zaehler + 1	
 		if P != Q
 			Punkte[zaehler] = P + Q
 			Q = Punkte[zaehler]
 			if Q = UNENDLICH
-				break
+			zaehler = zaehler + 1
 	return Punkte
 \end{lstlisting}
 
@@ -313,7 +313,8 @@ def punktbestimmung(P, Q):
 Gegeben sei eine elliptische Kurve E
 
 
-
+hankerson es gibt gruppen die nicht zyklisch sind zn x zn (zwei sätze)
+wenn zyklisch mit primzahlordnung alle punkte erzeuger
 
 
 Lagrange Theorem -> wenn ordnung p prim, dann ist jeder punkt außer unendlich kleiner punkt erzeuger bzw. generator
@@ -322,6 +323,11 @@ Lagrange Theorem -> wenn ordnung p prim, dann ist jeder punkt außer unendlich k
 
 \subsection{Punktberechnung: Algorithmische Brute-Force-Methode}
 brute force mit
+
+quadratprüfung element
+quadratwurzel bestimmen
+
+kombinierung von verfahren
 
 
 \subsection{Implementierung in Python}
