@@ -281,7 +281,9 @@ Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(
 Ist $(R,1,\cdot)$ ein kommutatives Monoid, so nennt man $(R,0,1,+,\cdot,-)$ einen kommutativen Ring.
 
 \subsection{Körper}
-
+%@Aaron Das hier ist noch dein Part // Siehe: MathematikFürDieInformatik S. 364
+% Vllt findest du aber auch eine bessere Definition.
+% Unterthema: inversenbildung in Körpern
 
 \section{Allgemeines zur Verschlüsselung}
 XXX
@@ -290,9 +292,44 @@ XXX
 x
 
 \section{Das diskrete Logarithmusproblem}
+Das DLP bildet die mathematische Grundlage für viele asymmetrische Kryptosysteme, wie den DHKE oder die Elgamal-Verschlüsselung. Etwas legere ausgedrückt könnte man das DLP als Baukasten für asymmetrische Kryptosysteme betrachten, da es für zyklische Gruppen verallgemeinert werden kann. Im Folgenden wollen wir zunächst das DLP in Primzahlkörpern betrachten. Hierzu greifen wir auf die in Kapitel XY erläuterten Eigenschaften zyklischer Gruppen zurück. 
 
+\paragraph{Definition: Diskretes Logarithmusproblem (DLP) in $\mathbb{Z}^*_p$}
+Gegeben sind die endliche zyklische Gruppe $\mathbb{Z}^*_p$ der Ordnung $p-1$, ein primitives Element $\alpha \in \mathbb{Z}^*_p$ und ein weiteres Element $\beta \in \mathbb{Z}^*_p$. Das DLP ist das Problem, eine ganze Zahl x im Bereich $1 \leq x \leq p-1$ zu finden, sodass: $$\alpha^x \equiv \beta \text{ mod } p$$\\
 
-\subsection{Diffie-Hellmann}
+Wie in Kapitel XY gezeigt, muss ein solches $x$ existieren, da $\alpha$ ein primitives Element ist, was bedeutet dass jedes andere Gruppenelement durch die Potenzierung $\alpha^x$ dargestellt werden kann. Das gesuchte $x$ wird als \textit{diskreter Logarithmus} von $\beta$ zur Basis $\alpha$ bezeichnet. Formal beschrieben als: $$x = \text{ log}_\alpha \beta \text{ mod } p \text{.}$$
+
+Anders als der gewöhnliche Logarithmus in $\mathbb{R}$ ist der diskrete Logarithmus in einer endlichen zyklischen Gruppe nicht effizient zu berechnen. Grund dafür sind die Eigenschaften endlicher zyklischer Gruppen. Denn wie in Kapitel XY gezeigt, generiert die Potenzierung eines primitiven Elements $\alpha$ die jeweilige zyklische Gruppe bzw. Untergruppe in einer nicht absehbaren Reihenfolge.\\
+
+Für kleinere Gruppen lässt sich $x$ natürlich durch stumpfes Ausprobieren sog. \textit{brute Force} in einer kurzen Zeit ermitteln. Diskrete Logarithmen in ausreichend großen Gruppen sind jedoch sehr schwer zu ermitteln.\\
+
+Um den diskreten Logarithmus $x$ von $\alpha^x \equiv \beta \text{ mod } p$ zu ermitteln muss ein potenzieller Angreifer jedes $x$ zwischen $1$ und $p-1$ als möglichen Exponenten ausprobieren. Der Erzeuger kann zum effizienten berechnen von $\beta$, jedoch den Square-and-Multiply-Algorithmus verwenden, was das DLP zu einer Einwegfunktion macht.\\
+
+Neben dem trivialen brute Force Angriff auf das DLP gibt es weitere Verfahren, welche die Menge an möglichen $x$ Werten einschränken. Der Babystep-Giantstep-Algorithmus reduziert die Komplexität des DLPs von $O(n)$ auf $O(\sqrt{n})$. Noch weiter kann die Komplexität durch den Pohling-Hellman-Algorithums eingeschränkt werden. Durch diesen Angriff kann bei bekannter Primfaktorzerlegung der Gruppenordnung $n$, die Komplexität des DLPs auf $O(\sqrt{q})$ reduzieren, wobei $q$ der größte Faktor von $n$ ist. Aus diesem Grund wählt man in der Praxis eine Gruppe mit primer Ordnung für das DLP. Da die Ordnung von Gruppen $\mathbb{Z}^*_p$ dem Wert $p-1$ entspricht, der offensichtlich nicht prim ist, greift man auf Untergruppen von $\mathbb{Z}^*_p$ mit primer Ordnung zurück.
+
+\subsubsection{Das verallgemeinerte diskrete Logarithmusproblem}
+Wie oben bereits erwähnt kann das DLP in jeglichen zyklischen Gruppen definiert werden. Bis jetzt haben wir immer die zyklische Gruppe $\mathbb{Z}^*_p$ betrachtet. Das DLP kann folgendermaßen verallgemeinert werden:
+
+\paragraph{Definition: Verallgemeinertes diskretes Logarithmusproblem}
+Gegeben sei eine endliche zyklische Gruppe $G$ mit der Gruppenoperation $\circ$ und der Kardinalität $n$. Wir betrachten ein primitives Element $\alpha \in G$ und ein weiteres Element $\beta \in G$. Das diskrete Logarihtmusproblem liegt darin, eine ganze Zahl $x$ im Bereich $1 \leq x \leq n$ zu finden, sodass:
+$$\beta = \underbrace{\alpha \circ \alpha \circ \dots \circ \alpha}_{\text{$x$ mal}} = \alpha^x$$\\
+
+Auch hier ist die Existenz von $x$ sicher, da $\alpha$ als primitives Element die gesamte Gruppe generiert. Das DLP lässt sich zwar in jeglichen zyklischen Gruppen definieren, jedoch ist es in einigen nicht \textit{schwierig} zu lösen, wodurch es keine Einwegfunktion mehr darstellt. Ein Beispiel dafür sind additive Gruppen $G = (\mathbb{Z}_p, +)$. Die $x$-fache Anwendung der Gruppenoperation auf einen Generator $\alpha$ zur Erzeugung eines Elements $\beta$ kann als \textit{Multiplikation} mod $p$ dargestellt werden. Der gesuchte Faktor $x$ lässt sich dann leicht durch die Multiplikation von $\beta$ und inv$(\alpha)$ berechnen. Letzteres lässt sich effizient mittels des EEAs ermitteln.
+
+Gruppen auf denen ein DLP für kryptografische Zwecke definiert werden kann sind:
+\begin{enumerate}
+\item Multiplikative Gruppen des Primkörpers $\mathbb{Z}_p$ oder Untergruppen davon. Der DHKE nutz klassischerweise diese Gruppen. Auch die Elgamal-Verschlüsselung und der digitale Signaturalgorithmus (DSA) nutzen diese Gruppen.
+
+\item Zyklische Gruppen welche über elliptischen Kurven gebildet werden. Das DLP ist in diesen Gruppen besonders schwer zu lösen, da kein Algorithmus bekannt ist, der die Komplexität des DLPs stark reduziert, wie dies beispielsweise beim DLP in $\mathbb{Z}^*_p$ durch den Babystep-Giantstep-Algorithmus möglich ist. Deshalb werden diese Gruppen in modernen Kryptosystemen zunehmend eingesetzt, mit dem Effekt, dass gleiche Sicherheit mit deutlich geringerer Schlüssellänge erzielt werden kann.
+
+\item Multiplikative Gruppen von endlichen Körpern $GF(2^m)$ oder Untergruppen davon. Sie sind in der Praxis weniger verbreitet, und es nicht vollständig geklärt ob Angriffe auf das DLP in $GF(2^m)$ nicht effizienter sind als jene gegen das DLP in Primkörpern.
+
+\item Hyperelliptische Kurven oder algebraische Varietäten, die auch Verallgemeinerungen von elliptischen Kurven sind. Trotz einiger Vorteile gegenüber den klassischen elliptischen Kurven, sind die hyperelliptischen Kurven in der Praxis nicht sehr verbreitet.
+\end{enumerate}
+
+Es gab im Laufe der Zeit einige weitere Vorschläge für mögliche Gruppen gegeben, welche jedoch nicht weiter verfolgt wurden, da sich meist herausstellte, dass das DLP einfacher zu lösen ist.
+
+\subsection{Diffie-Hellmann Key Exchange}
 x
 
 
