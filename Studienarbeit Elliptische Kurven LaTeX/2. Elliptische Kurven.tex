@@ -333,6 +333,63 @@ kombinierung von verfahren
 \subsection{Implementierung in Python}
 U
 
+\subsection{Diskreter Logarithmusproblem über elliptischen Kurven}
+Wie in Kapitel XY gezeigt, kann das DLP verallgemeinert werden, sodass über jeder zyklischen Gruppe (mehr oder weniger effektiv) ein DLP definiert erden kann. Im ersten Abschnitts dieses Kapitels wurden die Gruppeneigenschaften der Punktmenge auf der elliptischen Kurve gezeigt. Gruppenelemente werden können über die Gruppenoperation $+$ \textit{addiert} werden. Es gilt der Folgende Satz:
+
+\paragraph{Satz:}
+Die Punkte einer elliptischen Kurve zusammen mit $O$ haben zyklischen Untergruppen. Unter bestimmten Bedingungen bilden \textit{alle} Punkte einer elliptischen Kurve eine zyklische Gruppe.\\
+
+Um eine kryptografisch \textit{sicheres} DLP zu konstruieren, ist es wichtig die Gruppenkardinalität zu kennen. Deren exakte Bestimmung ist bei elliptischen Kurven jedoch sehr aufwendig. Für die grobe Bestimmung der Gruppenkardinalität wurde in Kapitel XY bereits die Hasse-Weil-Schranke vorgestellt. Diese erlaubt es uns die Anzahl der Punkte einer elliptischen Kurve abzuschätzen. Vereinfacht kann man sagen das die Anzahl der Punkte in etwa $p$ entspricht, wenn die elliptische Kurve über $\mathbb{Z}^*_p$ definiert ist.\\
+
+Im folgenden wollen wir das DLP über elliptischen Kurven definieren:
+
+\paragraph{Definition: Das DLP über elliptischen Kurven (ECDLP)}
+Gegeben sei eine elliptische Kurve $E$. Wir betrachten ein primitives Element $P$ und ein beliebiges weiteres Element $T$. Das DLP ist die Bestimmung der natürlichen Zahl $d$ zwischen $1 \leq d \leq \#E$, sodass gilt:
+$$\underbrace{P + P + \dots + P}_{d-mal} = d P = T$$\\
+
+Die Bestimmung der natürlichen Zahl $d$ ist wie auch schon beim DLP über $\mathbb{Z}^*_p$ nicht trivial. In einem Kryptosystem wäre dementsprechend die natürliche Zahl $d$ der private Schlüssel und das Element $T$ der öffentliche Schlüssel. Anders als beim DLP über Primkörpern, wo beide Schlüssel natürliche Zahlen waren, ist der private Schlüssel $T$ hier ein Punkt der elliptischen Kurve. Der in der obigen Definition verwendete Ausdruck $dP$ wird \textit{Punktmultiplikation} genannt, da man schreiben kann $T = dP$. Es ist jedoch zu beachten das es dafür keine Rechenvorschrift gibt, die Zahl $d$ mit $P$ zu multiplizieren. Der Ausdruck bedeutet lediglich, dass die Gruppenoperation $d$ mal auf $P$ angewendet wird.\\
+
+Der Erzeuger eines Schlüsselpaars muss allerdings nicht einzeln $d$ mal $P$ auf sich selbst addieren, sonder kann sich eines \textit{Tricks} bedienen. Wie beim DLP über dem Primkörper $\mathbb{Z}^*_p$, wo der Square-And-Multiply-Algorithmus zu effizienten Berechnung des öffentlichen Schlüssels verwendet wurde, kann hier der sog. \textit{Double-And-Add-Algorithmus} verwendet werden. Dieser ist von der Idee her zum Square-And-Multiply-Algorithmus identisch, und unterscheidet sich nur durch die angewandten Operationen. Der folgende Code zeigt eine Beispielhafte Implementierung:
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Double-And-Add-Algorithmus in Python}, captionpos=b]
+def doubble_and_add(kPriv, start_point):
+	binary = bin(kPriv)
+	binary = binary[3:]
+    cur_point = start_point
+    for digit in binary:
+        # Doubble
+	    cur_point = curve.add(cur_point, cur_point)
+		if digit == "1":
+	        # Add
+            cur_point = curve.add(cur_point, start_point)
+    return cur_point
+\end{lstlisting}
+\vspace{\baselineskip}
+
+Zuerst wird die Binärdarstellung des private Schlüssels $d$ in $binary$ gespeichert. Nun wird diese Binärdarstellung von links nach rechts durchlaufen, wobei die vorderste $1$ ignoriert wird, da diese quasi schon in $1 \cdot$ Startpunkt $P$ steckt. Für jede Ziffer wird zunächst der aktuelle Punkt verdoppelt und im Falle einer $1$ wird zudem noch der Startpunkt addiert. Dieses Vorgehen wird angewandt bis die komplette Binärdarstellung von $d$ abgearbeitet ist. Der Output entspricht $dP$.
+
+Nachfolgend wollen wir verstehen, warum dieser Algorithmus funktioniert. Dazu betrachten wir das folgende Beispiel:
+
+Das Ziel ist es den Punkt $19	 P$ zu berechnen:
+$$21P = (10101_2)P = (d_4 d_3 d_2 d_1 d_0)_2 P$$
+
+Die Bits $d_4$ bis $d_0$ werden in absteigender Reihenfolge verarbeitet:
+
+\begin{align*}
+&d_4 = 1:	&&P = \boldsymbol{1}_2\ P  							&&\text{Startwert 1}\\
+&d_3 = 0: 	&&P + P = 2\ P = \boldsymbol{10}_2\ P 				&&\text{double}\\
+&d_2 = 1: 	&&2\ P + 2\ P = 4 P = \boldsymbol{100}_2\ P 			&&\text{double}\\
+&			&&4\ P + P = 5\ P = \boldsymbol{101}_2\ P 			&&\text{add, da $d_2 = 1$}\\
+&d_1 = 1: 	&&5\ P + 5\ P = 10\ P = \boldsymbol{1010}_2\ P 		&&\text{double}\\
+&d_0 = 1  	&&10\ P + 10\ P = 20\ P = \boldsymbol{10100}_2\ P 	&&\text{double}\\
+&			&&20\ P + P = 21\ P = \boldsymbol{10101}_2\ P 		&&\text{add, da $d_0 = 1$}
+\end{align*}
+
+Das darstellen von $d$ als binäre Zahl ermöglicht es, diese ausgehend von der ersten 1 ausgehend \textit{zusammenzubauen}. Jede Stelle im Binärsystem ist doppelt so wertig wie die vorherige, weshalb durch Verdoppeln die ganze Zahl um eine Stelle nach links geschoben wird. Durch diese Operation wird dann sozusagen eine 0 \textit{erzeugt}. Wenn nun eine 1 benötigt wird kann diese durch die Addition von 1 bzw. dem Startpunkt \textit{erzeugt} werden.\\
+
+Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht.
+
 
 
 

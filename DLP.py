@@ -14,20 +14,18 @@ class DLPonEC:
 
         return kPriv, kPub
 
-    def doubble_and_add(self, kPriv, start_point):
-        binary = bin(kPriv)
+    def doubble_and_add(self, d, start_point):
+        binary = bin(d)
         binary = binary[3:]
-        current_point = start_point
+        cur_point = start_point
         for digit in binary:
             # Doubble
-            current_point[0], current_point[1] = self.curve.add_points(current_point[0], current_point[1],
-                                                                       current_point[0], current_point[1])
+            cur_point = self.curve.add(cur_point, cur_point)
             if digit == "1":
                 # Add
-                current_point[0], current_point[1] = self.curve.add_points(current_point[0], current_point[1],
-                                                                           start_point[0], start_point[1])
+                cur_point = self.curve.add(cur_point, start_point)
 
-        return current_point
+        return cur_point
 
 
 curve = EllipticCurveInFp(2, 2, 17)

@@ -41,35 +41,39 @@ class EllipticCurveInFp:
         # y^2 = x^3 + ax + b muss erfüllt sein in F_p
         return (y ** 2 - x ** 3 - self.a * x - self.b) % self.p == 0
 
-    def add_points(self, x1, y1, x2, y2):
+    def add(self, P, Q):
+        x1, y1 = P
+        x2, y2 = Q
+        # Addition des neutralen Elements mit sich selbst ergibt das neutrale Element
         if x1 == "N" and x2 == "N":
-            # Addition des neutralen Elements mit sich selbst ergibt das neutrale Element
+            R = ("N", "N")
+            return R
+        # Addition eines Punktes und des neutralen Elements ergibt den Punkt
+        elif x1 == "N":
+            R = (x2, y2)
+            return R
+        elif x2 == "N":
+            R = (x1, y1)
+            return R
+        # Addition inverser Punkte ergibt neutrales Element
+        elif x1 == x2 and y1 != y2:
             x3 = "N"
             y3 = "N"
-            return x3, y3
-        elif x1 == "N":
-            # Addition eines Punktes und des neutralen Elements ergibt den Punk
-            x3 = x2
-            y3 = y2
-            return x3, y3
-        elif x2 == "N":
-            x3 = x1
-            y3 = y1
-            return x3, y3
+            R = (x3, y3)
+            return R
+
+        # Addition nach bekannten Formeln
         if x1 == x2 and y1 == y2:
             # Punktaddition mit sich selbst
             s = (3 * x1 ** 2 + self.a) * self.__inverse_mod(2 * y1, self.p) % self.p
-        elif x1 == x2 and y1 != y2:
-            # Addition inverser Punkte ergibt neutrales Element
-            x3 = "N"
-            y3 = "N"
-            return x3, y3
         else:
             # Punktaddition von unterschiedlichen Punkten
             s = (y2 - y1) * self.__inverse_mod(x2 - x1, self.p) % self.p
         x3 = (s ** 2 - x1 - x2) % self.p
         y3 = (s * (x1 - x3) - y1) % self.p
-        return x3, y3
+        R = (x3, y3)
+
+        return R
 
     def __inverse_mod(self, a, m):
         # Berechnet das inverse Element von a modulo m
