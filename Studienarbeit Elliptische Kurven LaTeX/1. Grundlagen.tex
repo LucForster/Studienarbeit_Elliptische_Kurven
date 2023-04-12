@@ -283,13 +283,37 @@ Ist $(R,1,\cdot)$ ein kommutatives Monoid, so nennt man $(R,0,1,+,\cdot,-)$ eine
 \subsection{Körper}
 %@Aaron Das hier ist noch dein Part // Siehe: MathematikFürDieInformatik S. 364
 % Vllt findest du aber auch eine bessere Definition.
-% Unterthema: inversenbildung in Körpern
+
+Ein Körper ist eine spezielle Form des Rings. Die Definition des Körpers wurde aus \cite[vgl.][S. 364-365]{Berghammer.2021} entnommen. Ein Ring $(K,0,1,+,\cdot,-)$ heißt oder gilt als \textbf{Körper}, wenn er kommutativ ist sowie gilt, dass $0 \neq 1$. Weiterhin muss folgende Formel $$x \neq 0 \Rightarrow \exists y \in K : yx = 1$$ für alle $x \in K$ gelten.\\
+
+Berghammer beschreibt in seinem Buch ein Stilbruch bei der Definition der Körper. Im Vergleich zu den Monoiden, Gruppen und Ringen erfordert der Körper eine Ungleichung als Axiom. Weiterhin existier ein noch komplizierteres Axiom, nämlich eine implikation mit einer Ungleichung als linker und einer Existenzquantifizierung als rechter Seite. Weiterhin ist im Gegensatz zu den Gruppen das linksinverse Element y zu x im zweiten Axiom bezüglich der Multiplikation nicht durch eine Spezifikation, sondern durch eine Existenzquantifizierung spezifiziert. Dadurch spezifiziert Berghammer Körper als algebraische Strukturen, welche nicht gleichungsdefiniert sind \cite[vgl.][S. 364-365]{Berghammer.2021} Der Satz $x \neq 0$ impliziert, dass es nur ein linksinverses Element geben kann. Aufgrund der Kommutativität von \glqq$\cdot$\grqq ist dieses linksinverse Element auch rechtsinvers.\\
+
+Desweiteren haben Körper weitere Eigenschaften. Diese sind dem Buch über elementare Algebra und Zahlentheorie von Stroth und Waldecker entnommen \cite[vgl.][S. 57-59]{AlgebraZahlentheorie.2019}.Sei $K$ ein Körper. Dann gilt
+\begin{enumerate}
+\item Die kleinste natürliche Zahl $n$ mit der Eigenschaft $\underbrace{1_{K} + ... + 1_{K} = 0_{K}}_{\substack{n-mal}}$ wird die \textbf{Charakteristik} von $K$ genannt. Mann schreibt das als char($K$)$ = n$. Gibt es keine solche Zahl n, so schreibt man char($K$)$ = 0$. 
+\item Ein Teilkörper von $K$ ist ein Teilring, der mit Einschränkung der Verknüpfungen selbst ein Körper ist.
+\item Der Durchschnitt aller Teilkörper von $K$ heißt  \textbf{Primkörper} von $K$.
+\item Zwei Körper heißen  \textbf{isomorph} genau dann, wenn es einen bijektiven Ringhomomorphismus von dem einen in den anderen gibt.
+\end{enumerate}
+
+Wie man sieht, ist ein Körper ein sehr komplexes Gebilde. Einige bekannte Körper sind die Mengen $\mathbb{Q}$, $\mathbb{R}$ und $\mathbb{C}$ mit der Multiplikation und der Addition innerhalb der Körper. Unter den Körpern befinden sich auch die endlichen Körper. Endliche Körper hat eine besondere Eigenschaft. Diese bezieht sich auf die Endlichkeit ihrer Elemente. Die folgenden Definitionen und Aussagen sind dem Script zur Kryptografie von Reinhold Hübl entnommen  \cite[vgl.][S. 266]{reinholdhuebl}.\\
+
+\paragraph{Definition: Endliche Körper und Primkörper}
+Sei $K$ ein Körper $(K,+,\cdot)$. $K$ ist ein endlicher Körper, wenn $\lvert K \rvert < \infty$. Ist $p$ eine Primzahl, so ist der Ring $\mathbb{Z}_p\mathbb{Z}/p\mathbb{Z}$ ein endlicher Körper. Man schreibt $\mathbb{F}_p$ für den Körper $\mathbb{Z}/p\mathbb{Z}$. Für eine Primzahl $p$ heißt der Körper $\mathbb{F}_p$ \textbf{Primkörper} der Charakteristik $p$. Dabei hat $\mathbb{F}_p$ folgende Elemente: $$\mathbb{F}_p =  \{0, 1, ..., p - 1\}$$ Alle Elemente in $\mathbb{F}_p$ sind teilerfremd zu $p$. Daher sind alle Äquivalenzklassen $[1], [2], ..., [p - 1]$ Einheiten in $\mathbb{Z}_p = \mathbb{Z}/p\mathbb{Z}$. Durch $x \in \mathbb{Z}_p \backslash \{0\}$ hat damit jedes Element ein Inverses. Damit wurde eine weitere wichtige Eigenschaft von Körpern gefunden, nämlich dass jedes Element in diesem Körper außer der Zahl Null ein Inverses in Bezug auf die Multiplikation hat. Doch was genau ist das Inverse?\\
+
+Das Inverse ist HIER WEITERSCHREIBEN
+
+Unterthema: inversenbildung in Körpern und Einführung durch Erweiterten Euklidischen Algorithmus
+
+
+Kapitel \ref{sec:python_euklid} wegen Umsetzung des EEA mit Python ansprechen
+
 
 \section{Allgemeines zur Verschlüsselung}
 XXX
 
 \subsection{Symmetrische und Asymmetrische Verschlüsselung}
-x
+XXX
 
 \section{Das diskrete Logarithmusproblem}
 Das DLP bildet die mathematische Grundlage für viele asymmetrische Kryptosysteme, wie den DHKE oder die Elgamal-Verschlüsselung. Etwas legere ausgedrückt könnte man das DLP als Baukasten für asymmetrische Kryptosysteme betrachten, da es für zyklische Gruppen verallgemeinert werden kann. Im Folgenden wollen wir zunächst das DLP in Primzahlkörpern betrachten. Hierzu greifen wir auf die in Kapitel XY erläuterten Eigenschaften zyklischer Gruppen zurück. 

@@ -175,7 +175,7 @@ Nachdem man allgemein geprüft hat, ob es sich bei der besagten Funktion um eine
 
 Neben dieser drei gängigen Methoden werden in der Mathematik und in der Kryptografie auch die Barrett-Reduktion und weiterhin auch eine Methode, bei welcher sich die Symmetrie zur x-Achse der elliptischen Kurve zur Berechnung zunutze gemacht wird, genutzt. Um diese soll es jedoch nicht gehen. In den folgenden zwei Unterkapiteln wird die Berechnung der Punkte über Brute-Force mit zwei Methoden sowie über die Punktaddition und -verdopplung erläutert und mittels Beispielen verständlich erklärt.
 
-\subsection{Punktberechnung: Brute-Force-Methode}
+\subsection{Punktbestimmung: Brute-Force-Methode}\label{sec:brute_force}
 Wie bereits erläutert wurde, ist die umgestellte Gleichung der elliptischen Kurve in zwei Variablen folgende:
 \begin{center}
 $y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
@@ -271,16 +271,16 @@ Die Ergebnisse zeigen dass für die folgenden $x$-Werte $f(x)$ ein Quadrat ist: 
 
 Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. Insbesondere, wenn das gewählte p groß ist, dann ist diese Brute-Force-Methode sehr aufwendig. Es müssen alle Quadrate in $\mathbb{F}_{p}$ und deren zugehörigen Wurzeln berechnet werden. Weiterhin entsteht Zeit- und Rechenaufwand beim Einsetzen in die Funktionen. In der Kryptografie ist jedoch die Wahl besonders großer p gängig, um ein hohes Sicherheitsniveau zu erreichen. Aus diesem Grund werden im Folgenden die beiden anderen angeführten Lösungsmöglichkeiten angeführt. 
 
-\subsection{Punktberechnung: Punktaddition und -verdopplung}
+\subsection{Punktbestimmung: Punktaddition und -verdopplung}
 Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss. Dieser muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein Punkt ist gegeben. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen.\\
 
 Um dies herauszufinden, müssen noch einmal die Gruppeneigenschaften von elliptischen Kurven über $\mathbb{F}_{p}$ betrachtet werden. Hankerson, Menezes und Vanstone beschreiben in ihrem Buch \glqq\textit{Guide to Elliptic Curve Cryptography}\grqq diese Gruppeneigenschaften und erklären damit, wie man herausfindet, ob es sich um eine zyklische Gruppe handelt und damit in welterem Sinne, welche Punkte auf der elliptischen Kurve Generatoren sind \cite[vgl.][S. 82-84]{Hankerson2004}. Sei E eine elliptische Kurve über $\mathbb{F}_{p}$. Die Anzahl der Punkte in E($\mathbb{F}_{p}$), bezeichnet als
-$\overline{E}(\mathbb{F}_{p})$, wird als die Ordnung von E über $\mathbb{F}_{p}$ bezeichnet. Dabei ist der imaginäre Punkt im Unendlichen inkludiert. Im Folgenden ist es wichtig herauszufinden, ob E eine zyklische Gruppe ist. Eine elliptische Kurve E über $\mathbb{F}_{p}$ ist eine zyklische Gruppe, wenn $\overline{E}(\mathbb{F}_{p})$ eine Primzahl ist. Die bereits angeführte Hasse-Weil-Schranke hilft dabei, eine Abschätzung darüber abzugeben.
+$\overline{E}(\mathbb{F}_{p})$, wird als die Ordnung von E über $\mathbb{F}_{p}$ bezeichnet. Dabei ist der imaginäre Punkt im Unendlichen inkludiert. Im Folgenden ist es wichtig herauszufinden, ob E eine zyklische Gruppe ist. Eine elliptische Kurve E über $\mathbb{F}_{p}$ ist eine zyklische Gruppe, wenn $\overline{E}(\mathbb{F}_{p})$ eine Primzahl ist. Dabei gilt die Regel: Definiert $\overline{E}(\mathbb{F}_{p})$ eine zyklische Gruppe, so ist die Anzahl der Punkte der Kurve eine Primzahl. Dadurch ergibt sich ein Vorteil. Wenn die Anzahl der Punkte prim ist, dann sagt das Lagrange Theorem aus, dass jeder Punkt auf der Kurve ein Erzeuger der Gruppe ist. Dadurch kann aus jedem Punkt alle anderen Punkte berechnet werden. Um dies weiter auszuführen, wird die bereits angeführte Hasse-Weil-Schranke genutzt, um eine Abschätzung über die Anzahl der Punkte abzugeben.
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
 \end{center} 
 
-Diese gibt eine obere und untere Schranke für $\overline{E}$ an. Liegt innerhalb dieser Schranke eine Primzahl, so ist die Wahrscheinlichkeit dafür, dass E eine zyklische Gruppe über $\mathbb{F}_{p}$ definiert, sehr hoch. Ist eine elliptische Kurve E eine zyklische Gruppe, dann hat sie genau ein Element, welches ein Erzeuger der Gruppe ist. Mit diesem Element lassen sich alle anderen Elemente der Gruppe durch Punktverdopplung bzw. Punktaddition erzeugen. Der Punkt hat damit die gleiche Ordnung wie E. Ist der Erzeuger und ein weiterer Punkt gegeben, so lassen sich auch über die Punktaddition weitere Punkte finden. Weiterhin sei gesagt, dass der Punkt im Unendlichen kein Erzeuger sein kann. Die Berechnung aller Punkte auf der Kurve ist trivial, wenn der Erzeuger bekannt ist. Nehmen wir als Beispiel eine elliptische Kurve E gegeben durch
+Diese gibt eine obere und untere Schranke für $\overline{E}$ an. Liegt innerhalb dieser Schranke eine Primzahl, so ist die Wahrscheinlichkeit dafür, dass E eine zyklische Gruppe über $\mathbb{F}_{p}$ definiert, sehr hoch. Ist eine elliptische Kurve E eine zyklische Gruppe und die Anzahl der Punkte ist nicht prim, dann hat sie genau ein Element, welches ein Erzeuger der Gruppe ist. Mit diesem Element lassen sich alle anderen Elemente der Gruppe durch Punktverdopplung bzw. Punktaddition erzeugen. Der Punkt hat damit die gleiche Ordnung wie E. Ist der Erzeuger und ein weiterer Punkt gegeben, so lassen sich auch über die Punktaddition weitere Punkte finden. Weiterhin sei gesagt, dass der Punkt im Unendlichen kein Erzeuger sein kann. Die Berechnung aller Punkte auf der Kurve ist trivial, wenn der Erzeuger bekannt ist. Nehmen wir als Beispiel eine elliptische Kurve E gegeben durch
 \begin{center}
 $y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
 \end{center}
@@ -309,29 +309,113 @@ function punktbestimmung(P, Q):
 	return Punkte
 \end{lstlisting}
 
+Der Pseudocode zeigt lediglich eine beispielhafte Umsetzung mittels Pseudocode. In \ref{sec:python_add_double} wird der ausprogrammierte Python-Code inklusive Erklärungen angegeben und weiter ausgeführt.\\
 
-Gegeben sei eine elliptische Kurve E
+Damit die Theorie anschaulich wird, folgt nun ein Beispiel für die Punktaddition und -verdopplung, um alle Punkte auf einer elliptischen Kurve zu berechnen. Das Beispiel ist angelehnt an \cite[vgl.][S. 279-280]{Paar.2016}. Gegeben sei eine elliptische Kurve E mit
+\begin{center}
+$y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
+\end{center}
 
+Weiterhin sei ein Punkt P auf der elliptischen Kurve gegeben durch P = (5, 1). Da nur ein Punkt gegeben ist, muss dieser verdoppelt werden. Es gilt $2 \cdot P = P + P = (x_1, y_1) + (x_2, y_2) = (5, 1) + (5, 1) = (x_3, y_3)$. Es gilt
+$$s = \frac{3x_1^2 + a}{2y_1} \text{, da } P = Q $$
+Setzt man die Werte ein, erhält man 
+$$s = \frac{3x_1^2 + a}{2y_1} = (2 \cdot 1)^{-1}(3 \cdot 5^2 + 2) = 2^{-1} \cdot 9 \equiv 9 \cdot 9 \equiv 13 \text{ mod } 17$$
+Da nun s berechnet wurde, kann man nun die folgenden Formeln lösen und $x_3$ sowie $y_3$ bestimmen.
+$$x_3 = s^2 - x_1 - x_2 = 13^2 - 5 - 5 = 159 \equiv 6 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 13(5 - 6) - 1 = - 14 \equiv 3 \text{ mod } 17$$
+Damit ist $2 \cdot P = (6, 3)$. Da jetzt zwei (unterschiedliche) Punkte vorhanden sind, kann nun die im Vergleich zur Punktverdopplung simplere Punktaddition durchgeführt werden, um weitere Punkte zu finden. Dafür addieren wir nun alle aufeinander folgenden Punkte zusammen. $3 \cdot P = P + Q = (5, 1) + (6, 3)$, wobei Q = $2 \cdot P$.\\
+Für s berechnet man
+$$s = \frac{y_2 - y_1}{x_2 - x_1} \text{, da } P \neq Q $$
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{3 - 1}{6 - 5} = 2 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 6 = - 7 \equiv 10 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 2(5 - 10) - 1 = - 11 \equiv 6 \text{ mod } 17$$
+Damit ist $3 \cdot P = (10, 6)$. $4 \cdot P = P + Q = (5, 1) + (10, 6)$, wobei Q = $3 \cdot P$. 
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{6 - 1}{10 - 5} = 1 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 10 = -14 \equiv 3 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 1(5 - 3) - 1 = 1 \equiv 6 \text{ mod } 17$$
+Damit ist $4 \cdot P = (3, 1)$. $5 \cdot P = P + Q = (5, 1) + (3, 1)$, wobei Q = $4 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{1 - 1}{3 - 5} = 0 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 0 - 5 - 3 = - 8 \equiv 9 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 0(5 - 9) - 1 = - 1 \equiv 16 \text{ mod } 17$$
+Damit ist $5 \cdot P = (9, 16)$. $6 \cdot P = P + Q = (5, 1) + (9, 16)$, wobei Q = $5 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{16 - 1}{9 - 5} = 15 \cdot 13 \equiv 8 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 13 - 5 - 9 = -1 \equiv 16 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 8(5 - 16) - 1 = - 89 \equiv 13 \text{ mod } 17$$
+Damit ist $6 \cdot P = (16, 13)$. $7 \cdot P = P + Q = (5, 1) + (16, 13)$, wobei Q = $6 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{13 - 1}{16 - 5} = 12 \cdot 14 \equiv 15 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 16 = - 17 \equiv 0 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 15(5 - 0) - 1 = 6 \text{ mod } 17$$
+Damit ist $7 \cdot P = (0, 6)$. $8 \cdot P = P + Q = (5, 1) + (0, 6)$, wobei Q = $7 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{6 - 1}{0 - 5} = -1 \equiv 16 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 0 = -4 \equiv 13 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 16(5 - 13) - 1 = - 129 \equiv 7 \text{ mod } 17$$
+Damit ist $8 \cdot P = (13, 7)$. $9 \cdot P = P + Q = (5, 1) + (13, 7)$, wobei Q = $8 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{7 - 1}{13 - 5} = 6 \cdot 15 = 5 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 25 - 5 - 13 = 7 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 5(5 - 7) - 1 = - 11 \equiv 6 \text{ mod } 17$$
+Damit ist $9 \cdot P = (7, 6)$. $10 \cdot P = P + Q = (5, 1) + (7, 6)$, wobei Q = $9 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{6 - 1}{7 - 5} = 5 \cdot 9 \equiv 11 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 2 - 5 - 7 = -10 \equiv 7 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 11(5 - 7) - 1 = - 23 \equiv 11 \text{ mod } 17$$
+Damit ist $10 \cdot P = (7, 11)$. $11 \cdot P = P + Q = (5, 1) + (7, 11)$, wobei Q = $10 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{11 - 1}{7 - 5} = 5 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 25 - 5 - 7 = 13 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 5(5 - 13) - 1 = - 41 \equiv 10 \text{ mod } 17$$
+Damit ist $11 \cdot P = (13, 10)$. $12 \cdot P = P + Q = (5, 1) + (13, 10)$, wobei Q = $11 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{10 - 1}{13 - 5} = 9 \cdot 15 \equiv 16 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 13 = - 17 \equiv 0 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 16(5 - 0) - 1 = 79 \equiv 11 \text{ mod } 17$$
+Damit ist $12 \cdot P = (0, 11)$. $13 \cdot P = P + Q = (5, 1) + (0, 11)$, wobei Q = $12 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{11 - 1}{0 - 5} = - 2 \equiv 15 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 0 = - 1 \equiv 16 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 15(5 - 16) - 1 = - 166 \equiv 4 \text{ mod } 17$$
+Damit ist $13 \cdot P = (16, 4)$. $14 \cdot P = P + Q = (5, 1) + (16, 4)$, wobei Q = $13 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{4 - 1}{16 - 5} = 3 \cdot 14 \equiv 8 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 13 - 5 - 16 = - 8 \equiv 9 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 8(5 - 9) - 1 = - 33 \equiv 1 \text{ mod } 17$$
+Damit ist $14 \cdot P = (9, 1)$. $15 \cdot P = P + Q = (5, 1) + (9, 1)$, wobei Q = $14 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{1 - 1}{9 - 5} = 0 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 0 - 5 - 9 = - 14 \equiv 3 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 0(5 - 3) - 1 = - 1 \equiv 16 \text{ mod } 17$$
+Damit ist $15 \cdot P = (3, 16)$. $16 \cdot P = P + Q = (5, 1) + (3, 16)$, wobei Q = $15 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{16 - 1}{3 - 5} = - 15 \cdot 9 \equiv 1 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 3 = - 7 \equiv 10 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 1(5 - 10) - 1 = - 6 \equiv 11 \text{ mod } 17$$
+Damit ist $16 \cdot P = (10, 11)$. $17 \cdot P = P + Q = (5, 1) + (10, 11)$, wobei Q = $16 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{11 - 1}{10 - 5} = 2 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 10 = - 11 \equiv 6 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 2(5 - 6) - 1 = - 3 \equiv 14 \text{ mod } 17$$
+Damit ist $17 \cdot P = (6, 14)$. $18 \cdot P = P + Q = (5, 1) + (6, 14)$, wobei Q = $17 \cdot P$.\\
+Daraus ergibt sich 
+$$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{14 - 1}{6 - 5} = 13 \text{ mod } 17$$
+$$x_3 = s^2 - x_1 - x_2 = 16 - 5 - 6 = 5 \text{ mod } 17$$
+$$y_3 = s(x_1 - x_3) - y_1 = 13(5 - 5) - 1 = - 1 \equiv 16 \text{ mod } 17$$
+Damit ist $18 \cdot P = (5, 16)$. $19 \cdot P = P + Q = (5, 1) + (5, 16) = \infty $, wobei Q = $18 \cdot P$. Der Punkt im unendlichen wurde erreicht, womit nun alle Punkte gefunden wurden.\\
 
-hankerson es gibt gruppen die nicht zyklisch sind zn x zn (zwei sätze)
-wenn zyklisch mit primzahlordnung alle punkte erzeuger
+Ähnlich wie bei der Brute-Force-Methode in \ref{sec:brute_force} ist die Berechnung über die Punktaddition und -verdopplung sehr rechenaufwendig. Die Schritte können in dieser Methode nicht ohne weiteres vereinfacht werden. Dadurch bleiben nur die Möglichkeiten offen, diese Methode in Code abzubilden, wie in \ref{sec:python_add_double} oder es händisch auszurechnen, was sehr zeit- und rechenaufwendig ist. Berechnet man die Punkte mit der Hand, dann ist die Fehleranfälligkeit hoch, da die vielen Rechnungen schnell unübersichtlich werden. Dadurch bleibt die Implementierung dieser Methode über Programmcode die einzige logische und effiziente Möglichkeit. Die nächste angeführte Methode zur Berechnung von Punkten auf einer elliptischen Kurve ist die algorithmische Brute-Force-Methode. Durch sie kann im Vergleich zu den zwei vorausgehenden Methoden der Zeit- und Rechenaufwand verringert werden.
 
-
-Lagrange Theorem -> wenn ordnung p prim, dann ist jeder punkt außer unendlich kleiner punkt erzeuger bzw. generator
-
-
-
-\subsection{Punktberechnung: Algorithmische Brute-Force-Methode}
+\subsection{Punktbestimmung: Algorithmische Brute-Force-Methode}
 brute force mit
 
 quadratprüfung element
 quadratwurzel bestimmen
 
 kombinierung von verfahren
-
-
-\subsection{Implementierung in Python}
-U
 
 \subsection{Diskreter Logarithmusproblem über elliptischen Kurven}
 Wie in Kapitel XY gezeigt, kann das DLP verallgemeinert werden, sodass über jeder zyklischen Gruppe (mehr oder weniger effektiv) ein DLP definiert erden kann. Im ersten Abschnitts dieses Kapitels wurden die Gruppeneigenschaften der Punktmenge auf der elliptischen Kurve gezeigt. Gruppenelemente werden können über die Gruppenoperation $+$ \textit{addiert} werden. Es gilt der Folgende Satz:
