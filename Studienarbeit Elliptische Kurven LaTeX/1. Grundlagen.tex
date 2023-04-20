@@ -136,7 +136,7 @@ In einem Monoid $(M,e,\cdot)$ definiert man die $n$-te \textbf{Potenz} $x^n$ von
 
 Daraus ergibt sich für den Monoid $(\mathbb{N},1,\cdot)$ die aus $\mathbb{R}$ gewohnte Potenzierung. Nach welcher für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 \cdot x_2 \cdot \dots \cdot x_n$ ergibt. Betrachtet man jedoch den Monoid $(\mathbb{N},0,+)$, so ergibt analog dazu für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 + x_2 + \dots + x_n = x \cdot n$, was also einer Multiplikation von $x$ mit $n$ entspricht.
 
-\subsection{Gruppe}
+\subsection{Gruppe}\label{sec:gruppe}
 
 \paragraph{Definition: Gruppe}
 Eine algebraische Struktur $(G,e,\cdot,inv)$ des Typs $(0,2,1)$ heißt \textbf{Gruppe}, falls für alle $x,y,z \in G$ die folgenden Axiome gelten:
@@ -281,10 +281,7 @@ Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(
 Ist $(R,1,\cdot)$ ein kommutatives Monoid, so nennt man $(R,0,1,+,\cdot,-)$ einen kommutativen Ring.
 
 \subsection{Körper}
-%@Aaron Das hier ist noch dein Part // Siehe: MathematikFürDieInformatik S. 364
-% Vllt findest du aber auch eine bessere Definition.
-
-Ein Körper ist eine spezielle Form des Rings. Die Definition des Körpers wurde aus \cite[vgl.][S. 364-365]{Berghammer.2021} entnommen. Ein Ring $(K,0,1,+,\cdot,-)$ heißt oder gilt als \textbf{Körper}, wenn er kommutativ ist sowie gilt, dass $0 \neq 1$. Weiterhin muss folgende Formel $$x \neq 0 \Rightarrow \exists y \in K : yx = 1$$ für alle $x \in K$ gelten.\\
+Ein Körper ist eine spezielle Form des Rings. Die Definition des Körpers wurde aus \cite[vgl.][S. 364-365]{Berghammer.2021} entnommen. Ein Ring $(K,0,1,+,\cdot,-)$ heißt \textbf{Körper}, wenn er kommutativ ist sowie gilt, dass $0 \neq 1$. Weiterhin muss folgende Formel $$x \neq 0 \Rightarrow \exists y \in K : yx = 1$$ für alle $x \in K$ gelten.\\
 
 Berghammer beschreibt in seinem Buch ein Stilbruch bei der Definition der Körper. Im Vergleich zu den Monoiden, Gruppen und Ringen erfordert der Körper eine Ungleichung als Axiom. Weiterhin existier ein noch komplizierteres Axiom, nämlich eine implikation mit einer Ungleichung als linker und einer Existenzquantifizierung als rechter Seite. Weiterhin ist im Gegensatz zu den Gruppen das linksinverse Element y zu x im zweiten Axiom bezüglich der Multiplikation nicht durch eine Spezifikation, sondern durch eine Existenzquantifizierung spezifiziert. Dadurch spezifiziert Berghammer Körper als algebraische Strukturen, welche nicht gleichungsdefiniert sind \cite[vgl.][S. 364-365]{Berghammer.2021} Der Satz $x \neq 0$ impliziert, dass es nur ein linksinverses Element geben kann. Aufgrund der Kommutativität von \glqq$\cdot$\grqq{} ist dieses linksinverse Element auch rechtsinvers.\\
 
@@ -296,18 +293,75 @@ Desweiteren haben Körper weitere Eigenschaften. Diese sind dem Buch über eleme
 \item Zwei Körper heißen  \textbf{isomorph} genau dann, wenn es einen bijektiven Ringhomomorphismus von dem einen in den anderen gibt.
 \end{enumerate}
 
-Wie man sieht, ist ein Körper ein sehr komplexes Gebilde. Einige bekannte Körper sind die Mengen $\mathbb{Q}$, $\mathbb{R}$ und $\mathbb{C}$ mit der Multiplikation und der Addition innerhalb der Körper. Unter den Körpern befinden sich auch die endlichen Körper. Endliche Körper hat eine besondere Eigenschaft. Diese bezieht sich auf die Endlichkeit ihrer Elemente. Die folgenden Definitionen und Aussagen sind dem Script zur Kryptografie von Reinhold Hübl entnommen  \cite[vgl.][S. 266]{reinholdhuebl}.\\
+Wie man sieht, ist ein Körper ein sehr komplexes Gebilde. Einige bekannte Körper sind die Mengen $\mathbb{Q}$, $\mathbb{R}$ und $\mathbb{C}$ mit der Multiplikation und der Addition innerhalb der Körper. Unter den Körpern befinden sich auch die endlichen Körper. Endliche Körper hat eine besondere Eigenschaft. Diese bezieht sich auf die Endlichkeit und der Anzahl ihrer Elemente. Die folgenden Definitionen und Aussagen sind dem Script zur Kryptografie von Reinhold Hübl entnommen  \cite[vgl.][S. 266]{reinholdhuebl}.\\
 
 \paragraph{Definition: Endliche Körper und Primkörper}
-Sei $K$ ein Körper $(K,+,\cdot)$. $K$ ist ein endlicher Körper, wenn $\lvert K \rvert < \infty$. Ist $p$ eine Primzahl, so ist der Ring $\mathbb{Z}_p\mathbb{Z}/p\mathbb{Z}$ ein endlicher Körper. Man schreibt $\mathbb{F}_p$ für den Körper $\mathbb{Z}/p\mathbb{Z}$. Für eine Primzahl $p$ heißt der Körper $\mathbb{F}_p$ \textbf{Primkörper} der Charakteristik $p$. Dabei hat $\mathbb{F}_p$ folgende Elemente: $$\mathbb{F}_p =  \{0, 1, ..., p - 1\}$$ Alle Elemente in $\mathbb{F}_p$ sind teilerfremd zu $p$. Daher sind alle Äquivalenzklassen $[1], [2], ..., [p - 1]$ Einheiten in $\mathbb{Z}_p = \mathbb{Z}/p\mathbb{Z}$. Durch $x \in \mathbb{Z}_p \backslash \{0\}$ hat damit jedes Element ein Inverses. Damit wurde eine weitere wichtige Eigenschaft von Körpern gefunden, nämlich dass jedes Element in diesem Körper außer der Zahl Null ein Inverses in Bezug auf die Multiplikation hat. Doch was genau ist das Inverse?\\
+Sei $K$ ein Körper $(K,+,\cdot)$. $K$ ist ein endlicher Körper, wenn $\lvert K \rvert < \infty$. Ist $p$ eine Primzahl, so ist der Ring $\mathbb{Z}_p\mathbb{Z}/p\mathbb{Z}$ ein endlicher Körper. Man schreibt $\mathbb{F}_p$ für den Körper $\mathbb{Z}/p\mathbb{Z}$. Für eine Primzahl $p$ heißt der Körper $\mathbb{F}_p$ \textbf{Primkörper} der Charakteristik $p$. Dabei hat $\mathbb{F}_p$ folgende Elemente: $$\mathbb{F}_p =  \{0, 1, ..., p - 1\}$$ Alle Elemente in $\mathbb{F}_p$ sind teilerfremd zu $p$. Daher sind alle Äquivalenzklassen $$[1], [2], ..., [p - 1]$$ Einheiten in $\mathbb{F}_p$. Durch $x \in \mathbb{F}_p \backslash \{0\}$ hat damit jedes Element ein Inverses. Damit wurde eine weitere wichtige Eigenschaft von Körpern gefunden, nämlich dass jedes Element in diesem Körper außer der Zahl Null ein Inverses in Bezug auf die Multiplikation hat.
 
-Das Inverse ist HIER WEITERSCHREIBEN
+\paragraph{Satz:}
+Die Einheitengruppe $\mathbb{F}_p^*$ eines endlichen Körpers $\mathbb{F}_p$ ist zyklisch.\\
 
-Unterthema: inversenbildung in Körpern und Einführung durch Erweiterten Euklidischen Algorithmus
+Im Kapitel \ref{sec:gruppe} wurde das Inverse definiet. Für die Rechnungen in einem endlichem Körper $\mathbb{F}_p$ können keine rationale Zahlen $\mathbb{Q}$ dargestellt werden. In manchen Rechnungen kommt man jedoch nicht darum, mit Brüchen oder etwaigen rationalen Zahlen zu hantieren. Damit man jedoch eindeutige Ergebnisse in $\mathbb{F}_p$ bekommt, muss man den Kehrwert über das Inverse bilden. Nimmt man als Beispiel die Zahl $\frac{3}{11}$ in $\mathbb{F}_{17}$. Da es keine rationalen Zahlen in der zyklischen Gruppe gibt, muss man anders an die Werte kommen. Als erstes schreibt man um: $\frac{3}{11} = 3 \cdot \frac{1}{11}$. Jetzt berechnet man das inverse Element von 11 in $\mathbb{F}_{17}$. Das inverse Element ist die Zahl 14. Man rechnet $\frac{3}{11} = 3 \cdot \frac{1}{11} = 3 \cdot 14 = 42 \equiv 8 \text{ mod } 17$.\\ 
+
+Das Inverse berechnet man üblicherweise mit dem erweiterten euklidischen Algorithmus oder Potenzregeln mit Zuhilfenahme des kleinen Satzes von Fermat. Für diese Studienarbeit wird jedoch der erweiterte euklidische Algorithmus betrachtet. Mit diesem kann man das multiplikative Inverse der Zahl $a^{-n}$ bestimmen, also den Kehrwert von $a$. Um den erweiterten euklidischen Algorithmus durchzuführen, muss im Vorfeld der reguläre euklidische Algorithmus durchgeführt worden sein. Struckmann und Wätjen beschreiben in Ihrem Buch über Mathematik für Informatiker, dass der euklidische Algorithmus den größten gemeinsamen Teiler von zwei Zahlen $a$ und $b$ berechnet. Die Laufzeitkomplexität des Algorithmus ist $O(log(a) \cdot log(b))$ \cite[vgl.][S. 222]{mathematikinformatik.2016}. In einer Internetveröffentlichung der Hochschule für Technik in Stuttgart wird die Grundfunktionsweise des euklidischen Algorithmus in einem Satz auf den Punkt gebracht: \textit{Teilen so lange mit Rest, bis der Rest 0 erreicht} \cite[vgl.][S. 2]{euklidstuttgart}. Bei dem Iterationsschritt vor dem Schritt, bei welchem die 0 erreicht wurde, ist der Rest der $ggt(a, b)$.\\
+
+Als erstes legt man zwei Zahlen $a$ und $b$ fest, für welche der euklidische Algorithmus durchgeführt werden soll. Im ersten Schritt teilt man die kleinere Zahl durch die größere und schreibt den Rest auf. Im nächsten Schritt teilt man die kleinere Zahl durch den Rest und schreibt dann wieder den Rest auf. Dies wird solange wiederholt, bis die 0 erreicht ist. Die Vorgehensweise soll anhand von zwei Beispielen erfolgen. Als erstes Beispiel wird $a = 174$ und $b = 102$ gesetzt.
+\begin{align*}
+&174 = 1 \cdot 102 + 72\\
+&102 = 1 \cdot 72 + 30\\
+&72 = 2 \cdot 30 + 12\\
+&30 = 2 \cdot 12 + 6\\
+&12 = 2 \cdot 6 + 0
+\end{align*}
+Als erstes haben wir eine Gleichung aufgestellt. Die Zahl 174 setzt sich aus $1 \cdot 102$ und dem Rest 72 zusammen. Im nächsten Schritt nimmt man die größte Zahl und stellt sie links von der Gleichung, in diesem Fall die Zahl 102. Man prüft, wie oft der vorherige Rest 72 in die 102 reinpasst. Der Rest ist die Zahl 30. Die Zahl 102 wird nun durch 72 substituiert. Der vorherige Rest 30 passt zwei mal in die 72. Der Rest ist 12. Die 30 wird im nächsten Iterationsschritt links der Gleichung gesetzt.  Der vorherige Rest 12 passt zwei mal in die Zahl 30 rein und es ergibt sich ein Rest von 6. Im nächsten Iterationsschritt setzen wir die 12 links in die Gleichung ein. Der vorherige Rest 6 passt genau zwie mal in die 12 rein. Da sich keiN Rest ergibt, ist der Algorithmus vollständig durchgelaufen. Im vorletzten Iterationsschritt kann man den größten gemeinsamen Teiler ablesen. Der durchgeführte euklidische Algorithmus ergibt, dass der $ggt(174, 102)$ die Zahl 6 ist.\\
+
+Hübl beschreibt den euklidischen Algorithmus in seinem Script über eine allgemeine Formel \cite[vgl.][S. 256-257]{reinholdhuebl}. Sei $i = 0$, $r_{1} = a$ und $r_{0} = b$. Man dividiert $r_{i}$ durch $r_{i + 1}$ mit Rest durch folgende Formel: $$r_{i} = q \cdot r_{i + 1} + c$$
+Dabei ist q eine natürliche Zahl und der Rest $c \in \{0, 1, ..., r_{i + 1} - 1\}$. Falls $b = 0$, dann ist der Algorithmus fertig. Falls $b \neq 0$, setzt man $r_{i + 2} = c$ und $i = i + 1$. Dies wird so oft wiederholt, bis der Rest 0 ist und der Algorithmus durchgelaufen ist. Der größte gemeinsame Teiler ist in beiden Fällen der Rest im vorletzten Iterationsschritt vor dem Erreichen der 0.\\
+
+Nun wird ein etwas längeres Beispiel betrachtet. Man setzt $a = 575$ und $b = 839$. Dadurch ist  $i = 0$, $r_{0} = a = 839$ und $r_{1} = b = 575$.
+\begin{align*}
+&i = 0: \qquad 839 = 1 \cdot 575 + 264\text{. Man setzt } r_{2} = 264\\
+&i = 1: \qquad 575 = 2 \cdot 264 + 47\text{. Man setzt } r_{2} = 47\\
+&i = 2: \qquad 264 = 5 \cdot 47 + 29\text{. Man setzt } r_{2} = 29\\
+&i = 3: \qquad 47 = 1 \cdot 29 + 18\text{. Man setzt } r_{2} = 18\\
+&i = 4: \qquad 29 = 1 \cdot 18 + 11\text{. Man setzt } r_{2} = 11\\
+&i = 5: \qquad 18 = 1 \cdot 11 + 7\text{. Man setzt } r_{2} = 7\\
+&i = 6: \qquad 11 = 1 \cdot 7 + 4\text{. Man setzt } r_{2} = 4\\
+&i = 7: \qquad 7 = 1 \cdot 4 + 3\text{. Man setzt } r_{2} = 3\\
+&i = 8: \qquad 4 = 1 \cdot 3 + 1\text{. Man setzt } r_{2} = 1\\
+&i = 9: \qquad 3 = 3 \cdot 1 + 0\text{.}\longrightarrow\text{\textbf{STOPP}}
+\end{align*}
+Die durchgeführte Rechnung ergibt, dass der $ggt(839, 575)$ die Zahl 1 ist.\\
 
 
-Kapitel \ref{sec:python_euklid} wegen Umsetzung des EEA mit Python ansprechen
+Der euklidische Algorithmus liefert nur den größten gemeinsamen Teiler und nicht das Inverse. Um das Inverse zu erlangen, muss der euklidische Algorithmus zurückgerechnet werden. Diese Rückrechnung wird auch als der erweiterte euklidische Algorithmus bezeichnet. Dabei steht der Rest auf der linken Seite der Gleichung und man rechnet den euklidischen Algorithmus zurück, damit eine Gleichung der folgenden Form entsteht: $g = x \cdot a + y \cdot b$, wobei $a, b \in \mathbb{N} \ \{0\}$ und $ggt(a, b) = g$ \cite[vgl.][S. 257]{reinholdhuebl}. Folgend nun die Rückwärtsrechnung für das erste Beispiel.
+\begin{align*}
+&6 = 30 - 2 \cdot 12\\
+&\enspace = 30 - 2 \cdot (72 - 2 \cdot 30) = 5 \cdot 30 - 2 \cdot 72\\
+&\enspace = 5 \cdot (102 - 72) - 2 \cdot 72 = 5 \cdot 102 - 7 \cdot 72\\
+&\enspace = 5 \cdot 102 - 7 \cdot (174 - 102) = 12 \cdot 102 -7 \cdot 174
+\end{align*}
+Damit wurde die Gleichung, die den Rest beschreibt gefunden. Diese ist $$6 = 12 * 102 -7 * 174$$ Diese kleine Beispielrechnung für den erweiterten euklidischen Algorithmus dient lediglich der Veranschaulichung der Funktionsweise. Da der Rest 6 ist hat 174 kein multiplikatives Inverses Modulo 102. Nun wird der erweiterte euklidische Algorithmus für das zweite Beispie angewendet, in welchem der Rest 1 ist und somit ein multiplikatives Inverses von 575 Modulo 839 existiert.
+\begin{align*}
+&1 = 4 - 3\\
+&\enspace = 4 - (7 - 4)\\
+&\enspace = 2 \cdot (11 - 7) - 7 = 2 \cdot 11 - 3 \cdot 7\\
+&\enspace = 2 \cdot 11 - 3 \cdot (18 - 11) = 5 \cdot 11 - 3 \cdot 18\\
+&\enspace = 5 \cdot (29 - 18) - 3 \cdot 18 = 5 \cdot 29 - 8 \cdot 18\\
+&\enspace = 5 \cdot 23 - 8 \cdot (47 - 29) = 13 \cdot 29 - 8 \cdot 47\\
+&\enspace = 13 \cdot (264 - 5 \cdot 47) - 8 \cdot 47 = 13 \cdot 264 - 73 \cdot 47\\
+&\enspace = 13 \cdot 264 - 73 \cdot (575 - 2 \cdot 264) = 159 \cdot 264 - 73 \cdot 575\\
+&\enspace = 159 \cdot (839 - 575) - 73 \cdot 575 = 159 \cdot 839 - 232 \cdot 575\\
+\end{align*}
+Damit wurde die Gleichung, die den Rest beschreibt gefunden. Diese ist $$1 = 159 \cdot 839 - 232 \cdot 575$$ Das Inverse wird nun wie folgt gefunden:
+\begin{align*}
+&1 \equiv x \cdot 575\text{ mod }839\\
+&x \equiv \frac{1}{575}\text{ mod }839\\
+&x = - 232 \equiv 607\text{ mod }839
+\end{align*}
+Das multiplikative Inverse von 575 Modulo 839 ist 607.\\
 
+Bei der Berechnung der Punkte einer elliptischen Kurve wird oft das Inverse benötigt, da man durch die Formeln zur Berechnung der x-Werte und der y-Werte oft rationale Zahlen in Form von Brüchen bekommt. Durch das multiplikative Inverse kann eine rationale Zahl $\mathbb{Q}$ durch eine ganze Zahl $\mathbb{Z}$ dargestellt werden. Dies ist essentiell für die Rechnung in $\mathbb{F}_p$, da man nur mit ganzen Zahlen rechnet. Da die Rechnung von Hand sehr umständlich und unübersichtlich ist empfiehlt es sich, den euklidischen Algorithmus und den erweiterten euklidischen Algorithmus als Programm abzubilden. In Kapitel \ref{sec:python_euklid} wurde die beiden Algorithmen in Python umgesetzt.
 
 \section{Allgemeines zur Verschlüsselung}
 XXX
