@@ -138,7 +138,7 @@ Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik 
 Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einiger Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit p > 3 durchführt und die Punkte anschließend in der Konsole ausgibt.
 
 \subsection{Rechnerische Grundlagen}
-Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[vgl.][S. 138]{silverman}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[vgl.][S. 181]{reinholdhuebl} wie folgt beschrieben. Sei k = $\mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
+Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[vgl.][S. 138]{silverman}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[vgl.][S. 181]{reinholdhuebl} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
 \end{center} 
@@ -424,12 +424,65 @@ Damit ist $18 \cdot P = (5, 16)$. $19 \cdot P = P + Q = (5, 1) + (5, 16) = \inft
 Ähnlich wie bei der Brute-Force-Methode in \ref{sec:brute_force} ist die Berechnung über die Punktaddition und -verdopplung sehr rechenaufwendig. Die Schritte können in dieser Methode nicht ohne weiteres vereinfacht werden. Dadurch bleiben nur die Möglichkeiten offen, diese Methode in Code abzubilden, wie in \ref{sec:python_add_double} oder es händisch auszurechnen, was sehr zeit- und rechenaufwendig ist. Berechnet man die Punkte mit der Hand, dann ist die Fehleranfälligkeit hoch, da die vielen Rechnungen schnell unübersichtlich werden. Dadurch bleibt die Implementierung dieser Methode über Programmcode die einzige logische und effiziente Möglichkeit. Die nächste angeführte Methode zur Berechnung von Punkten auf einer elliptischen Kurve ist die algorithmische Brute-Force-Methode. Durch sie kann im Vergleich zu den zwei vorausgehenden Methoden der Zeit- und Rechenaufwand verringert werden.
 
 \subsection{Punktbestimmung: Algorithmische Brute-Force-Methode}
-brute force mit
+Die algorithmische Brute-Force-Methode ist der klassischen Brute-Force-Methode in \ref{sec:brute_force} sehr ähnlich. Sie unterscheidet sich jedoch in einem wichtigen Aspelt. Während man bei der klassichen Methode die Quadrate und ihre Quadratwurzeln durch Ausprobieren aller Möglichkeiten herausfindet, wird bei der algorithmischen Methode die Findung der Quadrate und ihrer Wurzeln über einen Algorithmus durchgeführt. Der Algorithmus beinhaltet eine Quadratprüfung sowie eine Quadratwurzelprüfung über Schlussfolgerungen aus dem Satz von Fermat. Bei großen $p$ ist das Finden von Quadraten und der Quadratwurzeln sehr aufwendig. Der Vorteil der algorithmischen Methode ist, dass diese auch bei einem großen $p$ noch effizient berechnet werden können. 
 
-quadratprüfung element
-quadratwurzel bestimmen
+\paragraph{Satz von Fermat}
+Ist $\mathbb{F}_q$ ein endlicher Körper mit $q = p^e$ Elementen und p ist eine Primzahl, so ist die Einheitengruppe $\mathbb{F}_q^* = \mathbb{F}_q \setminus \{0\}$ zyklisch von der Ordnung $q - 1$.
 
-kombinierung von verfahren
+Aus diesem Satz lassen sich zwei Folgerungen herleiten, welche Grundlage für die algorithmische Brute-Force-Methode sind. Die genaue Herleitung der Folgerungen soll kein Teil dieser Arbeit sein. Die Folgerungen wurden dem Script von Hübl entnommen \cite[vgl.][S. 269]{reinholdhuebl}.
+
+\paragraph{Folgerung 1}
+Ist $\mathbb{F}_p$ ein endlicher Primkörper mit einer Primzahl $p \geq 3$, so ist ein $x \in \mathbb{F}_p^*$ genau dann ein Quadrat, wenn $x^{\frac{p - 1}{2}} = 1$. Genau die Hälfte der Elemente von $\mathbb{F}_p^*$ sind Quadrate.
+
+\paragraph{Folgerung 2}
+Ist p eine Primzahl, für die 4 ein Teiler von $p + 1$ ist und ist $x \in \mathbb{F}_p^*$ ein Quadrat, so ist $$a = x^{\frac{p + 1}{4}}$$ eine Quadratwurzel von $x$.\\
+
+Dies wird nun an einem Beispiel verdeutlicht. Gegeben sei ein Polynom einer elliptischen Kurve E der Form $$F(X, Y) = Y^{2} - X^{3} - X - 1 \in \mathbb{F}_{7}$$ Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgende Gleichung: $$y^{2} =  x^{3} + x + 1 \text{ mod }7$$
+
+Um nun zu prüfen, welche Elemente in $\mathbb{F}_{7}$ Quadrate sind, muss für jedes Element geprüft werden, ob $x^{\frac{p - 1}{2}} = 1$ in $\mathbb{F}_{7}$.\\
+
+\begin{itemize}
+\item $1^{\frac{7 - 1}{2}} = 1$ mod(7)
+\item $2^{\frac{7 - 1}{2}} = 1$ mod(7)
+\item $3^{\frac{7 - 1}{2}} = 6 \neq 1$ mod(7)
+\item $4^{\frac{7 - 1}{2}} = 1$ mod(7)
+\item $5^{\frac{7 - 1}{2}} = 6 \neq 1$ mod(7)
+\item $6^{\frac{7 - 1}{2}} = 6 \neq 1$ mod(7)
+\end{itemize} 
+
+Die Kandidaten für Quadrate auf der Kurve sind die 1, die 2 und die 4. Hier erkennt man auch, dass genau die Hälfte der Elemente Quadrate sind. Im Folgenden werden die Kandidaten in die umgestellte Gleichung eingesetzt.
+
+\begin{itemize}
+\item $f(0) =  0^{3}$ + 0 + 1 = 1 $\in \mathbb{F}_{7} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(1) =  1^{3}$ + 1 + 1 = 3 $\in \mathbb{F}_{7}$
+\item $f(2) =  2^{3}$ + 2 + 1 = 4 $\in \mathbb{F}_{7} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(3) =  3^{3}$ + 3 + 1 = 3 $\in \mathbb{F}_{7}$
+\item $f(4) =  4^{3}$ + 4 + 1 = 6 $\in \mathbb{F}_{7}$
+\item $f(5) =  5^{3}$ + 5 + 1 = 5 $\in \mathbb{F}_{7}$
+\item $f(6) =  6^{3}$ + 6 + 1 = 6 $\in \mathbb{F}_{7}$
+\end{itemize}
+
+Daraus ergeben sich die folgenden Punkte auf der elliptischen Kurve E:
+
+\begin{itemize}
+\item $f(0) = 1 \quad \Longrightarrow \quad$ Punkt 1: $(0, 1) \quad$ Punkt 2: $(0, 6)$
+\item $f(2) = 4 \quad \Longrightarrow \quad$ Punkt 1: $(2, 2) \quad$ Punkt 2: $(2, 5)$
+\end{itemize}
+
+wie man sieht, ist die Anwendung relativ einfach umzusetzen. Es gibt jedoch einen weiteren Fall, welcher betrachtet werden muss, um die Quadrate zu finden. Der Fall 1 wurde soeben betrachtet und anhand eines beispiels durchgerechnet. In diesem Fall ist 4 ein Teiler von $p + 1$ ist. Wenn es diesen Fall gibt kann es auch sein, dass $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ ist. Für diesen Fall 2 gibt es einen probabilistischen Ansatz, um die Quadratwurzeln zu finden. Dafür wird eine Induktion durchgeführt.\\
+
+XXXXX\\
+
+XXXXX\\
+
+Hübl beschreibt in seinem Script die allgemeine Vorgehensweise für den algorithmischen Brute-Force \cite[vgl.][S. 270-272]{reinholdhuebl}. Gegeben sei ein $x \in \mathbb{F}_p^*$.
+
+\begin{enumerate}
+\item Berechne $x^{\frac{p - 1}{2}}$ in $\mathbb{F}_p$. Falls $x^{\frac{p - 1}{2}} \neq 1$: \textbf{STOPP}, x ist kein Quadrat in $\mathbb{F}_p$.
+\item Falls $4 | (p + 1)$, so setze $$a =  x^{\frac{p + 1}{4}}$$ Falls $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$, wähle ein $b in \mathbb{F}_p$ mit $b^{\frac{p - 1}{2}} = -1$, schreibe $\frac{p - 1}{2} = 2^l \cdot t$ wie oben und konstruiere $$a =  x^{\frac{t + 1}{2}} \cdot b^n$$ wie oben.
+\item Die Zahl $a$ ist eine Quadratwurzel von x in $\mathbb{F}_p$.
+\end{enumerate}
+
 
 \section{Diskreter Logarithmusproblem über elliptischen Kurven}
 Wie in Kapitel XY gezeigt, kann das DLP verallgemeinert werden, sodass über jeder zyklischen Gruppe (mehr oder weniger effektiv) ein DLP definiert erden kann. Im ersten Abschnitts dieses Kapitels wurden die Gruppeneigenschaften der Punktmenge auf der elliptischen Kurve gezeigt. Gruppenelemente werden können über die Gruppenoperation $+$ \textit{addiert} werden. Es gilt der Folgende Satz:
