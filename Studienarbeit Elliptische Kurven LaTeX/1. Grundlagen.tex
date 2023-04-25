@@ -166,7 +166,7 @@ Um Gruppen ein wenig anschaulicher zu machen, betrachten wir im Folgenden ein pa
 \item $(\mathbb{Z}, +)$ ist eine Gruppe. $\mathbb{Z} = \{\dots, -1, 0, 1, \dots \}$ ist die Menge der ganzen Zahlen, welche zusammen mit der Addition als Gruppenoperation eine abelsche Gruppe bildet, wobei $e = 0$ das neutrale Element und $-a$ das Inverse eines beliebigen Elements $a \in \mathbb{Z}$ ist.
 \item Ein Gegenbeispiel ist $(\mathbb{Z} \setminus \{0\}, \cdot)$. Die Menge der ganzen Zahlen (ohne die 0) mit der Multiplikation als Gruppenoperation bildet keine Gruppe, da es kein Inverses Element $a^(-1)$ für jedes Element $a \in \mathbb{Z}$ gibt.
 \end{itemize}
-\subsection{Zyklische Gruppe}
+\subsection{Zyklische Gruppe} \label{sec:zyklische_Gruppe}
 Die eben eingeführten Gruppen besitzen unendlich viele Elemente. Für die Kryptographie interessant sind jedoch endliche algebraische Strukturen, weshalb im Folgenden die endlichen Gruppen eingeführte werden.
 
 \paragraph{Definition: Endliche Gruppe}
@@ -369,8 +369,8 @@ XXX
 \subsection{Symmetrische und Asymmetrische Verschlüsselung}
 XXX
 
-\section{Das diskrete Logarithmusproblem} \label{sec:Das_diskrete_Logarithmusproblem}
-Das DLP bildet die mathematische Grundlage für viele asymmetrische Kryptosysteme, wie den DHKE oder die Elgamal-Verschlüsselung. Etwas legere ausgedrückt könnte man das DLP als Baukasten für asymmetrische Kryptosysteme betrachten, da es für zyklische Gruppen verallgemeinert werden kann. Im Folgenden wollen wir zunächst das DLP in Primzahlkörpern betrachten. Hierzu greifen wir auf die in Kapitel XY erläuterten Eigenschaften zyklischer Gruppen zurück. 
+\section{Das diskreter Logarithmusproblem} \label{sec:Das_diskrete_Logarithmusproblem}
+Das DLP bildet die mathematische Grundlage für viele asymmetrische Kryptosysteme, wie den DHKE oder die Elgamal-Verschlüsselung. Etwas legere ausgedrückt könnte man das DLP als Baukasten für asymmetrische Kryptosysteme betrachten, da es für zyklische Gruppen verallgemeinert werden kann. Im Folgenden wollen wir zunächst das DLP in Primzahlkörpern betrachten. Hierzu greifen wir auf die in Kapitel \ref{sec:zyklische_Gruppe} erläuterten Eigenschaften zyklischer Gruppen zurück. 
 
 \paragraph{Definition: Diskretes Logarithmusproblem (DLP) in $\mathbb{Z}^*_p$}
 Gegeben sind die endliche zyklische Gruppe $\mathbb{Z}^*_p$ der Ordnung $p-1$, ein primitives Element $\alpha \in \mathbb{Z}^*_p$ und ein weiteres Element $\beta \in \mathbb{Z}^*_p$. Das DLP ist das Problem, eine ganze Zahl x im Bereich $1 \leq x \leq p-1$ zu finden, sodass: $$\alpha^x \equiv \beta \text{ mod } p$$\\
@@ -383,7 +383,7 @@ Für kleinere Gruppen lässt sich $x$ natürlich durch stumpfes Ausprobieren sog
 
 Um den diskreten Logarithmus $x$ von $\alpha^x \equiv \beta \text{ mod } p$ zu ermitteln muss ein potenzieller Angreifer jedes $x$ zwischen $1$ und $p-1$ als möglichen Exponenten ausprobieren. Der Erzeuger kann zum effizienten berechnen von $\beta$, jedoch den Square-and-Multiply-Algorithmus verwenden, was das DLP zu einer Einwegfunktion macht.\\
 
-Neben dem trivialen brute Force Angriff auf das DLP gibt es weitere Verfahren, welche die Menge an möglichen $x$ Werten einschränken. Der Babystep-Giantstep-Algorithmus reduziert die Komplexität des DLPs von $O(n)$ auf $O(\sqrt{n})$. Noch weiter kann die Komplexität durch den Pohling-Hellman-Algorithums eingeschränkt werden. Durch diesen Angriff kann bei bekannter Primfaktorzerlegung der Gruppenordnung $n$, die Komplexität des DLPs auf $O(\sqrt{q})$ reduzieren, wobei $q$ der größte Faktor von $n$ ist. Aus diesem Grund wählt man in der Praxis eine Gruppe mit primer Ordnung für das DLP. Da die Ordnung von Gruppen $\mathbb{Z}^*_p$ dem Wert $p-1$ entspricht, der offensichtlich nicht prim ist, greift man auf Untergruppen von $\mathbb{Z}^*_p$ mit primer Ordnung zurück.
+Neben dem trivialen brute Force Angriff auf das DLP gibt es weitere Verfahren, welche die Menge an möglichen $x$ Werten einschränken. Der Babystep-Giantstep-Algorithmus reduziert die Komplexität des DLPs von $O(n)$ auf $O(\sqrt{n})$. Noch weiter kann die Komplexität durch den Pohling-Hellman-Algorithums eingeschränkt werden. Durch diesen Angriff kann bei bekannter Primfaktorzerlegung der Gruppenordnung $n$, die Komplexität des DLPs auf $O(\sqrt{q})$ reduzieren, wobei $q$ der größte Faktor von $n$ ist. Aus diesem Grund wählt man in der Praxis eine Gruppe mit primer Ordnung für das DLP. Da die Ordnung von Gruppen $\mathbb{Z}^*_p$ dem Wert $p-1$ entspricht, der offensichtlich nicht prim ist, greift man auf Untergruppen von $\mathbb{Z}^*_p$ mit primer Ordnung zurück.\cite{Paar.2016}
 
 \subsubsection{Das verallgemeinerte diskrete Logarithmusproblem}
 Wie oben bereits erwähnt kann das DLP in jeglichen zyklischen Gruppen definiert werden. Bis jetzt haben wir immer die zyklische Gruppe $\mathbb{Z}^*_p$ betrachtet. Das DLP kann folgendermaßen verallgemeinert werden:
@@ -405,11 +405,57 @@ Gruppen auf denen ein DLP für kryptografische Zwecke definiert werden kann sind
 \item Hyperelliptische Kurven oder algebraische Varietäten, die auch Verallgemeinerungen von elliptischen Kurven sind. Trotz einiger Vorteile gegenüber den klassischen elliptischen Kurven, sind die hyperelliptischen Kurven in der Praxis nicht sehr verbreitet.
 \end{enumerate}
 
-Es gab im Laufe der Zeit einige weitere Vorschläge für mögliche Gruppen gegeben, welche jedoch nicht weiter verfolgt wurden, da sich meist herausstellte, dass das DLP einfacher zu lösen ist.
+Es gab im Laufe der Zeit einige weitere Vorschläge für mögliche Gruppen gegeben, welche jedoch nicht weiter verfolgt wurden, da sich meist herausstellte, dass das DLP einfacher zu lösen ist.\cite{Paar.2016}
 
-\subsection{Diffie-Hellmann Key Exchange}
-x
+\subsection{Diffie-Hellmann Key Exchange (DHKE)}
+Der DHKE wurde im Jahr 1976 von Whitfield Diffie und Martin Hellmann veröffentlicht. Damit ist er das älteste asymmetrsiche Verfahren überhaupt. Der DHKE bringt eine Lösung für das große Problem der symmetrischen Kryptografie: den Schlüsselaustausch. Er ermöglicht zwei Parteien den Austausch bzw. die Vereinbarung eines gemeinsamen Geheimnisses über einen unsicheren Kanal. Dabei nutzt der DHKE das im vorigen Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} erläuterte DLP.  Prinzipiell beruht der DHKE auf der Idee, dass das Potenzieren in $\mathbb{Z}^*_p$ mit primen $p$ eine Einwegfunktion ist und die Exponentation kommutativ ist, d.h. $$k = (\alpha ^x)^y \equiv (\alpha ^y)^x \text{ mod } p.$$
+Im Folgenden wird der der DHKE in seiner Grundform erläutert. In der Praxis wird der DHKE oft in erweiterter Form verwendet um Angriffen entgegenzuwirken.
 
+Das Ziel der Kommunikationspartner Alice und Bob ist es einen gemeinsamen geheimen Schlüssel über einen unsicheren Kanal zu vereinbaren. Unter Umständen gibt es auch eine dritte Partei, welche die öffentlichen Parameter für den Schlüsselaustausch festlegt, dies kann aber auch durch Alice und Bob selbst ausgehandelt werden. Der DHKE besteht genau genommen aus zwei Protokollen: dem Set-up-Protokoll und dem Hauptprotokoll, das den eigentlichen Schlüsselaustausch durchführt. Das Setup sieht folgendermaßen aus:
+\paragraph{Diffie-Hellman-Set-up:}
+\begin{enumerate}
+\item Wähle eine große Primzahl $p$
+\item Wähle eine ganze Zahl $\alpha \in \{2,3,..., p-2\}$
+\item Veröffentliche $p$ und $\alpha$
+\end{enumerate}
+
+Dies sind die öffentlichen Parameter manchmal auch als \textit{Domain-Parameter} bezeichnet, welche wie erwähnt auch vorgegeben sein können. Wenn Alice und Bob die öffentlichen Parameter $p$ und $\alpha$ erhalten haben, können sie einen gemeinsamen geheimen Schlüssel $k$ mit dem folgenden Protokoll berechnen:
+
+\paragraph{Diffie-Hellman-Schlüsselaustausch:}
+\begin{tabbing}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \= \qquad \qquad \qquad \= \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \kill
+\textbf{Alice} \> \> \textbf{Bob}\\
+Wähle $a=k_{pr,A} \in \{2,..., p-2\}$ \> \> Wähle $b=k_{pr,B} \in \{2,..., p-2\}$\\
+Berechne $A = k_{pub,A} \equiv \alpha ^a$ mod $p$ \> \> Berechne $B = k_{pub,B} \equiv \alpha ^b$ mod $p$\\
+\> $\xleftarrow{k_{pub,A} = A}$ \> \\
+\> $\xrightarrow{k_{pub,B} = B}$ \> \\
+$k_{AB} = k_{pub,B}^{k_{pr,A}} \equiv B^a$ mod $p$ \> \> $k_{AB} = k_{pub,A}^{k_{pr,B}} \equiv A^b$ mod $p$
+\end{tabbing}
+
+Einem Angreifer ist es nicht möglich aus einem der öffentlichen Schlüssel den jeweiligen privaten Schlüssel zu berechnen, was sich auf das DLP zurückführen lässt. Der öffentliche Schlüssel $$A = k_{pub,A} \equiv \alpha ^a$$ wird aus $\alpha$ potenziert mit dem privaten Schlüssel $a$ mod $p$ berechnet. Das DLP ist es, mit bekanntem $A$ und $\alpha$ den Exponenten $a$ zu ermitteln. Dies ist wie in vorigen Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} erläutert nicht effizient möglich.
+
+Das beide Parteien am Ende den gleichen Schlüssel $k_AB$ berechnet haben lässt sich wie folgt zeigen.\\
+
+Alice berechnet:
+$$k_{AB} \equiv B^a \equiv (\alpha ^b)^a \equiv \alpha^{ab} \text{ mod } p$$
+
+Bob berechnet:
+$$k_{AB} \equiv A^b \equiv (\alpha ^a)^b \equiv \alpha^{ab} \text{ mod } p$$
+
+Es besitzen also beide den gleichen Schlüssel $k_{AB} \equiv \alpha^{ab} \text{ mod } p$. Dieser kann im weiteren als Schlüssel für eine symmetrische Verschlüsselung wie z.B. AES dienen.
+
+Das folgende Beispiel zeigt den DHKE mit kleinen Zahlen. Als Domain-Parameter werden $p=29$ und $\alpha = 2$ gewählt. Der Schlüsselaustausch läuft wie folgt ab:
+\begin{tabbing}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \= \qquad \qquad \qquad \= \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \kill
+\textbf{Alice} \> \> \textbf{Bob}\\
+Wähle $a=k_{pr,A} = 5$ \> \> Wähle $b=k_{pr,B} = 12$\\
+$A = k_{pub,A} 2^5 \equiv 3$ mod $29$ \> \> Berechne $B = k_{pub,B} = 2^12 \equiv 7$ mod $29$\\
+\> $\xleftarrow{A = 3}$ \> \\
+\> $\xrightarrow{B = 7}$ \> \\
+$k_{AB} \equiv B^a = 7^5 \equiv 16$ mod $29$ \> \> $k_{AB} \equiv A^b = 3^{12} \equiv 16$ mod $29$
+\end{tabbing}
+
+Wie in der letzten Zeile zu sehen, haben beide Parteien erfolgreich $k_{AB} = 16$ berechnet.\cite{Paar.2016}
 
 \section{Ziel der Arbeit}
 XXX

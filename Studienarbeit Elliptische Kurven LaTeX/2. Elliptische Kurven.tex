@@ -56,7 +56,7 @@ und die Bedingung
 \label{eq:constraint}
 \end{equation} gelten müssen. Zu der elliptischen Kurve gehört des Weiteren auch der imaginäre \textit{Punkt im Unendlichen} $\mathcal{O}$.\\
 
-Durch die Bedingung \ref{eq:constraint} werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht eindeutig definiert ist, was für das Rechnen auf elliptischen Kurven jedoch erforderlich ist.
+Durch die Bedingung \ref{eq:constraint} werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht eindeutig definiert ist, was für das Rechnen auf elliptischen Kurven jedoch erforderlich ist.\cite{Paar.2016}
 
 \section{Arithmetik} \label{sec:Arithmetik}
 Nachdem elliptische Kurven nun definiert wurden, stellt sich die Frage, wie diese in der Kryptographie eingesetzt werden können. Wenn wir uns an das in Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} zurückerinnern, wird für die Konstruktion eines \textbf{DLP}s eine zyklische Gruppe benötigt. Eine eben solche findet sich in der Punktmenge der elliptischen Kurve wieder. Offen bleibt wie die Gruppenoperation definiert ist. Diese muss die in Kapitel \ref{sec:gruppe} geforderten Gruppengesetze erfüllen.\\
@@ -95,7 +95,7 @@ In beiden genannten Fällen, Punktaddition und Punktverdopplung, kann es passier
     \label{fig:UnendlichFernerPunkt}
 \end{figure}
 
-Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F}_p$ durchgeführt werden kann.\\
+Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F}_p$ durchgeführt werden kann.\cite{Paar.2016}\\
 
 Die Formeln für die Punktaddition und - verdopplung auf elliptischen Kurven können anhand der grade gezeigten Veranschaulichung hergeleitet werden.\\ 
 
@@ -108,7 +108,7 @@ Durch Einsetzten aller Parameter in die obige Geradengleichung ergibt sich $$y =
 Im Normalfall ist das allgemeine Lösen eines solchen kubischen Polynoms nicht trivial. Wir haben hier jedoch den Vorteil, dass zwei der drei Schnittpunkte von $g$ mit $E$ schon bekannt sind. Fassen wir das Polynom als Funktion $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b$$ auf, so sind wir Im Grunde auf der Suche nach den Nullstellen dieser kubischen Funktion. Da die Punkte $P$ und $Q$ auf der Geraden $g$ sowie auf der elliptischen Kurve $E$ liegen, lösen sie die obige
 Gleichung, sind also Nullstellen der Funktion $f(x)$. Daraus folgt, dass die Funktion $f(x)$ restlos durch $(x-x_1)$ und $(x-x_2)$ geteilt werden kann um den Funktionsgrad zu verringern.
 $$f(x) \div (x-x_1) \cdot (x-x_2) = l(x) \text{  Rest }0$$
-Aufgrund dessen, dass $f(x)$ den Grad 3 hat, muss $l(x)$ den Grad 1 haben und durch $l(x) = ux + v$ beschrieben werden können. Da $$l(x) + (x-x_1) \cdot (x-x_2) = g(x)\text{,}$$ muss auch gelten $$u \cdot x \cdot x \cdot x  = x^3\text{,}$$ weshalb $u = 1$ gelten muss. Daraus ergibt sich $$l(x) = x + v \text{.}$$ Somit ist $x_3 = -v$ eine weitere Nullstelle von $f(x)$. Es folgt also $$g(x) = (x-x_1) \cdot (x-x_2) \cdot (x-x_3) \text{,}$$ woraus durch ausmultiplizieren $$f(x) = x^3 - (x_1 + x_2 + x_3) \cdot x^2 + (x_1 x_2 + x_1 x_3 + x_2 x_3) * x - x_1 x_2 x_3$$ entsteht. Vergleicht man nun diese Darstellung mit der obigen also $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b\text{,}$$ so folgt durch Koeffizientenvergleich $$s^2 = x_1 + x_2 +x_3$$ also $$x_3 = x^2 -x_1 - x_2$$
+Aufgrund dessen, dass $f(x)$ den Grad 3 hat, muss $l(x)$ den Grad 1 haben und durch $l(x) = ux + v$ beschrieben werden können. Da $$l(x) + (x-x_1) \cdot (x-x_2) = g(x)\text{,}$$ muss auch gelten $$u \cdot x \cdot x \cdot x  = x^3\text{,}$$ weshalb $u = 1$ gelten muss. Daraus ergibt sich $$l(x) = x + v \text{.}$$ Somit ist $x_3 = -v$ eine weitere Nullstelle von $f(x)$. Es folgt also $$g(x) = (x-x_1) \cdot (x-x_2) \cdot (x-x_3) \text{,}$$ woraus durch ausmultiplizieren $$f(x) = x^3 - (x_1 + x_2 + x_3) \cdot x^2 + (x_1 x_2 + x_1 x_3 + x_2 x_3) * x - x_1 x_2 x_3$$ entsteht. Vergleicht man nun diese Darstellung mit der obigen also $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b\text{,}$$ so folgt durch Koeffizientenvergleich $$s^2 = x_1 + x_2 +x_3$$ also $$x_3 = x^2 -x_1 - x_2.$$
 
 Um die Formel für $y_3$ zu ermitteln kann nun der Punkt $R$ in die Formel für $s$ eingesetzt werden. Dies ist möglich, da der Punkt $R$ auf der gleichen Geraden wie $P$ und $Q$ liegt, weshalb auch die Steigung $s$ identisch ist.
 Es gilt also $$s = \frac{y_2 - y_1}{x_2  - x_1} = \frac{y_3 - y_1}{x_3  - x_1}.$$ 
@@ -118,7 +118,7 @@ $$x_3 = s^2 + x_1 - x_2$$
 $$y_3 = s \cdot (x_1 - x_3) - y_1$$
 
 
-\paragraph{Formel: Punktaddition und -verdopplung auf elliptischen Kurven:}
+\paragraph{Formel: Punktaddition und -verdopplung auf elliptischen Kurven\cite{Paar.2016}:}
 $$x_3 = s^2 - x_1 - x_2$$
 $$y_3 = s(x_1 - x_3) - y_1$$,
 wobei
@@ -130,8 +130,8 @@ $$s = \begin{cases}
 $$
 
 \section{Gruppeneigenschaften} \label{sec:Gruppeneigenschaften}
-Zur Erfüllung der Gruppeneigenschaften wird außerdem ein neutrales Element $\mathcal{O}$ benötigt. Alle Punkte $P$ der elliptischen Kurve müssen die Eigenschaft $P + \mathcal{O} = P$ erfüllen. Da kein Punkt der elliptischen Kurve diese Eigenschaft erfüllen kann, wird der imaginäre \textit{unendlich ferne Punkt} als neutrales Element $\mathcal{O}$ definiert. Dieser Punkt liefert außerdem den \textit{Schnittpunkt} im oben genannten Sonderfall, also falls ein Punkt $P$ und der bezüglich der $x$-Achse gegenüberliegende Punkt $-P$ addiert werden. Die hier verwendete Terminologie $-P$ ist schon ein wenig voraus gegriffen, die Existenz eines neutralen Elements $\mathcal{O}$ ermöglicht außerdem die Definition eines Inversen $-P$ für jeden Punkt $P$ auf der Kurve. Laut der allgemeine Gruppengesetze gilt $$P + (-P) = \mathcal{O}.$$
-Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik auf elliptischen Kurven ist das Inverse eines Punktes $P = (x_p, y_p)$ der Punkt $-P = (y_p, -y_p)$. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.
+Zur Erfüllung der Gruppeneigenschaften wird außerdem ein neutrales Element $\mathcal{O}$ benötigt. Alle Punkte $P$ der elliptischen Kurve müssen die Eigenschaft $P + \mathcal{O} = P$ erfüllen. Da kein Punkt der elliptischen Kurve diese Eigenschaft erfüllen kann, wird der imaginäre \textit{unendlich ferne Punkt} als neutrales Element $\mathcal{O}$ definiert. Dieser Punkt liefert außerdem den \textit{Schnittpunkt} im oben genannten Sonderfall, also falls ein Punkt $P$ und der bezüglich der $x$-Achse gegenüberliegende Punkt $-P$ addiert werden. Die hier verwendete Terminologie $-P$ ist schon ein wenig voraus gegriffen, denn die Existenz eines neutralen Elements $\mathcal{O}$ ermöglicht nämlich die Definition eines Inversen $-P$ für jeden Punkt $P$ auf der Kurve. Laut der allgemeine Gruppengesetze gilt $$P + (-P) = \mathcal{O}.$$
+Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik auf elliptischen Kurven ist das Inverse eines Punktes $P = (x_p, y_p)$ der Punkt $-P = (y_p, -y_p)$, also der bezogen auf die $x$-Achse gegenüberliegende Punkt. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.\cite{Paar.2016}
 
  
 \section{Punktbestimmung}
@@ -539,7 +539,7 @@ Die Bits $d_4$ bis $d_0$ werden in absteigender Reihenfolge verarbeitet:
 
 Das darstellen von $d$ als binäre Zahl ermöglicht es, diese ausgehend von der ersten 1 ausgehend \textit{zusammenzubauen}. Jede Stelle im Binärsystem ist doppelt so wertig wie die vorherige, weshalb durch Verdoppeln die ganze Zahl um eine Stelle nach links geschoben wird. Durch diese Operation wird dann sozusagen eine 0 \textit{erzeugt}. Wenn nun eine 1 benötigt wird kann diese durch die Addition von 1 bzw. dem Startpunkt \textit{erzeugt} werden.\\
 
-Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht.
+Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht.\cite{Paar.2016}
 
 
 

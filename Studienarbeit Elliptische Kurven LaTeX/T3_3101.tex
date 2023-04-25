@@ -57,13 +57,14 @@
 \linespread{1.25}
 
 %Literatur
-\usepackage[
+%\usepackage[backend=biber,style=alphabetic,]{biblatex}
+%\usepackage[
 %backend=biber,
-natbib=true,
-style=numeric,
-sorting=none
-]{biblatex}
-\addbibresource{literatur.bib}
+%natbib=true,
+%style=numeric,
+%sorting=none
+%]{biblatex}
+%\addbibresource{literatur.bib}
 
 %Abkürzungsverzeichnis und Abstract
 \usepackage[footnote, printonlyused, withpage]{acronym}
@@ -86,6 +87,8 @@ sorting=none
 %\usepackage{helvet}
 %\renewcommand{\familydefault}{\sfdefault}
 
+%Literaturverzeichnis
+\bibliographystyle{unsrt}	%Zitationsstil
 
 % Dokument
 \begin{document}
@@ -112,5 +115,6 @@ sorting=none
 \input{4. Implementierung in Python}
 \newpage
 \end{onehalfspacing}
-\printbibliography
+\bibliography{literatur}
+%\printbibliography
 \end{document}
