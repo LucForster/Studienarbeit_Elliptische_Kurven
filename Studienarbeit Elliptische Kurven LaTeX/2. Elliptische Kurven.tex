@@ -2,9 +2,9 @@
 \chapter{Elliptische Kurven}
 
 
-Als Basis für asymmetrische Kryptosysteme können elliptische Kurven dazu genutzt werden, die verschlüsselungstechnische Effektivität mathematischer Probleme, wie das des diskreten Logarithmus, zu erhöhen. Bei der Kryptographie unter Verwendung elliptischer Kurven bei deutlich kürzerer Schlüssellänge ein gleichwertigers Ergebnis erzielt werden. Dieser Effekt wird durch die spezielle Arithmetik auf elliptischen Kurven erzielt, deren mathematische Grundlage, konkrete Eingenschaften und Funktionsweise im folgenden Kapitel erörtert werden soll.\\
+Als Basis für asymmetrische Kryptosysteme können elliptische Kurven dazu genutzt werden, die verschlüsselungstechnische Effektivität mathematischer Probleme, wie das des diskreten Logarithmus, zu erhöhen. Bei der Kryptographie unter Verwendung elliptischer Kurven, kann mit deutlich kürzerer Schlüssellänge ein gleichwertiges Ergebnis erzielt werden. Dieser Effekt wird durch die spezielle Arithmetik auf elliptischen Kurven erzielt, deren mathematische Grundlage, konkrete Eingenschaften und Funktionsweise im folgenden Kapitel erörtert werden soll.\\
 
-Elliptische Kurven können über beliebigen Körpern definiert werden. Für die Kryptographie interessant sind elliptische Kurven über Primkörpern.
+Elliptische Kurven können über beliebigen Körpern definiert werden. Für die Kryptographie interessant sind elliptische Kurven über Primkörpern.\\
 
 %\section{Definition: Elliptische Kurven}
 % Sei \textit{p} eine \textit{Primzahl} $p>3$. Seien $a,b \in GF(p)$. Betrachte die Gleichung
@@ -22,77 +22,90 @@ Elliptische Kurven können über beliebigen Körpern definiert werden. Für die 
 
 
 
-Um das weitere Verständnis zu verbessern, wollen wir erst eine uns schon bekannte Kurve ansehen. In Abbildung XY ist das Polynom $x^2 + y^2 = r^2$ über $\mathbb{R}$ dargestellt. Wie zu sehen ist, handelt es sich hierbei um die Kreisgleichung. Der zu sehende Kreis ist nichts anderes als die Menge aller Punkte, welche die Kreisgleichung erfüllen.
+Um das weitere Verständnis zu verbessern, wollen wir erst eine uns schon bekannte Kurve ansehen. In Abbildung \ref{fig:Einheitskreis} ist das Polynom $x^2 + y^2 = r^2$ über $\mathbb{R}$ dargestellt. Wie zu sehen ist, handelt es sich hierbei um die Kreisgleichung. Der zu sehende Kreis ist nichts anderes als die Menge aller Punkte, welche die Kreisgleichung erfüllen.
 Ein Beispiel für eine solchen ist der Punkt $(r,0)$. Wenn $x$ den Wert $r$ hat, muss $y$ folglich den Wert $0$ haben. Ein Gegenbeispiel ist der Punkt $(r,r/2)$. Dieser erfüllt die Kreisgleichung nicht.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.3\textwidth]{grafiken/Kreis.PNG}
-    \caption[r]{r}
-    \label{fig:aufgaben_redesign}
+    \caption{Einheitskreis}
+    \label{fig:Einheitskreis}
 \end{figure}
-Die Kreisgleichung kann verallgemeinert werden, indem den Termen $x^2$ und $y^2$ Koeffizienten voran gesetzt werden. Eine solche Gleichung, $ax^2 + by^2 = c$ erzeugt über $\mathbb{R}$ eine Ellipse, wie in Abbildung XY zu sehen.
+Die Kreisgleichung kann verallgemeinert werden, indem den Termen $x^2$ und $y^2$ Koeffizienten voran gesetzt werden. Eine solche Gleichung, $ax^2 + by^2 = c$ erzeugt über $\mathbb{R}$ eine Ellipse, wie in Abbildung \ref{fig:Ellipse} zu sehen.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\textwidth]{grafiken/Ellipse.PNG}
-    \caption[r]{r}
-    \label{fig:aufgaben_redesign}
+    \caption{Ellipse}
+    \label{fig:Ellipse}
 \end{figure}
-Eine elliptische Kurve ist nun eine spezielle Polynomgleichung, der Form $y^2 = x^3 + ax + b$, unter der Bedingung $4a^3 + 27b^3 \neq 0$. Eine solche Gleichung über $\mathbb{R}$ ist in Abbildung XY dargestellt.
+Eine elliptische Kurve ist nun eine spezielle Polynomgleichung, der Form $y^2 = x^3 + ax + b$, unter der Bedingung $4a^3 + 27b^3 \neq 0$. Eine solche Gleichung über $\mathbb{R}$ ist in Abbildung \ref{fig:Elliptische_Kurve} dargestellt.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.3\textwidth]{grafiken/Elliptische_Kurve.PNG}
-    \caption[r]{r}
-    \label{fig:XXXX}
+    \caption{Elliptische Kurve}
+    \label{fig:Elliptische_Kurve}
 \end{figure}
 Damit elliptische Kurven sinnvoll in der Kryptologie eingesetzt werden können, muss die Polynomgleichung über einem Primkörper betrachtet werden. Das heißt einfach gesprochen, alle Berechnungen werden modulo $p$ durchgeführt.
 \paragraph{Definition: Elliptische Kurven über Primkörpern}
 Die \textit{elliptische Kurve} über $\mathbb{F_p}$, ist die Menge aller Punkte $(x,y)$ mit $x,y \in \mathbb{F_p}$, welche die folgende Gleichung erfüllen: 
 \begin{center}
-$y^2 \equiv x^3 + ax + b$ mod $p$, wobei $a,b \in \mathbb{F_p}$
+$y^2 \equiv x^3 + ax + b$ mod $p$, wobei $a,b \in \mathbb{F}_p$
 \end{center} 
-und die Bedingung  $$4a^3 + 27b^3 \neq 0$$ gelten müssen. Zu der elliptischen Kurve gehört des Weiteren auch der imaginäre \textit{Punkt im Unendlichen} $\mathcal{O}$.\\
+und die Bedingung
+\begin{equation}
+3 + 27b^3 \neq 0
+\label{eq:constraint}
+\end{equation} gelten müssen. Zu der elliptischen Kurve gehört des Weiteren auch der imaginäre \textit{Punkt im Unendlichen} $\mathcal{O}$.\\
 
-Durch die Bedingung XY werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht wohldefiniert ist, was für das Rechnen auf elliptischen Kurven jedoch erforderlich ist.
+Durch die Bedingung \ref{eq:constraint} werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht eindeutig definiert ist, was für das Rechnen auf elliptischen Kurven jedoch erforderlich ist.
 
-Nachdem elliptische Kurven nun definiert wurden, stellt sich die Frage, wie diese in der Kryptographie eingesetzt werden können. Wenn wir uns an das in Kapitel XY zurückerinnern, wird für die Konstruktion eines \textbf{DLP}s eine zyklische Gruppe benötigt. Eine eben solche findet sich in der Punktmenge der elliptischen Kurve wieder. Offen bleibt wie die Gruppenoperation definiert ist. Diese muss die in Kapitel XY geforderten Gruppengesetze erfüllen.\\
+\section{Arithmetik} \label{sec:Arithmetik}
+Nachdem elliptische Kurven nun definiert wurden, stellt sich die Frage, wie diese in der Kryptographie eingesetzt werden können. Wenn wir uns an das in Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} zurückerinnern, wird für die Konstruktion eines \textbf{DLP}s eine zyklische Gruppe benötigt. Eine eben solche findet sich in der Punktmenge der elliptischen Kurve wieder. Offen bleibt wie die Gruppenoperation definiert ist. Diese muss die in Kapitel \ref{sec:gruppe} geforderten Gruppengesetze erfüllen.\\
 
 Als Symbol für die Gruppenoperation wird das Additionszeichen $+$ verwendet. Durch die Gruppenoperation muss aus zwei Punkten $P = (x_1, y_2)$ und $Q= (x_2, y_2)$ der Kurve ein dritter Punkt $R$ auf der Kurve berechnet werden. 
 $$P + Q = R$$ $$(x_1, y_1) +  (x_2, y_2) = (x_3, y_3)$$
-Am verständlichsten lässt sich diese Operation grafisch zeigen.
+Am verständlichsten lässt sich diese Operation grafisch zeigen. Elliptische Kurven über endlichen Körpern können grafisch nicht sinnvoll dargestellt werden. Ihre Form und Arithmetik lassen sich jedoch gut veranschaulichen wenn man sie auf $\mathbb{R}$ abbildet. Im Folgenden betrachten wir eine Elliptische Kurve, dargestellt in einem kartesischen Koordinatensystem, um die Gruppeneigenschaften bezüglich der Punktaddition zu zeigen. Hierbei sind nun zwei Fälle zu unterscheiden.\\
 
-Elliptische Kurven über endlichen Körpern können grafisch nicht sinnvoll dargestellt werden. Ihre Form und Arithmetik lassen sich jedoch gut veranschaulichen wenn man sie auf $\mathbb{R}$ abbildet. Im Folgenden betrachten wir eine Elliptische Kurve, dargestellt in einem kartesischen Koordinatensystem, um die Gruppeneigenschaften bezüglich der Punktaddition zu zeigen. Hierbei sind nun zwei Fälle zu unterscheiden.\\
-
-\textbf{Punktaddition $P + Q$:}
-Falls $P \neq Q$ erfolgt die geometrische Konstruktion, indem zunächst eine Grade durch die beiden Punkte gelegt wird. Aufgrund der Kurveneigenschaften hat diese immer einen dritten Schnittpunkt mit der Kurve. Dieser wird an der $x$-Achse gespiegelt um den gesuchten Punkt $R$ zu erhalten. Abbildung XY zeigt die beschriebene Konstruktion.
+\paragraph{Punktaddition $P + Q$:}
+Falls $P \neq Q$ erfolgt die geometrische Konstruktion, indem zunächst eine Grade durch die beiden Punkte gelegt wird. Aufgrund der Kurveneigenschaften hat diese im Normalfall einen dritten Schnittpunkt mit der Kurve. Dieser wird an der $x$-Achse gespiegelt um den gesuchten Punkt $R$ zu erhalten. Abbildung \ref{fig:Punktaddition} zeigt die beschriebene Konstruktion.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\textwidth]{grafiken/Punktaddition.PNG}
-    \caption[Punktaddition]{r}
+    \caption{Punktaddition}
     \label{fig:Punktaddition}
 \end{figure}
 
-\textbf{Punktverdopplung $P + P$:}
-Falls P und Q identisch sind erfolgt die geometrische Konstruktion, indem eine Tangente an den Punkt $P$ angelegt wird. Diese liefert wieder einen weiteren Schnittpunkt mit der Kurve, welcher an der $x$-Achse gespiegelt wird um den Punkt $R$ zu erhalten. Anstatt $R = P + Q$ schreibt man in diesem Fall $R = P + P = 2P$   Abbildung XY zeigt die beschriebene Konstruktion. 
+\paragraph{Punktverdopplung $P + P$:}
+Falls P und Q identisch sind erfolgt die geometrische Konstruktion, indem eine Tangente an den Punkt $P$ angelegt wird. Diese liefert wieder einen weiteren Schnittpunkt mit der Kurve, welcher an der $x$-Achse gespiegelt wird um den Punkt $R$ zu erhalten. Anstatt $R = P + Q$ schreibt man in diesem Fall $R = P + P = 2P$   Abbildung \ref{fig:Punktverdopplung} zeigt die beschriebene Konstruktion. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\textwidth]{grafiken/Punktverdopplung.PNG}
-    \caption[Punktverdopplung]{r}
+    \caption{Punktverdopplung}
     \label{fig:Punktverdopplung}
+\end{figure}
+
+\paragraph{Sonderfall $P + (-P)$:}
+In beiden genannten Fällen, Punktaddition und Punktverdopplung, kann es passieren, dass es keinen weiteren Schnittpunkt mit der Kurve gibt. Dieser Fall tritt für die Punktaddition ein, wenn die $x$-Koordinaten der Punkte identisch sind. Für die Punktverdopplung tritt der Fall ein, wenn die $y$-Koordinate Null ist. In beiden Situationen ergibt sich für die Gerade, welche den genannten Schnittpunkt liefern soll, eine Parallele zur $y$-Achse. Diese schneidet die elliptische Kurve nicht mehr. Abbildung \ref{fig:UnendlichFernerPunkt} zeigt den Sonderfall für die Punktaddition. Als Ergebnis in einem solchem Fall wird der \textit{unendlich ferne Punkt} $\mathcal{O}$ definiert. Dieser hat noch weitere Eigenschaften im Bezug auf die Gruppeneigenschaften, welche im Kapitel \ref{sec:Gruppeneigenschaften} genauer erläutert werden.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{grafiken/UnendlichFernerPunkt.PNG}
+    \caption{Unendlich ferner Punkt}
+    \label{fig:UnendlichFernerPunkt}
 \end{figure}
 
 Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F}_p$ durchgeführt werden kann.\\
 
-Die Formeln für die Punktaddition und - verdopplung auf elliptischen Kurven können anhand der grade gezeigten Veranschaulichung hergeleitet werden. Das Vorgehen hierbei ist prinzipiell recht simpel.\\ 
+Die Formeln für die Punktaddition und - verdopplung auf elliptischen Kurven können anhand der grade gezeigten Veranschaulichung hergeleitet werden.\\ 
 
 \paragraph{Herleitung: Formeln für Punktaddition bzw. Punktverdopplung}
-Gegeben ist die Gleichung der elliptischen Kurve $y^2 = x^3 +ax + b$ und die Punkte $P = (x_1, y_1)$ und $Q = (x_2, y_2)$. Zunächst ist die Geradengleichung der Sekante durch $P$ und $Q$ zu ermitteln. Eine Grade im Allgemeinen hat die Form $$g: y = sx + m.$$ Der Parameter $s$ ist dabei die Steigung der Geraden und $m$ ist der Schnittpunkt mit der $y$-Achse. Die Steigung $s$ lässt sich (im Fall der Punktaddition) wie gewohnt durch Anlegen des Steigungsdreiecks berechnen, also mit der Formel $$s = \frac{y_2 - y_1}{x_2  - x_1}.$$. Im Falle einer Punktverdopplung muss $s$ über die Tangente der Elliptischen Kurve im entsprechenden Punkt ermittelt werden. Dazu leiten leiten wir die Kurvengleichung der elliptischen Kurve nach $x$ ab. Es ergibt sich $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2 \sqrt{x^3 + ax + b}}$$ Bei genauerer Betrachtung fällt auf, dass der Nenner genau $2y$ entspricht, weshalb auch $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2y}$$ geschrieben werden kann. Da die erste Ableitung die Steigung der elliptischen Kurve in jedem Punkt beschreibt, haben wir somit eine Formel mit welcher wird durch einsetzen eines Punktes $P = (x_1, y_1)$, die jeweilige Tangentensteigung ermitteln können. Es gilt also $$s = \frac{3x_1^2 + a}{2y_1}\text{.}$$
+Gegeben ist die Gleichung der elliptischen Kurve $y^2 = x^3 +ax + b$ und die Punkte $P = (x_1, y_1)$ und $Q = (x_2, y_2)$. Zunächst ist die Geradengleichung der Sekante durch $P$ und $Q$ zu ermitteln. Eine Grade im Allgemeinen hat die Form $$g: y = sx + m.$$ Der Parameter $s$ ist dabei die Steigung der Geraden und $m$ ist der Schnittpunkt mit der $y$-Achse. Die Steigung $s$ lässt sich (im Fall der Punktaddition) wie gewohnt durch Anlegen des Steigungsdreiecks berechnen, also mit der Formel $$s = \frac{y_2 - y_1}{x_2  - x_1}.$$ Im Falle einer Punktverdopplung muss $s$ über die Tangente der Elliptischen Kurve im entsprechenden Punkt ermittelt werden. Dazu leiten leiten wir die Kurvengleichung der elliptischen Kurve nach $x$ ab. Es ergibt sich $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2 \sqrt{x^3 + ax + b}}.$$ Bei genauerer Betrachtung fällt auf, dass der Nenner genau $2y$ entspricht, weshalb auch $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2y}$$ geschrieben werden kann. Da die erste Ableitung die Steigung der elliptischen Kurve in jedem Punkt beschreibt, haben wir somit eine Formel mit welcher wird durch einsetzen eines Punktes $P = (x_1, y_1)$, die jeweilige Tangentensteigung ermitteln können. Es gilt also $$s = \frac{3x_1^2 + a}{2y_1}\text{.}$$
 
-Zur Bestimmung des Schnittpunkts mit der $y$-Achse kann nun einer der beiden Punkte $P$ oder $Q$ in die Geradengleichung $y = s * x + m$ eingesetzt werden. Durch Einsetzen des Punkts $P = (x_1, y_1)$  erhalten wir die folgende Gleichung $$y_1 = s * x_1 + m\text{,}$$ welche nach $m$ aufgelöst folgendermaßen aussieht: $$m = y_1 - s * x_1$$
-Durch Einsetzten aller Parameter in die obige Geradengleichung ergibt sich $$y = \frac{y_2 - y_1}{x_2  - x_1} * x + y_1 - \frac{y_2 - y_1}{x_2  - x_1} * x_1$$ für die gesuchte Gerade $g$ durch die Punkte $P$ und $Q$. Um den dritten Schnittpunkt dieser Geraden $g$ mit der elliptischen Kurve $E$ zu ermitteln, sind beide Kurven gleichzusetzen. Da es für das weitere Vorgehen keine Rolle spielt und es der Übersichtlichkeit dient, werden im Folgenden wieder die Parameter $s$ und $m$ statt eben gezeigten Konkretisierungen verwendet. Es ergibt sich die Gleichung $$(sx+m)^2 = x^3 + ax + b\text{.}$$ Nach ausmultiplizieren der Gleichung erhalten wir $$0 =  x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b \text{.}$$
+Zur Bestimmung des Schnittpunkts mit der $y$-Achse kann nun einer der beiden Punkte $P$ oder $Q$ in die Geradengleichung $y = s \cdot x + m$ eingesetzt werden. Durch Einsetzen des Punkts $P = (x_1, y_1)$  erhalten wir die folgende Gleichung $$y_1 = s \cdot x_1 + m\text{,}$$ welche nach $m$ aufgelöst folgendermaßen aussieht: $$m = y_1 - s \cdot x_1$$
+Durch Einsetzten aller Parameter in die obige Geradengleichung ergibt sich $$y = \frac{y_2 - y_1}{x_2  - x_1} \cdot x + y_1 - \frac{y_2 - y_1}{x_2  - x_1} \cdot x_1$$ für die gesuchte Gerade $g$ durch die Punkte $P$ und $Q$. Um den dritten Schnittpunkt dieser Geraden $g$ mit der elliptischen Kurve $E$ zu ermitteln, sind beide Kurven gleichzusetzen. Da es für das weitere Vorgehen keine Rolle spielt und es der Übersichtlichkeit dient, werden im Folgenden wieder die Parameter $s$ und $m$ statt eben gezeigten Konkretisierungen verwendet. Es ergibt sich die Gleichung $$(sx+m)^2 = x^3 + ax + b\text{.}$$ Nach ausmultiplizieren der Gleichung erhalten wir $$0 =  x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b \text{.}$$
 
-Im Normalfall ist das allgemeine Lösen eines solchen kubischen Polynoms nicht trivial. Wir haben hier jedoch den Vorteil, dass zwei der drei Schnittpunkte von $g$ mit $E$ schon bekannt sind. Fassen wir das Polynom als Funktion $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b$$ auf, so sind wir Im Grunde auf der Suche nach den Nullstellen dieser kubischen Funktion. Da die Punkte $P$ und $Q$ auf der Geraden g sowie auf der elliptischen Kurve E liegen, lösen sie die obige F
+Im Normalfall ist das allgemeine Lösen eines solchen kubischen Polynoms nicht trivial. Wir haben hier jedoch den Vorteil, dass zwei der drei Schnittpunkte von $g$ mit $E$ schon bekannt sind. Fassen wir das Polynom als Funktion $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b$$ auf, so sind wir Im Grunde auf der Suche nach den Nullstellen dieser kubischen Funktion. Da die Punkte $P$ und $Q$ auf der Geraden $g$ sowie auf der elliptischen Kurve $E$ liegen, lösen sie die obige
 Gleichung, sind also Nullstellen der Funktion $f(x)$. Daraus folgt, dass die Funktion $f(x)$ restlos durch $(x-x_1)$ und $(x-x_2)$ geteilt werden kann um den Funktionsgrad zu verringern.
 $$f(x) \div (x-x_1) \cdot (x-x_2) = l(x) \text{  Rest }0$$
 Aufgrund dessen, dass $f(x)$ den Grad 3 hat, muss $l(x)$ den Grad 1 haben und durch $l(x) = ux + v$ beschrieben werden können. Da $$l(x) + (x-x_1) \cdot (x-x_2) = g(x)\text{,}$$ muss auch gelten $$u \cdot x \cdot x \cdot x  = x^3\text{,}$$ weshalb $u = 1$ gelten muss. Daraus ergibt sich $$l(x) = x + v \text{.}$$ Somit ist $x_3 = -v$ eine weitere Nullstelle von $f(x)$. Es folgt also $$g(x) = (x-x_1) \cdot (x-x_2) \cdot (x-x_3) \text{,}$$ woraus durch ausmultiplizieren $$f(x) = x^3 - (x_1 + x_2 + x_3) \cdot x^2 + (x_1 x_2 + x_1 x_3 + x_2 x_3) * x - x_1 x_2 x_3$$ entsteht. Vergleicht man nun diese Darstellung mit der obigen also $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b\text{,}$$ so folgt durch Koeffizientenvergleich $$s^2 = x_1 + x_2 +x_3$$ also $$x_3 = x^2 -x_1 - x_2$$
@@ -105,7 +118,7 @@ $$x_3 = s^2 + x_1 - x_2$$
 $$y_3 = s \cdot (x_1 - x_3) - y_1$$
 
 
-\textbf{Formel: Punktaddition und -verdopplung auf elliptischen Kurven:}
+\paragraph{Formel: Punktaddition und -verdopplung auf elliptischen Kurven:}
 $$x_3 = s^2 - x_1 - x_2$$
 $$y_3 = s(x_1 - x_3) - y_1$$,
 wobei
@@ -116,9 +129,10 @@ $$s = \begin{cases}
 	\end{cases}
 $$
 
-Zur Erfüllung der Gruppeneigenschaften wird außerdem ein neutrales Element $\mathcal{O}$ benötigt. Alle Punkte $P$ der elliptischen Kurve müssen die Eigenschaft $P + \mathcal{O} = P$. Da kein Punkt der elliptischen Kurve diese Eigenschaft erfüllen kann, wird der imaginäre \textit{unendlich ferne Punkt} als neutrales Element $\mathcal{O}$ definiert. Dieser Punkt liefert den dritten \textit{Schnittpunkt} mit der Kurve im Falle, dass ein Punkt $P$ und der bezüglich der $x$-Achse gegenüberliegende Punkt $-P$ addiert werden. Abbildung XY zeigt den Fall grafisch.
+\section{Gruppeneigenschaften} \label{sec:Gruppeneigenschaften}
+Zur Erfüllung der Gruppeneigenschaften wird außerdem ein neutrales Element $\mathcal{O}$ benötigt. Alle Punkte $P$ der elliptischen Kurve müssen die Eigenschaft $P + \mathcal{O} = P$ erfüllen. Da kein Punkt der elliptischen Kurve diese Eigenschaft erfüllen kann, wird der imaginäre \textit{unendlich ferne Punkt} als neutrales Element $\mathcal{O}$ definiert. Dieser Punkt liefert außerdem den \textit{Schnittpunkt} im oben genannten Sonderfall, also falls ein Punkt $P$ und der bezüglich der $x$-Achse gegenüberliegende Punkt $-P$ addiert werden. Die hier verwendete Terminologie $-P$ ist schon ein wenig voraus gegriffen, die Existenz eines neutralen Elements $\mathcal{O}$ ermöglicht außerdem die Definition eines Inversen $-P$ für jeden Punkt $P$ auf der Kurve. Laut der allgemeine Gruppengesetze gilt $$P + (-P) = \mathcal{O}.$$
+Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik auf elliptischen Kurven ist das Inverse eines Punktes $P = (x_p, y_p)$ der Punkt $-P = (y_p, -y_p)$. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.
 
-Die Existenz eines neutralen Elements ermöglicht die Definition eines Inversen $-P$ für jeden Punkt $P$ auf der Kurve, für welches $P + (-P) = \mathcal{O}$. Wie Abbildung XY  entnommen werden kann, ist für den Punkt $P = (x_p, y_p)$ das Inverse also $-P = (y_p, -y_p)$ zu definieren. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.
  
 \section{Punktbestimmung}
 Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einiger Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit p > 3 durchführt und die Punkte anschließend in der Konsole ausgibt.
