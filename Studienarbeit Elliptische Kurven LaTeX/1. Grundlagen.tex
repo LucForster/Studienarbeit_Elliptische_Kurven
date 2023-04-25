@@ -407,7 +407,7 @@ Gruppen auf denen ein DLP für kryptografische Zwecke definiert werden kann sind
 
 Es gab im Laufe der Zeit einige weitere Vorschläge für mögliche Gruppen gegeben, welche jedoch nicht weiter verfolgt wurden, da sich meist herausstellte, dass das DLP einfacher zu lösen ist.\cite{Paar.2016}
 
-\subsection{Diffie-Hellmann Key Exchange (DHKE)}
+\subsection{Diffie-Hellmann Key Exchange (DHKE)} \label{DHKE}
 Der DHKE wurde im Jahr 1976 von Whitfield Diffie und Martin Hellmann veröffentlicht. Damit ist er das älteste asymmetrsiche Verfahren überhaupt. Der DHKE bringt eine Lösung für das große Problem der symmetrischen Kryptografie: den Schlüsselaustausch. Er ermöglicht zwei Parteien den Austausch bzw. die Vereinbarung eines gemeinsamen Geheimnisses über einen unsicheren Kanal. Dabei nutzt der DHKE das im vorigen Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} erläuterte DLP.  Prinzipiell beruht der DHKE auf der Idee, dass das Potenzieren in $\mathbb{Z}^*_p$ mit primen $p$ eine Einwegfunktion ist und die Exponentation kommutativ ist, d.h. $$k = (\alpha ^x)^y \equiv (\alpha ^y)^x \text{ mod } p.$$
 Im Folgenden wird der der DHKE in seiner Grundform erläutert. In der Praxis wird der DHKE oft in erweiterter Form verwendet um Angriffen entgegenzuwirken.
 

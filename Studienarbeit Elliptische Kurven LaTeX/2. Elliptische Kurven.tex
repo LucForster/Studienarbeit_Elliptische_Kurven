@@ -56,7 +56,7 @@ und die Bedingung
 \label{eq:constraint}
 \end{equation} gelten müssen. Zu der elliptischen Kurve gehört des Weiteren auch der imaginäre \textit{Punkt im Unendlichen} $\mathcal{O}$.\\
 
-Durch die Bedingung \ref{eq:constraint} werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht eindeutig definiert ist, was für das Rechnen auf elliptischen Kurven jedoch erforderlich ist.\cite{Paar.2016}
+Durch die Bedingung \ref{eq:constraint} werden sog. Singularitäten ausgeschlossen. Andernfalls gäbe es Punkte, deren Tangente nicht eindeutig definiert ist, was für das Rechnen auf elliptischen Kurven jedoch erforderlich ist.\cite[273-276]{Paar.2016}
 
 \section{Arithmetik} \label{sec:Arithmetik}
 Nachdem elliptische Kurven nun definiert wurden, stellt sich die Frage, wie diese in der Kryptographie eingesetzt werden können. Wenn wir uns an das in Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} zurückerinnern, wird für die Konstruktion eines \textbf{DLP}s eine zyklische Gruppe benötigt. Eine eben solche findet sich in der Punktmenge der elliptischen Kurve wieder. Offen bleibt wie die Gruppenoperation definiert ist. Diese muss die in Kapitel \ref{sec:gruppe} geforderten Gruppengesetze erfüllen.\\
@@ -95,7 +95,7 @@ In beiden genannten Fällen, Punktaddition und Punktverdopplung, kann es passier
     \label{fig:UnendlichFernerPunkt}
 \end{figure}
 
-Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F}_p$ durchgeführt werden kann.\cite{Paar.2016}\\
+Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden Formeln für die Punktaddition bzw. Punktverdopplung nachvollziehen zu können. Die Gruppenoperation existiert in jedem Körper, weshalb die Berechnung von $R$, wie grade gezeigt über den reellen Zahlen $\mathbb{R}$, als auch über einem Primkörper $\mathbb{F}_p$ durchgeführt werden kann.\cite[276-280]{Paar.2016}\\
 
 Die Formeln für die Punktaddition und - verdopplung auf elliptischen Kurven können anhand der grade gezeigten Veranschaulichung hergeleitet werden.\\ 
 
@@ -118,7 +118,7 @@ $$x_3 = s^2 + x_1 - x_2$$
 $$y_3 = s \cdot (x_1 - x_3) - y_1$$
 
 
-\paragraph{Formel: Punktaddition und -verdopplung auf elliptischen Kurven\cite{Paar.2016}:}
+\paragraph{Formel: Punktaddition und -verdopplung auf elliptischen Kurven\cite[278]{Paar.2016}:}
 $$x_3 = s^2 - x_1 - x_2$$
 $$y_3 = s(x_1 - x_3) - y_1$$,
 wobei
@@ -131,14 +131,14 @@ $$
 
 \section{Gruppeneigenschaften} \label{sec:Gruppeneigenschaften}
 Zur Erfüllung der Gruppeneigenschaften wird außerdem ein neutrales Element $\mathcal{O}$ benötigt. Alle Punkte $P$ der elliptischen Kurve müssen die Eigenschaft $P + \mathcal{O} = P$ erfüllen. Da kein Punkt der elliptischen Kurve diese Eigenschaft erfüllen kann, wird der imaginäre \textit{unendlich ferne Punkt} als neutrales Element $\mathcal{O}$ definiert. Dieser Punkt liefert außerdem den \textit{Schnittpunkt} im oben genannten Sonderfall, also falls ein Punkt $P$ und der bezüglich der $x$-Achse gegenüberliegende Punkt $-P$ addiert werden. Die hier verwendete Terminologie $-P$ ist schon ein wenig voraus gegriffen, denn die Existenz eines neutralen Elements $\mathcal{O}$ ermöglicht nämlich die Definition eines Inversen $-P$ für jeden Punkt $P$ auf der Kurve. Laut der allgemeine Gruppengesetze gilt $$P + (-P) = \mathcal{O}.$$
-Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik auf elliptischen Kurven ist das Inverse eines Punktes $P = (x_p, y_p)$ der Punkt $-P = (y_p, -y_p)$, also der bezogen auf die $x$-Achse gegenüberliegende Punkt. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.\cite{Paar.2016}
+Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik auf elliptischen Kurven ist das Inverse eines Punktes $P = (x_p, y_p)$ der Punkt $-P = (y_p, -y_p)$, also der bezogen auf die $x$-Achse gegenüberliegende Punkt. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.\cite[279]{Paar.2016}
 
  
 \section{Punktbestimmung}
 Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einiger Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit p > 3 durchführt und die Punkte anschließend in der Konsole ausgibt.
 
 \subsection{Rechnerische Grundlagen}
-Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[vgl.][S. 138]{silverman}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[vgl.][S. 181]{reinholdhuebl} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
+Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[138]{JosephH.Silverman.2009}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[vgl.][S. 181]{reinholdhuebl} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
 \end{center} 
@@ -484,7 +484,7 @@ Hübl beschreibt in seinem Script die allgemeine Vorgehensweise für den algorit
 \end{enumerate}
 
 
-\section{Diskreter Logarithmusproblem über elliptischen Kurven}
+\section{Diskreter Logarithmusproblem über elliptischen Kurven} \label{sec:DLPüberEC}
 Wie in Kapitel XY gezeigt, kann das DLP verallgemeinert werden, sodass über jeder zyklischen Gruppe (mehr oder weniger effektiv) ein DLP definiert erden kann. Im ersten Abschnitts dieses Kapitels wurden die Gruppeneigenschaften der Punktmenge auf der elliptischen Kurve gezeigt. Gruppenelemente werden können über die Gruppenoperation $+$ \textit{addiert} werden. Es gilt der Folgende Satz:
 
 \paragraph{Satz:}
@@ -539,7 +539,7 @@ Die Bits $d_4$ bis $d_0$ werden in absteigender Reihenfolge verarbeitet:
 
 Das darstellen von $d$ als binäre Zahl ermöglicht es, diese ausgehend von der ersten 1 ausgehend \textit{zusammenzubauen}. Jede Stelle im Binärsystem ist doppelt so wertig wie die vorherige, weshalb durch Verdoppeln die ganze Zahl um eine Stelle nach links geschoben wird. Durch diese Operation wird dann sozusagen eine 0 \textit{erzeugt}. Wenn nun eine 1 benötigt wird kann diese durch die Addition von 1 bzw. dem Startpunkt \textit{erzeugt} werden.\\
 
-Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht.\cite{Paar.2016}
+Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht.\cite[280-284]{Paar.2016}
 
 
 
