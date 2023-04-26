@@ -10,10 +10,10 @@ class DHKE:
         self.k_pub = None
 
     def gen_key_pair(self, start_element):
-        # group_order = self.cyclic_group.get_element_order(start_element)
+        group_order = self.cyclic_group.get_element_order(start_element)
 
-        k_priv = random.randrange(int(np.sqrt(10000000000000000000)), 10000000000000000000)
-        # k_priv = np.random.randint(np.sqrt(group_order), group_order)
+        # k_priv = random.randrange(int(np.sqrt(10000000000000000000)), 10000000000000000000)
+        k_priv = np.random.randint(np.sqrt(group_order), group_order)
 
         # kPub = kPriv * start_point
         k_pub = self.cyclic_group.scalar_dot_element(k_priv, start_element)

@@ -3,20 +3,35 @@ from ellipticCurveInFp import EllipticCurveInFp
 from cyclicGroup import CyclicGroup
 from DHKE import DHKE
 from drawEC import DrawCurves
+
 # Kleine Beispielkurve
 # a = 2
 # b = 2
 # p = 17
 # gen_point = (5, 1)
 
-# NIST Curve P-192
+# Weitere kleine Beispielkurve
 a = -3
-b = int("0x64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1", 16)
-p = 6277101735386680763835789423207666416083908700390324961279
-gen_point = (int("0x188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012", 16), int("0x07192b95ffc8da78631011ed6b24cdd573f977a11e794811", 16))
+b = 3
+p = 13
+gen_point = (4, 4)
 
+# NIST Curve P-192
+# a = -3
+# b = int("0x64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1", 16)
+# p = 6277101735386680763835789423207666416083908700390324961279
+# gen_point = (int("0x188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012", 16),
+#               int("0x07192b95ffc8da78631011ed6b24cdd573f977a11e794811", 16))
 
 ell_curve = EllipticCurveInFp(a, b, p)
+ell_curve_in_r = EllipticCurveInR(a, b)
+
+xValues, f1Values, f2Values = ell_curve_in_r.getPoints()
+draw = DrawCurves()
+draw.add_plot(xValues, f1Values)
+draw.add_plot(xValues, f2Values)
+draw.draw()
+
 if p < 1000000:
     if ell_curve.is_elliptic_curve_correct():
         print("Curve is correct!")
@@ -40,13 +55,17 @@ alice_priv, alice_pub = dh_alice.gen_key_pair(gen_point)
 bob_priv, bob_pub = dh_bob.gen_key_pair(gen_point)
 
 print(f"Alice: Private Key: {alice_priv}; Public Key: {alice_pub}")
+print(f"Subgroup of {alice_pub} is: {cyc_group.get_sub_group_elements(alice_pub)}")
 print(f"Bob: Private Key: {bob_priv}; Public Key: {bob_pub}")
+print(f"Subgroup of {bob_pub} is: {cyc_group.get_sub_group_elements(bob_pub)}")
 
 alice_common_key = dh_alice.calc_common_key(bob_pub)
 bob_common_key = dh_bob.calc_common_key(alice_pub)
+
+print(f"Alice common key: {alice_common_key}")
+print(f"Bob common key: {bob_common_key}")
 
 if alice_common_key == bob_common_key:
     print(f"DHKE was successfull! Common key is: {alice_common_key}")
 else:
     print(f"DHKE was NOT successfull!")
-

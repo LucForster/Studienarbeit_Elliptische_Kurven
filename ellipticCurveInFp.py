@@ -65,6 +65,13 @@ class EllipticCurveInFp:
 
         # Addition nach bekannten Formeln
         if x1 == x2 and y1 == y2:
+            # Punkt ist Nullstelle --> Tangente ist parallel zur y-Achse --> ergibt neutrales Element
+            if y1 == 0:
+                x3 = "N"
+                y3 = "N"
+                R = (x3, y3)
+                return R
+
             # Punktaddition mit sich selbst
             s = (3 * x1 ** 2 + self.a) * supportAlgos.inverse_mod(2 * y1, self.p) % self.p
         else:
