@@ -1,30 +1,36 @@
 from ellipticCurveInR import EllipticCurveInR
+from ellipticCurveInFp import EllipticCurveInFp
+from cyclicGroup import CyclicGroup
+from DHKE import DHKE
 from drawEC import DrawCurves
 
-# Beispiel: Erstelle eine elliptische Kurve y^2 = x^3 - 3x + 1
-curve = EllipticCurveInR(-3, 1)
+#ell_curve = EllipticCurveInFp(2, 2, 17)
+ell_curve = EllipticCurveInFp(-3, int("0x64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1", 16), 6277101735386680763835789423207666416083908700390324961279)
+if ell_curve.is_elliptic_curve_correct():
+    print("Curve is correct!")
 
-# Prüft, ob die erstellte elliptische Kurve korrekt ist
-print(curve.is_elliptic_curve_correct())
+#gen_point = (5, 1)
+gen_point = (int("0xb70e0cbd6bb4bf7f321390b94a03c1d356c21122343280d6115c1d21", 16), int("0xbd376388b5f723fb4c22dfe6cd4375a05a07476444d5819985007e34", 16))
+if ell_curve.is_point_on_curve(gen_point):
+    print("Point is on curve!")
 
-# Gibt alle definierten Punkte auf der Kurve aus
-xValues, f1Values, f2Values = curve.getPoints()
-# for i in range(len(xValues)):
-#    print(f"({xValues[i]}, {f1Values[i]}, {f2Values[i]}")
+cyc_group = CyclicGroup(ell_curve)
+#print(f"Subgroup of {gen_point} is: {cyc_group.get_sub_group_elements(gen_point)}")
+#print(f"Oder of {gen_point} is: {cyc_group.get_element_order(gen_point)}")
 
-# Prüfe ob (0,1) auf der Kurve liegt
-print(curve.is_point_on_curve(1.6999999999999762, 0.901665126307913))
 
-# Punkte: (-1.1989999999987306, -1.6950859568180212), (0.31584338205487406, 0.28978863911584507)
-# Führe Punktaddition von (0,1) und (0,1) durch
-x, y = curve.add_points(-1.1989999999987306, -1.6950859568180212, 0.31584338205487406, 0.28978863911584507)
-print(
-    f"Punktaddition von (-1.1989999999987306, -1.6950859568180212) und (0.31584338205487406, 0.28978863911584507): ({x}, {y})")
+dh_alice = DHKE(cyc_group)
+dh_bob = DHKE(cyc_group)
 
-# Zeichne die Kurve
-draw = DrawCurves()
-draw.add_plot(xValues, f1Values)
-draw.add_plot(xValues, f2Values)
+alice_priv, alice_pub = dh_alice.gen_key_pair(gen_point)
+bob_priv, bob_pub = dh_bob.gen_key_pair(gen_point)
 
-draw.add_point_addition(-1.1989999999987306, -1.6950859568180212, 0.31584338205487406, 0.28978863911584507, x, y)
-draw.draw()
+print(f"Alice: Private Key: {alice_priv}; Public Key: {alice_pub}")
+print(f"Bob: Private Key: {bob_priv}; Public Key: {bob_pub}")
+
+alice_common_key = dh_alice.calc_common_key(bob_pub)
+bob_common_key = dh_bob.calc_common_key(alice_pub)
+
+if alice_common_key == bob_common_key:
+    print(f"DHKE was successfull. Common key is: {alice_common_key}")
+

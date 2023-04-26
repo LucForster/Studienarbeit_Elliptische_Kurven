@@ -5,13 +5,8 @@ class CyclicGroup:
     def __init__(self, elliptic_curve):
         self.elliptic_curve = elliptic_curve
 
-    def add_Elements(self, A, B):
-        x1 = A[0]
-        y1 = A[1]
-        x2 = B[0]
-        y2 = B[1]
-        C = []
-        C[0], C[1] = self.elliptic_curve.add_points(x1, y1, x2, y2)
+    def add_elements(self, A, B):
+        C = self.elliptic_curve.add(A, B)
         return C
 
     def scalar_dot_element(self, scalar, element):
@@ -22,10 +17,10 @@ class CyclicGroup:
         current_element = element
         for digit in binary:
             # double
-            current_element = self.add_Elements(current_element, current_element)
+            current_element = self.add_elements(current_element, current_element)
             if digit == "1":
                 # add
-                current_element = self.add_Elements(current_element, element)
+                current_element = self.add_elements(current_element, element)
         return current_element
 
     def get_sub_group_elements(self, primitive_element):
@@ -33,7 +28,7 @@ class CyclicGroup:
         sub_group_elements = []
         while True:
             sub_group_elements.append(current_element)
-            current_element = self.add_Elements(current_element, primitive_element)
+            current_element = self.add_elements(current_element, primitive_element)
             if current_element == primitive_element:
                 break
 
@@ -45,12 +40,12 @@ class CyclicGroup:
         return order
 
     def get_group_order(self):
-        group_elements = self.elliptic_curve.get_points_on_curve()
+        group_elements = self.elliptic_curve.get_all_points_on_curve()
         group_order = len(group_elements)
         return group_order
 
     def get_group_elements(self):
-        return self.elliptic_curve.get_points_on_curve()
+        return self.elliptic_curve.get_all_points_on_curve()
 
     def get_all_sub_groups(self):
         elements = self.get_group_elements()
@@ -75,8 +70,8 @@ class CyclicGroup:
         return primitive_elements
 
 
-scalar = 19
-bin_scalar = bin(scalar)[2:]
-print(bin_scalar)
-bin_scalar = bin_scalar
-print(bin_scalar)
+# scalar = 19
+# bin_scalar = bin(scalar)[2:]
+# print(bin_scalar)
+# bin_scalar = bin_scalar
+# print(bin_scalar)
