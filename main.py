@@ -6,13 +6,17 @@ from drawEC import DrawCurves
 
 #ell_curve = EllipticCurveInFp(2, 2, 17)
 ell_curve = EllipticCurveInFp(-3, int("0x64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1", 16), 6277101735386680763835789423207666416083908700390324961279)
-if ell_curve.is_elliptic_curve_correct():
-    print("Curve is correct!")
+# if ell_curve.is_elliptic_curve_correct():
+#     print("Curve is correct!")
+# else:
+#     print("Curve is NOT correct!")
 
 #gen_point = (5, 1)
-gen_point = (int("0xb70e0cbd6bb4bf7f321390b94a03c1d356c21122343280d6115c1d21", 16), int("0xbd376388b5f723fb4c22dfe6cd4375a05a07476444d5819985007e34", 16))
+gen_point = (int("0x188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012", 16), int("0x07192b95ffc8da78631011ed6b24cdd573f977a11e794811", 16))
 if ell_curve.is_point_on_curve(gen_point):
     print("Point is on curve!")
+else:
+    print("Point ist NOT on curve!")
 
 cyc_group = CyclicGroup(ell_curve)
 #print(f"Subgroup of {gen_point} is: {cyc_group.get_sub_group_elements(gen_point)}")
@@ -32,5 +36,7 @@ alice_common_key = dh_alice.calc_common_key(bob_pub)
 bob_common_key = dh_bob.calc_common_key(alice_pub)
 
 if alice_common_key == bob_common_key:
-    print(f"DHKE was successfull. Common key is: {alice_common_key}")
+    print(f"DHKE was successfull! Common key is: {alice_common_key}")
+else:
+    print(f"DHKE was NOT successfull!")
 
