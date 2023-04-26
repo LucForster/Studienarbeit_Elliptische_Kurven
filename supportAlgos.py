@@ -25,6 +25,22 @@
 #
 # draw.add_point_addition(-1.1989999999987306, -1.6950859568180212, 0.31584338205487406, 0.28978863911584507, x, y)
 # draw.draw()
+
+def inverse_mod(a, m):
+    # Berechnet das inverse Element von a modulo m
+    # benutzt den Erweiterten Euklidischen Algorithmus
+    if a < 0:
+        a = a % m
+    c, d, uc, vc, ud, vd = a, m, 1, 0, 0, 1
+    while c != 0:
+        q, c, d = divmod(d, c) + (c,)
+        uc, vc, ud, vd = ud - q * uc, vd - q * vc, uc, vc
+    if ud > 0:
+        return ud
+    else:
+        return ud + m
+
+
 def square(value, n):
     temp = value
     value = value ** 2 % n

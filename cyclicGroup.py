@@ -68,10 +68,3 @@ class CyclicGroup:
                 primitive_elements.append(element)
 
         return primitive_elements
-
-
-# scalar = 19
-# bin_scalar = bin(scalar)[2:]
-# print(bin_scalar)
-# bin_scalar = bin_scalar
-# print(bin_scalar)
