@@ -138,7 +138,7 @@ Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik 
 Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einiger Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit p > 3 durchführt und die Punkte anschließend in der Konsole ausgibt.
 
 \subsection{Rechnerische Grundlagen}
-Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[138]{JosephH.Silverman.2009}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[vgl.][S. 181]{reinholdhuebl} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
+Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[S. 138]{JosephH.Silverman.2009}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[S. 181]{Dr.ReinholdHubl.2022} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
 \end{center} 
@@ -146,7 +146,7 @@ $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
 Was ist jedoch die Hauptaussage der Hasse-Weil-Schranke? Sie besagt, dass sich bei großen p die Anzahl der Elemente der elliptischen Kurve in der Größenoprdnung von p bewegen. Diese Schranke bildet hierbei eine obere und untere Grenze. Die Anzahl der Punkte bewegt sich also innerhalb dieser Schranke. Dies ist für elliptische Kurven mit kleinem p uninteressant, jedoch wird diese Schranke für elliptische Kurven mit großem gewählten p, was in der Kryptographie gängig ist, relevant.\\
 
 
-Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Reinhold Hübl in seinem Manuskript der Kryptologie \cite[vgl.][S. 157]{reinholdhuebl} erläutert, ist eine elliptische Kurve mit den Charakteristiken char(k) = 0 oder char(k) > 3 eine Kurve, die durch ein Polynom der Form
+Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Reinhold Hübl in seinem Manuskript der Kryptologie \cite[S. 157]{Dr.ReinholdHubl.2022} erläutert, ist eine elliptische Kurve mit den Charakteristiken char(k) = 0 oder char(k) > 3 eine Kurve, die durch ein Polynom der Form
 \begin{center}
 $F(X, Y) = Y^{2} - X^{3} - aX - b$
 \end{center} 
@@ -288,7 +288,7 @@ Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. I
 \subsection{Punktbestimmung: Punktaddition und -verdopplung}
 Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen Kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann, sofern der Startpunkt ein primitives Element der elliptischen Kurve ist. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss, der gleichzeitig ein Erzeuger der Gruppe ist oder eine hohe Ordnung auf der Kurve hat. Dieser Punkt muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein ist im Voraus bekannt. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen.\\
 
-Um dies herauszufinden, müssen noch einmal die Gruppeneigenschaften von elliptischen Kurven über $\mathbb{F}_{p}$ betrachtet werden. Hankerson, Menezes und Vanstone beschreiben in ihrem Buch \glqq\textit{Guide to Elliptic Curve Cryptography}\grqq diese Gruppeneigenschaften und erklären damit, wie man herausfindet, ob es sich um eine zyklische Gruppe handelt und damit in welterem Sinne, welche Punkte auf der elliptischen Kurve Generatoren sind \cite[vgl.][S. 82-84]{Hankerson2004}. Sei E eine elliptische Kurve über $\mathbb{F}_{p}$. Die Anzahl der Punkte in E($\mathbb{F}_{p}$), bezeichnet als
+Um dies herauszufinden, müssen noch einmal die Gruppeneigenschaften von elliptischen Kurven über $\mathbb{F}_{p}$ betrachtet werden. Hankerson, Menezes und Vanstone beschreiben in ihrem Buch \glqq\textit{Guide to Elliptic Curve Cryptography}\grqq diese Gruppeneigenschaften und erklären damit, wie man herausfindet, ob es sich um eine zyklische Gruppe handelt und damit in welterem Sinne, welche Punkte auf der elliptischen Kurve Generatoren sind \cite[S. 82-84]{HankersonMenezesVanstone.2004}. Sei E eine elliptische Kurve über $\mathbb{F}_{p}$. Die Anzahl der Punkte in E($\mathbb{F}_{p}$), bezeichnet als
 $\overline{E}(\mathbb{F}_{p})$, wird als die Ordnung von E über $\mathbb{F}_{p}$ bezeichnet. Dabei ist der imaginäre Punkt im Unendlichen inkludiert. Im Folgenden ist es wichtig herauszufinden, ob E eine zyklische Gruppe ist. Eine elliptische Kurve E über $\mathbb{F}_{p}$ ist eine zyklische Gruppe, wenn $\overline{E}(\mathbb{F}_{p})$ eine Primzahl ist. Dabei gilt die Regel: Definiert $\overline{E}(\mathbb{F}_{p})$ eine zyklische Gruppe, so ist die Anzahl der Punkte der Kurve mit hoher Wahrscheinlichkeit eine Primzahl. Dadurch ergibt sich ein Vorteil. Wenn die Anzahl der Punkte prim ist, dann sagt das Lagrange Theorem aus, dass jeder Punkt auf der Kurve ein Erzeuger der Gruppe ist. Dadurch kann aus jedem Punkt alle anderen Punkte berechnet werden. Um dies weiter auszuführen, wird die bereits angeführte Hasse-Weil-Schranke genutzt, um eine Abschätzung über die Anzahl der Punkte abzugeben.
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
@@ -325,7 +325,7 @@ function punktbestimmung(P, Q):
 
 Der Pseudocode zeigt lediglich eine beispielhafte Umsetzung. In \ref{sec:python_add_double} wird der ausprogrammierte Python-Code inklusive Erklärungen angegeben und weiter ausgeführt.\\
 
-Damit die Theorie anschaulich wird, folgt nun ein Beispiel für die Punktaddition und -verdopplung, um alle Punkte auf einer elliptischen Kurve zu berechnen. Das Beispiel ist angelehnt an \cite[vgl.][S. 279-280]{Paar.2016}. Gegeben sei eine elliptische Kurve E mit
+Damit die Theorie anschaulich wird, folgt nun ein Beispiel für die Punktaddition und -verdopplung, um alle Punkte auf einer elliptischen Kurve zu berechnen. Das Beispiel ist angelehnt an \cite[S. 279-280]{Paar.2016}. Gegeben sei eine elliptische Kurve E mit
 \begin{center}
 $y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
 \end{center}
@@ -429,7 +429,7 @@ Die algorithmische Brute-Force-Methode ist der klassischen Brute-Force-Methode i
 \paragraph{Satz von Fermat}
 Ist $\mathbb{F}_q$ ein endlicher Körper mit $q = p^e$ Elementen und p ist eine Primzahl, so ist die Einheitengruppe $\mathbb{F}_q^* = \mathbb{F}_q \setminus \{0\}$ zyklisch von der Ordnung $q - 1$.
 
-Aus diesem Satz lassen sich zwei Folgerungen herleiten, welche Grundlage für die algorithmische Brute-Force-Methode sind. Die genaue Herleitung der Folgerungen soll kein Teil dieser Arbeit sein. Die Folgerungen wurden dem Script von Hübl entnommen \cite[vgl.][S. 269]{reinholdhuebl}.
+Aus diesem Satz lassen sich zwei Folgerungen herleiten, welche Grundlage für die algorithmische Brute-Force-Methode sind. Die genaue Herleitung der Folgerungen soll kein Teil dieser Arbeit sein. Die Folgerungen wurden dem Script von Hübl entnommen \cite[S. 269]{Dr.ReinholdHubl.2022}.
 
 \paragraph{Folgerung 1}
 Ist $\mathbb{F}_p$ ein endlicher Primkörper mit einer Primzahl $p \geq 3$, so ist ein $x \in \mathbb{F}_p^*$ genau dann ein Quadrat, wenn $x^{\frac{p - 1}{2}} = 1$. Genau die Hälfte der Elemente von $\mathbb{F}_p^*$ sind Quadrate.
@@ -475,7 +475,7 @@ XXXXX\\
 
 XXXXX\\
 
-Hübl beschreibt in seinem Script die allgemeine Vorgehensweise für den algorithmischen Brute-Force \cite[vgl.][S. 270-272]{reinholdhuebl}. Gegeben sei ein $x \in \mathbb{F}_p^*$.
+Hübl beschreibt in seinem Script die allgemeine Vorgehensweise für den algorithmischen Brute-Force \cite[S. 270-272]{Dr.ReinholdHubl.2022}. Gegeben sei ein $x \in \mathbb{F}_p^*$.
 
 \begin{enumerate}
 \item Berechne $x^{\frac{p - 1}{2}}$ in $\mathbb{F}_p$. Falls $x^{\frac{p - 1}{2}} \neq 1$: \textbf{STOPP}, x ist kein Quadrat in $\mathbb{F}_p$.
