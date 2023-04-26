@@ -424,7 +424,7 @@ Damit ist $18 \cdot P = (5, 16)$. $19 \cdot P = P + Q = (5, 1) + (5, 16) = \inft
 Ähnlich wie bei der Brute-Force-Methode in \ref{sec:brute_force} ist die Berechnung über die Punktaddition und -verdopplung sehr rechenaufwendig. Die Schritte können in dieser Methode nicht ohne weiteres vereinfacht werden. Dadurch bleiben nur die Möglichkeiten offen, diese Methode in Code abzubilden, wie in \ref{sec:python_add_double} oder es händisch auszurechnen, was sehr zeit- und rechenaufwendig ist. Berechnet man die Punkte mit der Hand, dann ist die Fehleranfälligkeit hoch, da die vielen Rechnungen schnell unübersichtlich werden. Dadurch bleibt die Implementierung dieser Methode über Programmcode die einzige logische und effiziente Möglichkeit. Die nächste angeführte Methode zur Berechnung von Punkten auf einer elliptischen Kurve ist die algorithmische Brute-Force-Methode. Durch sie kann im Vergleich zu den zwei vorausgehenden Methoden der Zeit- und Rechenaufwand verringert werden.
 
 \subsection{Punktbestimmung: Algorithmische Brute-Force-Methode}
-Die algorithmische Brute-Force-Methode ist der klassischen Brute-Force-Methode in \ref{sec:brute_force} sehr ähnlich. Sie unterscheidet sich jedoch in einem wichtigen Aspelt. Während man bei der klassichen Methode die Quadrate und ihre Quadratwurzeln durch Ausprobieren aller Möglichkeiten herausfindet, wird bei der algorithmischen Methode die Findung der Quadrate und ihrer Wurzeln über einen Algorithmus durchgeführt. Der Algorithmus beinhaltet eine Quadratprüfung sowie eine Quadratwurzelprüfung über Schlussfolgerungen aus dem Satz von Fermat. Bei großen $p$ ist das Finden von Quadraten und der Quadratwurzeln sehr aufwendig. Der Vorteil der algorithmischen Methode ist, dass diese auch bei einem großen $p$ noch effizient berechnet werden können. 
+Die algorithmische Brute-Force-Methode ist der klassischen Brute-Force-Methode in \ref{sec:brute_force} sehr ähnlich. Sie unterscheidet sich jedoch in einem wichtigen Aspelt. Während man bei der klassichen Methode die Quadrate und ihre Quadratwurzeln durch Ausprobieren aller Möglichkeiten herausfindet, wird bei der algorithmischen Methode die Findung der Quadrate und ihrer Wurzeln über einen Algorithmus durchgeführt. Der Algorithmus beinhaltet eine Quadratprüfung sowie eine Quadratwurzelprüfung über Schlussfolgerungen aus dem Satz von Fermat. Bei großen $p$ ist das Finden von Quadraten und der Quadratwurzeln durch Ausprobieren sehr aufwendig. Der Vorteil der algorithmischen Methode ist, dass diese auch bei einem großen $p$ noch effizient berechnet werden können. 
 
 \paragraph{Satz von Fermat}
 Ist $\mathbb{F}_q$ ein endlicher Körper mit $q = p^e$ Elementen und p ist eine Primzahl, so ist die Einheitengruppe $\mathbb{F}_q^* = \mathbb{F}_q \setminus \{0\}$ zyklisch von der Ordnung $q - 1$.
@@ -432,7 +432,7 @@ Ist $\mathbb{F}_q$ ein endlicher Körper mit $q = p^e$ Elementen und p ist eine 
 Aus diesem Satz lassen sich zwei Folgerungen herleiten, welche Grundlage für die algorithmische Brute-Force-Methode sind. Die genaue Herleitung der Folgerungen soll kein Teil dieser Arbeit sein. Die Folgerungen wurden dem Script von Hübl entnommen \cite[S. 269]{Dr.ReinholdHubl.2022}.
 
 \paragraph{Folgerung 1}
-Ist $\mathbb{F}_p$ ein endlicher Primkörper mit einer Primzahl $p \geq 3$, so ist ein $x \in \mathbb{F}_p^*$ genau dann ein Quadrat, wenn $x^{\frac{p - 1}{2}} = 1$. Genau die Hälfte der Elemente von $\mathbb{F}_p^*$ sind Quadrate.
+Ist $\mathbb{F}_p$ ein endlicher Primkörper mit einer Primzahl $p \geq 3$, so ist ein $x \in \mathbb{F}_p^*$ genau dann ein Quadrat, wenn $x^{\frac{p - 1}{2}} = 1$. Genau die Hälfte der von 0 verschiedenen Elemente von $\mathbb{F}_p^*$ sind Quadrate.
 
 \paragraph{Folgerung 2}
 Ist p eine Primzahl, für die 4 ein Teiler von $p + 1$ ist und ist $x \in \mathbb{F}_p^*$ ein Quadrat, so ist $$a = x^{\frac{p + 1}{4}}$$ eine Quadratwurzel von $x$.\\
@@ -479,7 +479,7 @@ Hübl beschreibt in seinem Script die allgemeine Vorgehensweise für den algorit
 
 \begin{enumerate}
 \item Berechne $x^{\frac{p - 1}{2}}$ in $\mathbb{F}_p$. Falls $x^{\frac{p - 1}{2}} \neq 1$: \textbf{STOPP}, x ist kein Quadrat in $\mathbb{F}_p$.
-\item Falls $4 | (p + 1)$, so setze $$a =  x^{\frac{p + 1}{4}}$$ Falls $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$, wähle ein $b in \mathbb{F}_p$ mit $b^{\frac{p - 1}{2}} = -1$, schreibe $\frac{p - 1}{2} = 2^l \cdot t$ wie oben und konstruiere $$a =  x^{\frac{t + 1}{2}} \cdot b^n$$ wie oben.
+\item Falls $4 | (p + 1)$, so setze $$a =  x^{\frac{p + 1}{4}}$$ Falls $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$, wähle ein $b \in \mathbb{F}_p$ mit $b^{\frac{p - 1}{2}} = -1$, schreibe $\frac{p - 1}{2} = 2^l \cdot t$ (mit $t$ ungerade) wie oben und konstruiere $$a =  x^{\frac{t + 1}{2}} \cdot b^n$$ wie oben.
 \item Die Zahl $a$ ist eine Quadratwurzel von x in $\mathbb{F}_p$.
 \end{enumerate}
 
