@@ -472,9 +472,22 @@ Da $1^{\frac{7 - 1}{2}} = 1$ mod(7) und $4^{\frac{7 - 1}{2}} = 1$ mod(7) handelt
 
 wie man sieht, ist die Anwendung relativ einfach umzusetzen. Es gibt jedoch einen weiteren Fall, welcher betrachtet werden muss, um die Quadrate zu finden. Der Fall 1 wurde soeben betrachtet und anhand eines beispiels durchgerechnet. In diesem Fall ist 4 ein Teiler von $p + 1$ ist. Wenn es diesen Fall gibt kann es auch sein, dass $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ ist. Für diesen Fall 2 gibt es einen probabilistischen Ansatz, um die Quadratwurzeln zu finden. Dafür wird eine Induktion durchgeführt.\\
 
+
+
+
+
+
+
+
+Da der Fall sehr kompliziert ist, wollen wir dies nun anhand eines Beispiels vollständig durchrechnen. Gegeben sei ein Polynom einer elliptischen Kurve E der Form $$F(X, Y) = Y^{2} - X^{3} - 12 \cdot X - 17 \in \mathbb{F}_{421}$$ Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgende Gleichung: $$y^{2} =  x^{3} + 12 \cdot x + 17 \text{ mod }421$$. Es soll geprüft werden, ob $x_0 = 200$ und $x_1 = 400$ Quadrate sind. Weiterhin sollen die Wurzeln bestimmt werden, sofern es sich bei $x_0$ und $x_1$ um Quadrate handelt.\\
+
 XXXXX\\
 
 XXXXX\\
+
+
+
+
 
 Hübl beschreibt in seinem Script die allgemeine Vorgehensweise für den algorithmischen Brute-Force \cite[S. 270-272]{Dr.ReinholdHubl.2022}. Gegeben sei ein $x \in \mathbb{F}_p^*$.
 
