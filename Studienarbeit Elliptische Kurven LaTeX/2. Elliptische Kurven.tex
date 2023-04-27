@@ -472,12 +472,23 @@ Da $1^{\frac{7 - 1}{2}} = 1$ mod(7) und $4^{\frac{7 - 1}{2}} = 1$ mod(7) handelt
 
 Wie man sieht, ist die Anwendung relativ einfach umzusetzen. Es gibt jedoch einen weiteren Fall, welcher betrachtet werden muss, um die Wurzeln der Quadrate zu finden. Der Fall 1 wurde soeben betrachtet und anhand eines beispiels durchgerechnet. In diesem Fall ist 4 ein Teiler von $p + 1$ ist. Wenn es diesen Fall gibt kann es auch sein, dass $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ ist. Für diesen Fall 2 gibt es einen probabilistischen Ansatz, um die Quadratwurzeln zu finden. Dafür wird eine Induktion durchgeführt. Hübl beschreibt in seinem Script die Vorgehensweise um die Quadratwurzeln zu finden, wenn $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ \cite[S. 270-272]{Dr.ReinholdHubl.2022}. \\
 
-Dafür wählt man ein $b \in \mathbb{F}_p^*$, das kein Quadrat ist. Dafür muss $b^{\frac{p - 1}{2}} \neq 1$ sein in $\mathbb{F}_p^*$. Da die Hälfte der Elemente von $\mathbb{F}_p^*$ diese Bedingung erfüllt, kann ein Element, welches kein Quadrat ist, relativ schnell gefunden werden.Notwendigerweise gilt dadurch $b^{\frac{p - 1}{2}} = - 1$. Da $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$, gilt außerdem auch, dass $4 | (p - 1)$. Dadurhc kann man den bruch im Exponenten umschreiben: $$\frac{p - 1}{2} = 2^l \cdot t$$ mit einem $l \geq 1$ und einem ungeraden $t$. Jetzt werden induktiv die Zahlen $n_0, n_1, ..., n_i \in \mathbb{Z}$ konstruiert mit folgenden Eigenschaften:
+Dafür wählt man ein $b \in \mathbb{F}_p^*$, das kein Quadrat ist. Dafür muss $b^{\frac{p - 1}{2}} \neq 1$ sein in $\mathbb{F}_p^*$. Da die Hälfte der Elemente von $\mathbb{F}_p^*$ diese Bedingung erfüllt, kann ein Element, welches kein Quadrat ist, relativ schnell gefunden werden.Notwendigerweise gilt dadurch $b^{\frac{p - 1}{2}} = - 1$. Da $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$, gilt außerdem auch, dass $4 | (p - 1)$. Dadurhc kann man den bruch im Exponenten umschreiben: $$\frac{p - 1}{2} = 2^l \cdot t$$ mit einem $l \geq 1$ und einem ungeraden $t$. Jetzt werden induktiv die Zahlen $n_0, n_1, ..., n_l \in \mathbb{Z}$ konstruiert mit folgenden Eigenschaften:
 
 \begin{itemize}
 \item $n_i$ ist $(l - i)$-mal durch 2 teilbar.
 \item $x^{2^{l - i} \cdot t} \cdot b^{2n_i} = 1$.
 \end{itemize}
+
+Nun wird die Induktion durchgeführt.\\
+
+\textit{Induktionsanfang} $i = 0$:\\Setze $n_0 = 0$. Es gilt:
+
+\begin{enumerate}
+\item $n_0$ ist beliebig oft, also sicherlich $(l - 0)$-mal durch 2 teilbar
+\item $x^{2^{l - i} \cdot t} \cdot b^{2n_0} = x^{2^{l} \cdot t} \cdot b^0 = x^{\frac{p - 1}{2}} \cdot 1 = 1$.
+\end{enumerate}
+
+\textit{Induktionsschluss} $i \rightarrow i + 1$ (\textit{mit} $i + 1 \leq l$)
 
 
 
