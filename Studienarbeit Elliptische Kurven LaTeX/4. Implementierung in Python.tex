@@ -255,7 +255,7 @@ def is_prime(n):
 Zunächst wird geprüft ob die gegebene Zahl $n$ kleiner oder gleich 1, da es in dem Fall sicher keine Primzahl ist. Danach wird für jede Zahl von $2$ bis $\sqrt{n}$ geprüft ob sie ein Teiler von $n$ ist. Falls ein Teiler gefunden wird, ist $n$ keine Primzahl, falls nicht, ist $n$ eine Primzahl.
 
 \subsection{Funktion: extended\_euclidean\_algorithm()}
-Diese Funktion ist eine rekursive Implementierung des erweiterten euklidischen Algorithmus. Dieser liefert neben dem $GGT$ der beiden Inputparameter $a$ und $b$ auch die Koeffizienten der Gleichung $$ax + by == GGT$. In der Praxis wird die häufig eingesetzt um das multiplikative Inverse einer Zahl in einem endlichen Körper zu berechnen.
+Diese Funktion ist eine rekursive Implementierung des erweiterten euklidischen Algorithmus. Dieser liefert neben dem $GGT$ der beiden Inputparameter $a$ und $b$ auch die Koeffizienten der Gleichung $$ax + by == GGT$$. In der Praxis wird die häufig eingesetzt um das multiplikative Inverse einer Zahl in einem endlichen Körper zu berechnen.
 \vspace{\baselineskip}
 \begin{lstlisting}[caption={Funktion: extended\_euclidean\_algorithm()}, captionpos=b]
 def extended_euclidean_algorithm(a, b):
@@ -281,6 +281,7 @@ def inverse_mod2(a, m):
 \end{lstlisting}
 \vspace{\baselineskip}
 
+Im Fall, das der $GGT$ von $a$ und $m$ ungleich 1 ist, was gleichbedeutend damit ist, dass kein Inverses existiert, wird \textit{None} zurückgegeben, ansonsten das  multiplikative Inverse.
 
 \section{Erweiterter Euklidischer Algorithmus}\label{sec:python_euklid}
 XXX
