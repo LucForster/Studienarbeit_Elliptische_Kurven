@@ -3,6 +3,7 @@ import math
 from decimal import Decimal
 import random
 
+
 class DHKE:
     def __init__(self, cyclic_group):
         self.cyclic_group = cyclic_group

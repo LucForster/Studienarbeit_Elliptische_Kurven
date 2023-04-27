@@ -1,3 +1,6 @@
+import math
+
+
 # # Beispiel: Erstelle eine elliptische Kurve y^2 = x^3 - 3x + 1
 # curve = EllipticCurveInR(-3, 1)
 #
@@ -26,9 +29,19 @@
 # draw.add_point_addition(-1.1989999999987306, -1.6950859568180212, 0.31584338205487406, 0.28978863911584507, x, y)
 # draw.draw()
 
-def inverse_mod(a, m):
+# Prüft, ob eine Zahl prim ist
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def inverse_mod2(a, m):
     # Berechnet das inverse Element von a modulo m
-    # benutzt den Erweiterten Euklidischen Algorithmus
+    # nutzt den Erweiterten Euklidischen Algorithmus
     if a < 0:
         a = a % m
     c, d, uc, vc, ud, vd = a, m, 1, 0, 0, 1
@@ -72,11 +85,19 @@ def eukliedAlgoRekursiv(n, e):
         return ggt
 
 
-def erweiterterEukliedAlgo(a, b):
+def inverse_mod(a, m):
+    gcd, x, y = extended_euclidean_algorithm(a, m)
+    if gcd != 1:
+        return None
+    else:
+        return x % m
+
+
+def extended_euclidean_algorithm(a, b):
     if a == 0:
         return b, 0, 1
     else:
-        gcd, x, y = erweiterterEukliedAlgo(b % a, a)
+        gcd, x, y = extended_euclidean_algorithm(b % a, a)
         return gcd, y - (b // a) * x, x
 
 

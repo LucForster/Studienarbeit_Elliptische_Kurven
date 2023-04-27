@@ -2,6 +2,286 @@
 \chapter{Implementierung in Python}
 Im Folgenden werden die Umsetzungen der angesprochenen Algorithmen sowie die Arithmetik der elliptischen Kurven in Python thematisiert.
 
+\section{Klasse: ellipticCurveInFp}
+Die Klasse \textit{ellipticCurveInFp} ermöglicht es eine elliptische Kurve der Form $$y^2 = x^3 + ax + b \in \mathbb{F}_p$$ zu definieren. Im Zuge dessen werden verschiedene Methoden bereitgestellt.
+\subsection{Methode: is\_elliptic\_curve\_correct()}
+Diese Methode prüft alle Eigenschaften, die zur Definition einer Elliptischen Kurve erforderlich sind und gibt entsprechend \textit{True} oder \textit{False} zurück.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: is\_elliptic\_curve\_correct()}, captionpos=b]
+def is_elliptic_curve_correct(self):
+	# p muss eine Primzahl sein
+	if not is_prime(self.p):
+		return False
+	# p muss groesser als 3 sein
+    if self.p <= 3:
+        return False
+	# 4a^3 + 27b^2 darf nicht durch p teilbar sein bzw. nicht Null sein in F_p
+	if (4 * (self.a ** 3) + 27 * (self.b ** 2)) % self.p == 0:
+		return False
+	# Die Kurve ist korrekt
+    return True
+\end{lstlisting}
+\vspace{\baselineskip}
+Im ersten Schritt wird überprüft ob es sich beim Parameter $p$ um eine Primzahl handelt, da $\mathbb{F}_p$ ein Primkörper sein muss. Im zweiten Schritt wird geprüft ob $p > 3$, da der Arithmetik auf Kurven mit $p <= 3$ andere Formeln zur Punktaddition zu Grunde liegen, mit welchen hier nicht Umgegangen werden kann. Als letzten Schritt wird die Bedingung $$4x^3 + 27x^2 \neq 0 \in \mathbb{F}_p$$ geprüft. Diese muss, wie in Kapitel \ref{sec:elliptische_kurve} erwähnt, gelten sein um Singularitäten auszuschließen.
+
+\subsection{Methode: is\_point\_on\_curve()}
+Die Methode überprüft ob ein gegebener Punkt auf der definierten elliptischen Kurve liegt.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: is\_point\_on\_curve()}, captionpos=b]
+def is_point_on_curve(self, P):
+	x, y = P
+    # y^2 = x^3 + ax + b muss erfuellt sein in F_p
+    return (y ** 2 - x ** 3 - self.a * x - self.b) % self.p == 0
+\end{lstlisting}
+\vspace{\baselineskip}
+Dazu wird geprüft ob nach Einsetzten des gegebenen Punktes die Kurvengleichung $$y^2 = x^3 + ax + b \in \mathbb{F}_p$$ erfüllt ist. Entsprechend wird \textit{True} oder \textit{False} zurückgegeben.
+
+\subsection{Methode: add()}
+Die \textit{add()} Methode dient dazu zwei Punkte auf der elliptischen Kurve zu addieren. Zur Abbildung des unendlich fernen Punkts bzw. des neutralen Elements wurde die Notation $(N,N)$ gewählt. Aufgrund der Ähnlichkeit zu $(0,0)$, wurde nicht von $(O,O)$ Gebrauch gemacht, was wegen der Bezeichnung des neutralen Elements $\mathcal{O}$ naheliegend wäre. 
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: add()}, captionpos=b]
+def add(self, P, Q):
+    x1, y1 = P
+    x2, y2 = Q
+    # Addition des neutralen Elements mit sich selbst ergibt das neutrale Element
+    if x1 == "N" and x2 == "N":
+        R = ("N", "N")
+        return R
+    # Addition eines Punktes und des neutralen Elements ergibt den Punkt
+    elif x1 == "N":
+        R = (x2, y2)
+        return R
+    elif x2 == "N":
+        R = (x1, y1)
+        return R
+    # Addition inverser Punkte ergibt neutrales Element
+    elif x1 == x2 and y1 != y2:
+        R = ("N", "N")
+        return R
+
+        # Addition nach bekannten Formeln
+        if x1 == x2 and y1 == y2:
+            # Punkt ist Nullstelle --> Tangente ist parallel zur y-Achse --> ergibt neutrales Element
+            if y1 == 0:
+                R = ("N", "N")
+                return R
+            # Punktaddition mit sich selbst
+            s = (3 * x1 ** 2 + self.a) * supportAlgos.inverse_mod(2 * y1, self.p) % self.p
+        else:
+            # Punktaddition von unterschiedlichen Punkten
+            s = (y2 - y1) * supportAlgos.inverse_mod(x2 - x1, self.p) % self.p
+        x3 = (s ** 2 - x1 - x2) % self.p
+        y3 = (s * (x1 - x3) - y1) % self.p
+        R = (x3, y3)
+        return R
+\end{lstlisting}
+\vspace{\baselineskip}
+Zunächst werden alle Sonderfälle behandelt:
+\begin{itemize}
+\item $\mathcal{O} + \mathcal{O} = \mathcal{O}$
+\item $P + \mathcal{O} = \mathcal{O} + P = P$
+\item $P + -(P) = \mathcal{O}$
+\item Falls $P = (x_P, 0)$, dann gilt $P + P = \mathcal{O}$
+\end{itemize}
+Nach Behandlung dieser Sonderfälle erfolgt die Berechnung von $R = (x_3, y_3)$ gemäß den in Kapitel \ref{sec:Arithmetik} hergeleiteten Formeln:
+$$x_3 = s^2 - x_1 - x_2$$
+$$y_3 = s(x_1 - x_3) - y_1$$,
+wobei
+
+$$s = \begin{cases}
+	\frac{y_2 - y_1}{x_2 -x_1} & \text{, falls } P \neq Q \text{ (Punktaddition)}\\
+	\frac{3x_1^2 + a}{2y_1} & \text{, falls } P = Q \text{ (Punktverdopplung)}
+	\end{cases}
+$$
+\vspace{\baselineskip}
+
+\section{Klasse: CyclicGroup}
+Diese Klasse bietet Funktionalitäten bezüglich der Gruppeneigenschaften elliptischer Kurven. Ein Objekt der Klasse \textit{EllipticCurveInFp} muss im Konstruktor übergeben werden. \textit{CyclicGroup} stellt Methoden zur Addition und Skalar-Multiplikation, als auch jene zur Bestimmung der Gruppen- und Elementordnung etc. zur Verfügung.
+\subsection{Methode: add\_elements()}
+Diese Methode stellt die Funktionalität bereit, zwei Gruppenelemente zu addieren und das Ergebnis zurückzugeben. Dazu wird intern die \textit{add()} Methode der \textit{EllipticCurveInFp}-Klasse genutzt.
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: add\_elements()}, captionpos=b]
+def add_elements(self, A, B):
+	C = self.elliptic_curve.add(A, B)
+    return C
+\end{lstlisting}
+\vspace{\baselineskip}
+
+\subsection{Methode: scalar\_dot\_element}
+Die Methode \textit{scalar\_dot\_element()} ermöglicht es, einen Punkt auf der Kurve mit einem Skalar zu multiplizieren. Dabei wird der in Kapitel \ref{sec:DLPüberEC} erläuterte Doubble-And-Add-Algorithmus verwendet.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: scalar\_dot\_element()}, captionpos=b]
+def scalar_dot_element(self, scalar, element):
+    binary = bin(scalar)
+    binary = binary[3:]
+    # double and add algorithm
+    current_element = element
+    for digit in binary:
+        # double
+        current_element = self.add_elements(current_element, current_element)
+        if digit == "1":
+            # add
+            current_element = self.add_elements(current_element, element)
+    return current_element
+\end{lstlisting}
+\vspace{\baselineskip}
+Nach Durchlauf des Algorithmus wird der zuletzt berechnete Punkt zurückgegeben.
+
+\subsection{Methode: get\_sub\_group\_elements()}
+Unter Anwendung des Wissens aus dem Kapitel zu Untergruppen zyklischer Gruppen \ref{sec:untergruppen} findet diese Methode alle Element der durch einen Punkt bzw. Gruppenelement generierten Untergruppe. Dazu wird der Punkt so lange zu sich selbst addiert, bis das neutrale Element erreicht wird. Alle dabei berechneten Punkte gehören zur durch den gegebenen Punkt erzeugten Untergruppe.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_sub\_group\_elements()}, captionpos=b]
+def get_sub_group_elements(self, primitive_element):
+    current_element = primitive_element
+    sub_group_elements = []
+    while True:
+        sub_group_elements.append(current_element)
+        current_element = self.add_elements(current_element, primitive_element)
+        if current_element == primitive_element:
+            break
+    return sub_group_elements
+\end{lstlisting}
+\vspace{\baselineskip}
+
+In jedem Schleifendurchlauf wird der errechnete Punkt einer List hinzugefügt, welche nach Erreichen des neutralen Elements zurückgegeben wird.
+
+\subsection{Methode: get\_element\_order()}
+Diese Methode gibt die Ordnung eines gegebenen Gruppenelements wieder. Dazu wird mittels der Methode \textit{get\_sub\_group\_elements()} die durch das Element erzeugte Untergruppe ermittelt. Die Anzahl der ermittelten Elemente entspricht der Ordnung des Elements.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_element\_order()}, captionpos=b]
+def get_element_order(self, element):
+	sub_group_elements = self.get_sub_group_elements(element)
+	order = len(sub_group_elements)
+    return order
+\end{lstlisting}
+\vspace{\baselineskip}
+
+\subsection{Methode: get\_group\_order()}
+Mittels dieser Methode kann die Gruppenordnung bestimmt werden. Diese entspricht der Anzahl der Punkte auf der elliptischen Kurve, weshalb intern auf die Methode \textit{get\_all\_points\_on\_curve()} der Klasse \textit{EllipticCurveInFp} zurückgegriffen wird. Jene liefert alle Punkte auf der Kurve, deren Anzahl anschließend ermittelt und zurückgegeben wird.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_group\_order()}, captionpos=b]
+def get_group_order(self):
+    group_elements = self.elliptic_curve.get_all_points_on_curve()
+    group_order = len(group_elements)
+    return group_order
+\end{lstlisting}
+\vspace{\baselineskip}
+
+\subsection{Methode: get\_group\_elements()}
+Durch diese Methode werden alle Gruppenelemente zurückgegeben. Diese entsprechen den Punkten auf der elliptischen Kurve, weshalb wieder die \textit{get\_all\_points\_on\_curve()}-Methode der Klasse \textit{EllipticCurveInFp} genutzt wird.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_group\_elements()}, captionpos=b]
+def get_group_elements(self):
+	return self.elliptic_curve.get_all_points_on_curve()
+\end{lstlisting}
+\vspace{\baselineskip}
+  
+\subsection{Methode: get\_all\_sub\_groups()}
+Diese Methode gibt alle Untergruppen der zyklischen Gruppe in einer List wieder. Dazu werden zunächst alle Elemente der Gruppe mittels der Methode \textit{get\_group\_elements()} ermittelt. Anschließen wird diese Menge in einer Schleife durchlaufen. Zu dem jeweiligen Element wird mittels der Methode \textit{get\_sub\_group\_elements()} die generierte Untergruppe ermittelt. 
+% Die muss ich nochmal überarbeiten
+
+\subsection{Methode: get\_primitive\_elements()}
+Primitive Elemente zeichnen sich dadurch aus, dass ihre Ordnung der Gruppenordnung entspricht, sie also bei Addition zu sich selbst die gesamte Gruppe generieren. Die Methode \textit{get\_primitive\_elements()} prüft für jedes Element der Gruppe dessen Ordnung und gibt eine Liste jener Elemente zurück deren Ordnung der Gruppenordnung entspricht.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_primitive\_elements()}, captionpos=b]
+def get_primitive_elements(self):
+    elements = self.get_group_elements()
+    group_order = self.get_group_order()
+    primitive_elements = []
+    for element in elements:
+        if self.get_element_order(element) == group_order:
+            primitive_elements.append(element)
+    return primitive_elements
+\end{lstlisting}
+\vspace{\baselineskip}
+
+\section{Klasse: DHKE}
+Die Klasse \textit{DHKE} nutz die Methoden der Klasse \textit{CyclicGroup} um die Funktionalität für einen Elliptic-Curve-Diffi-Hellman-Key-Exchange durchzuführen. Die Implementierung könnte genauso gut für einen klassischen DHKE genutzt werden, was im Grunde von der Übergebenen zyklischen Gruppe abhängt, daher der Name DHKE anstatt ECDHKE. Wie schon a ngedeutet wird der Klasse im Konstruktor die zugrundeliegende zyklische Gruppe übergeben.
+\subsection{Methode: gen\_key\_pair()}
+Basierend auf einem gegebenen Generator erzeugt die Methode ein Schlüsselpaar bestehend aus einem zufälligen privaten Schlüssel und einem daraus berechneten öffentlichen Schlüssel.
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_primitive\_elements()}, captionpos=b]
+def gen_key_pair(self, start_element):
+    group_order = self.cyclic_group.get_element_order(start_element)
+    # k_priv = random.randrange(int(np.sqrt(10000000000000000000)), 10000000000000000000)
+    k_priv = np.random.randint(np.sqrt(group_order), group_order)
+    # kPub = kPriv * start_point
+    k_pub = self.cyclic_group.scalar_dot_element(k_priv, start_element)
+    self.k_priv = k_priv
+    self.k_pub = k_pub
+    return k_priv, k_pub
+\end{lstlisting}
+\vspace{\baselineskip}
+
+Im ersten Schritt wird mittels der Methode \textit{get\_element\_order()} der Klasse \textit{CyclicGroup} die Ordnung des Generators $g$ ermittelt. Anschließend wird ein zufälliger privater Schlüssel $k_{priv} \in \{\sqrt{ord(g)},..., ord(g)\}$ erzeugt. Dieser private Schlüssel wird nun unter Verwendung der Methode \textit{scalar\_dot\_element()} aus der Klasse \textit{CyclicGroup} mit dem gegebenen Generator multipliziert um den öffentlichen Schlüssel $k_{pub}$ zu erzeugen. Beide Schlüssel werden in Objektattributen gespeichert um sie weiteren verwenden zu können und anschließend zurückgegeben.
+
+\subsection{Methode: calc\_common\_key()}
+Nach Erhalt des öffentlichen Schlüssel des Kommunikationspartners ermöglicht es diese Methode den gemeinsamen geheimen Schlüssel zu berechnen.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: calc\_common\_key()}, captionpos=b]
+def calc_common_key(self, k_pub):
+	common_key = self.cyclic_group.scalar_dot_element(self.k_priv, k_pub)
+	return common_key
+\end{lstlisting}
+\vspace{\baselineskip}
+Dies geschieht durch die Multiplikation des eigenen privaten Schlüssel mit dem gegebenen öffentlichen Schlüssel des Kommunikationspartners. Der berechnete Schlüssel wird folgend zurückgegeben.
+
+\subsection{Support Algorithmen}
+Neben den oben gezeigten Klassen wurde ein Modul mit verschiedenen Algorithmen entwickelt, welche von den anderen Klassen verwendet werden.
+
+\subsection{Funktion: is\_prime()}
+Die \textit{is\_prime}-Funktion ermöglicht es festzustellen ob eine gegebene Zahl eine Primzahl ist. Im Falle einer Primzahl wird \textit{True}, ansonsten \textit{False} zurückgegeben.
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Funktion: is\_prime()}, captionpos=b]
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+\end{lstlisting}
+\vspace{\baselineskip}
+Zunächst wird geprüft ob die gegebene Zahl $n$ kleiner oder gleich 1, da es in dem Fall sicher keine Primzahl ist. Danach wird für jede Zahl von $2$ bis $\sqrt{n}$ geprüft ob sie ein Teiler von $n$ ist. Falls ein Teiler gefunden wird, ist $n$ keine Primzahl, falls nicht, ist $n$ eine Primzahl.
+
+\subsection{Funktion: extended\_euclidean\_algorithm()}
+Diese Funktion ist eine rekursive Implementierung des erweiterten euklidischen Algorithmus. Dieser liefert neben dem $GGT$ der beiden Inputparameter $a$ und $b$ auch die Koeffizienten der Gleichung $$ax + by == GGT$. In der Praxis wird die häufig eingesetzt um das multiplikative Inverse einer Zahl in einem endlichen Körper zu berechnen.
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Funktion: extended\_euclidean\_algorithm()}, captionpos=b]
+def extended_euclidean_algorithm(a, b):
+    if a == 0:
+        return b, 0, 1
+    else:
+        gcd, x, y = extended_euclidean_algorithm(b % a, a)
+        return gcd, y - (b // a) * x, x
+\end{lstlisting}
+\vspace{\baselineskip}
+
+\subsection{Funktion: inverse\_mod()}
+Mittels des erweiterten euklidischen Algorithmus berechnet diese Funktion das multiplikative Inverse einer Zahl $a$ modulo $m$.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Funktion: inverse\_mod()}, captionpos=b]
+def inverse_mod2(a, m):
+    gcd, x, y = extended_euclidean_algorithm(a, m)
+    if gcd != 1:
+        return None
+    else:
+        return x % m
+\end{lstlisting}
+\vspace{\baselineskip}
+
+
 \section{Erweiterter Euklidischer Algorithmus}\label{sec:python_euklid}
 XXX
 
