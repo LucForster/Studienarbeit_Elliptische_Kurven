@@ -118,69 +118,80 @@ hier diffie-hellmann
 \section{Algebraische Strukturen}
 Definiert durch die Zahlentheorie und als zentraler Untersuchungsgegenstand des mathematischen Teilgebietes der universellen Algebra, liefern algebraische Strukturen die Basis zur Realisierung komplexer symmetrischer und asymmetrischer Kryptosysteme, weshalb wir im folgenden Kapitel die Eigenschaften relevanter algebraischer Strukturen näher betrachten wollen. Darüber hinaus möchten wir Ihnen auch einige Werkzeuge zum Rechnen in der jeweiligen algebraischen Struktur an die Hand geben, welche zur späteren Realisierung von Kryptosystemen benötigt werden.\\
 
-Unter einer sehr allgemeinen Betrachtung ist eine mathematische Struktur eine Liste nichtleerer Mengen, genannt Trägermengen, mit Elementen aus den Trägermengen, genannt Konstanten, und mengentheoretischer Konstruktionen über den Trägermengen. Diese sind konkret Funktionen über den Trägermengen. Im Weiteren beschränken wir uns auf den Fall einer einzigen Trägermenge, wodurch die Strukturen als homogen bezeichnet werden können.
+Unter einer sehr allgemeinen Betrachtung ist eine mathematische Struktur eine Liste nichtleerer Mengen, genannt Trägermengen, mit Elementen aus den Trägermengen, genannt Konstanten, und mengentheoretischer Konstruktionen über den Trägermengen. Diese sind konkret Funktionen über den Trägermengen. Im Weiteren beschränken wir uns auf den Fall einer einzigen Trägermenge, wodurch die Strukturen als homogen bezeichnet werden können.\cite[S. 355]{Berghammer.2021}
 
 \paragraph{Definition: Homogene algebraische Struktur}
 Eine homogene algebraische Struktur ist ein Tupel $(M,c_1,\dots,c_m,f_1,\dots,f_n)$ mit $m,n \in \mathbb{N}$ und $n \geq 1$. Dabei ist $M$ eine nichtleere Menge, genannt \textbf{Trägermenge}, alle $c_i$ sind Elemente aus $M$, genannt die \textbf{Konstanten}, und alle $f_i$ sind $s_i$-stellige Funktionen $f_i:M \rightarrow M$ im Fall $s = 1$ und $f_i:M^{s_i} \rightarrow M$ im Fall $s_i>1$, genannt die (inneren) \textbf{Operationen}. Die lineare Liste$(0,\dots,0,s_1,\dots,s_n)$ mit $m$ Nullen heißt \textbf{Typ} oder die \textbf{Signatur}.\newline
 
 Laut dieser Definition muss eine homogen algebraische Struktur nicht unbedingt Konstanten enthalten, jedoch mindestens eine Operation. Das Paar $(\mathbb{N},+)$ bildet beispielsweise eine homogene algebraische Struktur des Typs (2). Das 5-Tupel $(\mathbb{N},0,1,+,\cdot)$ bildet ebenfalls eine homogen algebraische Struktur des Typs (0,0,2,2).
 
-Algebraische Strukturen unterscheiden sich grundsätzlich durch ihren Typ. Wirklich charakterisiert werden sie aber erst durch die jeweils geltenden Axiome, d.h. bestimmte Eigenschaften, welche für die Konstanten und Operationen gefordert werden. Durch die Hinzunahme immer weiterer Axiome, entsteht eine Hierarchie immer feinerer Strukturen, an deren Anfang der Monoid steht.
+Algebraische Strukturen unterscheiden sich grundsätzlich durch ihren Typ. Wirklich charakterisiert werden sie aber erst durch die jeweils geltenden Axiome, d.h. bestimmte Eigenschaften, welche für die Konstanten und Operationen gefordert werden. Durch die Hinzunahme immer weiterer Axiome, entsteht eine Hierarchie immer feinerer Strukturen, an deren Anfang der Monoid steht.\cite[S. 355, 356]{Berghammer.2021}
 
 \subsection{Monoid}
 
 \paragraph{Definition: Monoid}
 Eine algebraische Struktur $(M,e,\cdot)$ des Typs (0,2) heißt ein Monoid, falls für alle $x,y,z\in M$ die folgenden Monoid Axiome gelten:
 \begin{itemize}
-    \item (Ass) $x \cdot (y \cdot z) = (x \cdot y) \cdot z$
-    \item (Neu) $e \cdot x = x = x \cdot e$
-\end{itemize}  Gilt zusätzlich noch für alle $x,y \in M$ die Gleichung $x \cdot y = y \cdot x$, so heiß $(M,e,\cdot)$ ein \textbf{kommutatives Monoid}.\\
+    \item (Ass) $x \circ (y \circ z) = (x \circ y) \circ z$
+    \item (Neu) $e \circ x = x = x \circ e$
+\end{itemize}  Gilt zusätzlich noch für alle $x,y \in M$ die Gleichung $x \circ y = y \circ x$, so heiß $(M,e,\circ)$ ein \textbf{kommutatives Monoid}.\\
 
 Die erste und die letzte Gleichung bilden das Assoziativ- und Kommutativgesetz ab. Durch die mittlere Gleichung wird ein neutrales Element $e$ bezüglich der Operation gefordert, wobei sowohl die \textbf{Linksneutralität} als auch die \textbf{Rechtsneutralität} spezifiziert wird.\\
 
-Einfache Beispiele für Monoide sind $(\mathbb{N},0,+)$, $(\mathbb{N},1,\cdot)$ und $(\mathbb{Z},0,+)$. Die Potenzierung in solchen Monoiden ist folgendermaßen definiert.
+Einfache Beispiele für Monoide sind $(\mathbb{N},0,+)$, $(\mathbb{N},1,\cdot)$ und $(\mathbb{Z},0,+)$. Die Potenzierung in solchen Monoiden ist folgendermaßen definiert.\cite[S. 356]{Berghammer.2021}
 
 \paragraph{Definition: Potenzierung}
 In einem Monoid $(M,e,\cdot)$ definiert man die $n$-te \textbf{Potenz} $x^n$ von $x \in M$ durch $x^0 := e$ und $x^{x+1} = x \cdot x^n$ für alle $n \in \mathbb{N}$.\\
 
-Daraus ergibt sich für den Monoid $(\mathbb{N},1,\cdot)$ die aus $\mathbb{R}$ gewohnte Potenzierung. Nach welcher für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 \cdot x_2 \cdot \dots \cdot x_n$ ergibt. Betrachtet man jedoch den Monoid $(\mathbb{N},0,+)$, so ergibt analog dazu für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 + x_2 + \dots + x_n = x \cdot n$, was also einer Multiplikation von $x$ mit $n$ entspricht.
+Daraus ergibt sich für den Monoid $(\mathbb{N},1,\cdot)$ die aus $\mathbb{R}$ gewohnte Potenzierung. Nach welcher für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 \cdot x_2 \cdot \dots \cdot x_n$ ergibt. Betrachtet man jedoch den Monoid $(\mathbb{N},0,+)$, so ergibt analog dazu für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 + x_2 + \dots + x_n = x \cdot n$, was also einer Multiplikation von $x$ mit $n$ entspricht \cite[S. 356, 357]{Berghammer.2021}.
 
 \subsection{Gruppe}\label{sec:gruppe}
 
 \paragraph{Definition: Gruppe}
-Eine algebraische Struktur $(G,e,\cdot,inv)$ des Typs $(0,2,1)$ heißt \textbf{Gruppe}, falls für alle $x,y,z \in G$ die folgenden Axiome gelten:
+Eine algebraische Struktur $(G,e,\circ,inv)$ des Typs $(0,2,1)$ heißt \textbf{Gruppe}, falls für alle $x,y,z \in G$ die folgenden Axiome gelten:
 
 \begin{itemize}
-    \item (Ass)    $x \cdot (y \cdot z) = (x \cdot y) \cdot z$
-    \item (Neu)    $e \cdot x = x$
-    \item (Inv)    $inv(x) \cdot x = e$
+    \item (Ass)    $x \circ (y \cdot z) = (x \circ y) \circ z$
+    \item (Neu)    $e \circ x = x$
+    \item (Inv)    $inv(x) \circ x = e$
 \end{itemize}
 
-Gilt wiederum die Gleichung $x \cdot y = y \cdot x$ für alle $x,y \in G$, so heißt $(G,e,\cdot,inv)$ eine \textbf{kommutative Gruppe} oder Abelsche Gruppe.
+Gilt wiederum die Gleichung $x \circ y = y \circ x$ für alle $x,y \in G$, so heißt $(G,e,\circ,inv)$ eine \textbf{kommutative Gruppe} oder Abelsche Gruppe. Die Gruppenoperation $\circ$ ist \textit{abgeschlossen}. D.h. für alle $a,b \in G$ gilt $a \circ b = c \in G$.
 
-In jeder Gruppe $(G,e,\cdot,inv)$ gelten für alle $x \in G$ folgende Formeln:
-\begin{itemize}
-\item $x \cdot x = x \Rightarrow x = e$
-\item $x \cdot e = x$
-\item $x \cdot inv(x) = e$
-\item $(\forall z \in G: x \cdot z = z) \Rightarrow x = e$
-\item $x \cdot y = e \Rightarrow x = inv(y)$
-\item $inv(x \cdot y) = inv(x) \cdot inv(y)$
-\item $inv(inv(x)) = x$
-\item $inv(e) = e$
-\end{itemize}
+In jeder Gruppe $(G,e,\circ,inv)$ gelten für alle $x \in G$ folgende Formeln \cite[S. 357-359]{Berghammer.2021}:
+\begin{align*}
+&x \circ x = x \Rightarrow x = e
+&&x \circ e = x
+&&x \circ inv(x) = e
+\end{align*}
+Diese lassen sich durch Anwendung der obigen Axiome und ein wenig Logik beweisen. Die Beweise können im Buch von Berghammer unter \cite[S. 358, 359]{Berghammer.2021} nachvollzogen werden. Die folgenden Formeln beziehen sich auf die Eindeutigkeit neutraler und inverser Elemente in Gruppen.
+\begin{align*}
+&(\forall z \in G: x \circ z = z) \Rightarrow x = e
+&&x \circ y = e \Rightarrow x = inv(y)
+\end{align*}
+Auch diese lassen sich mit den schon bekannten Gruppengesetzen beweisen, was unter \cite[S. 358, 359]{Berghammer.2021} nachgeschlagen werden kann. Weiterhin sind die folgenden Rechenregeln für Gruppen zu nennen.
+
+\begin{align*}
+&inv(x \circ y) = inv(x) \circ inv(y)
+&&inv(inv(x)) = x
+&&inv(e) = e
+\end{align*}
+
+Die erste Gleichung lässt sich leicht durch folgende Rechnung zeigen:
+$$(inv(y) \circ inv(x)) \circ (x \circ y) = inv(y) \circ (inv(x) \circ x) \circ y = inv(y) \circ e \circ y = inv(y) \circ y = e$$
+Damit ist gezeigt, dass $inv(y) \circ inv(x)$ linksinvers zu $x \circ y$ ist. Unter dieser Prämisse und der Eindeutigkeit der inversen Elemente muss die erste Gleichung gelten. Die beiden anderen Gleichungen lassen sich auf sehr ähnliche Weise zeigen.\\
 
 Um Gruppen ein wenig anschaulicher zu machen, betrachten wir im Folgenden ein paar Beispiele:
 \begin{itemize}
 \item $(\mathbb{Z}, +)$ ist eine Gruppe. $\mathbb{Z} = \{\dots, -1, 0, 1, \dots \}$ ist die Menge der ganzen Zahlen, welche zusammen mit der Addition als Gruppenoperation eine abelsche Gruppe bildet, wobei $e = 0$ das neutrale Element und $-a$ das Inverse eines beliebigen Elements $a \in \mathbb{Z}$ ist.
-\item Ein Gegenbeispiel ist $(\mathbb{Z} \setminus \{0\}, \cdot)$. Die Menge der ganzen Zahlen (ohne die 0) mit der Multiplikation als Gruppenoperation bildet keine Gruppe, da es kein Inverses Element $a^(-1)$ für jedes Element $a \in \mathbb{Z}$ gibt.
+\item Ein Gegenbeispiel ist $(\mathbb{Z} \setminus \{0\}, \cdot)$. Die Menge der ganzen Zahlen (ohne die 0) mit der Multiplikation als Gruppenoperation bildet keine Gruppe, da es kein Inverses Element $a^(-1)$ für jedes Element $a \in \mathbb{Z}$ gibt \cite[S. 239, 240]{Paar.2016}.
 \end{itemize}
 \subsection{Zyklische Gruppe} \label{sec:zyklische_Gruppe}
 Die eben eingeführten Gruppen besitzen unendlich viele Elemente. Für die Kryptographie interessant sind jedoch endliche algebraische Strukturen, weshalb im Folgenden die endlichen Gruppen eingeführte werden.
 
 \paragraph{Definition: Endliche Gruppe}
 Eine Gruppe $(G, \circ)$ ist \textit{endlich}, wenn sie eine endliche Anzahl an Elementen hat. Die Anzahl der Elemente der Gruppe wird als 
-\textit{Kardinalität} oder \textit{Ordnung} der Gruppe $G$ mit $|G|$ bezeichnet.
+\textit{Kardinalität} oder \textit{Ordnung} der Gruppe $G$ mit $|G|$ bezeichnet\cite[S. 241]{Paar.2016}.
 
 Beispiele für endliche Gruppen sind:
 \begin{itemize}
@@ -191,7 +202,7 @@ Beispiele für endliche Gruppen sind:
 Für die Konstruktion eines DLPs wird eine weitere Spezialisierung der endlichen Gruppen benötigt, die sogenannten zyklischen Gruppen. Einleitend dazu wollen wir zunächst den Begriff der Ordnung eines Elements definieren.
 
 \paragraph{Definition: Ordnung eines Elements}
-Die \textit{Ordnung}  $ord(a)$ eines Elements $a$ einer Gruppe $(G, \circ)$ ist die kleinste positive ganze Zahl $k$ mit $$a^k = \underbrace{a \circ a \circ \dots \circ a}_{\text{$k$ mal}} = e$$ wobei $e$ neutrales Element von $G$ ist.
+Die \textit{Ordnung}  $ord(a)$ eines Elements $a$ einer Gruppe $(G, \circ)$ ist die kleinste positive ganze Zahl $k$ mit $$a^k = \underbrace{a \circ a \circ \dots \circ a}_{\text{$k$ mal}} = e$$ wobei $e$ neutrales Element von $G$ ist \cite[S. 241]{Paar.2016}.
 
 Nachfolgend wollen wir ein Beispiel betrachten:
 
@@ -215,10 +226,10 @@ Es ist interessant zu sehen, was passiert, wenn man weiter mit $a$ multipliziert
 &a^{11} = a^{10} \cdot a = 1 \cdot a \equiv 3 \text{ mod } 11\\
 &\qquad \vdots
 \end{align*}
-Wie zu sehen ist, durchlaufen die Potenzen von $a$ nach Erreichen des neutralen Elements $e$ immer wieder die Sequenz $\{3,9,5,4,1\}$. Mit diesem Wissen können wir jetzt eine zyklische Gruppe definieren.
+Wie zu sehen ist, durchlaufen die Potenzen von $a$ nach Erreichen des neutralen Elements $e$ immer wieder die Sequenz $\{3,9,5,4,1\}$. Mit diesem Wissen können wir jetzt eine zyklische Gruppe definieren \cite[S. 241, 242]{Paar.2016}.
 
 \paragraph{Definition: Zyklische Gruppe}
-Eine Gruppe $G$, die ein Element $\alpha$ mit der maximalen Ordnung ord($\alpha$) $= |G|$ enthält nennt man \textit{zyklisch}. Elemente mit maximaler Ordnung nennt man \textit{primitive Elemente} oder \textit{Generatoren}.\\
+Eine Gruppe $G$, die ein Element $\alpha$ mit der maximalen Ordnung ord($\alpha$) $= |G|$ enthält nennt man \textit{zyklisch}. Elemente mit maximaler Ordnung nennt man \textit{primitive Elemente} oder \textit{Generatoren} \cite[S. 242]{Paar.2016}.\\
 
 Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i = a$ des primitiven Elements jedes andere Gruppenelement $a$ dargestellt werden kann, also die gesamte Gruppe \textit{generiert} wird. Das folgende Beispiel zeigt die Erzeugung der zyklischen Gruppe $\mathbb{Z}^*_{11}$ durch das primitive Element $\alpha = 2$.
 \begin{align*}
@@ -231,7 +242,7 @@ Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i =
 
 Aus der letzten Gleichung folgt, dass ord$(a=2)=10=|\mathbb{Z}^*_{11}|$. Damit ist gezeigt, dass das Element $a = 2$ wirklich ein Generator der zyklischen Gruppe $\mathbb{Z}^*_{11}$ ist.
 
-Wie man aus den eben gezeigten Beispielen erkennen kann, sind einige Gruppenelemente Generatoren der Gruppe und andere nicht. Welche Ordnungen der Elemente in einer zyklischen Gruppe vorkommen hängt davon ab, welche natürlichen Zahlen die Gruppenkardinalität teilen. Betrachten wir nun wieder die Gruppe $\mathbb{Z}^*_{11}$, deren Kardinalität $|\mathbb{Z}^*_{11}| = 10$ ist, so ergeben sich mögliche Ordnungen der Elemente von $1,2,5 \text{ und }10$, da diese die einzigen natürlichen Zahlen sind die $10$ teilen. Folgende Veranschaulichung zeigt dies.
+Wie man aus den eben gezeigten Beispielen erkennen kann, sind einige Gruppenelemente Generatoren der Gruppe und andere nicht. Welche Ordnungen der Elemente in einer zyklischen Gruppe vorkommen hängt davon ab, welche natürlichen Zahlen die Gruppenkardinalität teilen. Betrachten wir nun wieder die Gruppe $\mathbb{Z}^*_{11}$, deren Kardinalität $|\mathbb{Z}^*_{11}| = 10$ ist, so ergeben sich mögliche Ordnungen der Elemente von $1,2,5 \text{ und }10$, da diese die einzigen natürlichen Zahlen sind die $10$ teilen. Folgende Veranschaulichung zeigt dies \cite[S. 243, 244]{Paar.2016}.
 \begin{align*}
 &\text{ord }(1) = 1 \qquad \text{ord }(6) = 10\\
 &\text{ord }(2) = 10 \qquad \text{ord }(7) = 10\\
@@ -244,21 +255,21 @@ Wie man aus den eben gezeigten Beispielen erkennen kann, sind einige Gruppenelem
 Ist $G$ eine zyklische Gruppe, dann gilt:
 \begin{enumerate}
 \item Die Anzahl der primitiven Elemente in $G$ ist $\Phi (|G|)$.
-\item Ist $|G|$ prim, dann sind alle Elemente $a \neq 1 \in G$ primitiv.
+\item Ist $|G|$ prim, dann sind alle Elemente $a \neq 1 \in G$ primitiv \cite[S. 244]{Paar.2016}.
 \end{enumerate}
 
-Die erste Eigenschaft kann leicht gezeigt werden durch, $\Phi(10) = (5-1)(2-1) = 4$. Es muss also vier primitive Elemente in $\mathbb{Z}^*_{11}$ geben, welche konkret die Elemente $2,6,7$ und $8$ sind. Die zweite Eigenschaft folgt implizit aus der ersten, da bei einer primen Kardinalität der Gruppe keine natürliche Zahl außer der $1$ und der Kardinalität selber die Gruppenkardinalität teilt, und diese somit die einzigen möglichen Elementordnungen sind. Da nur das Element $1$ die Ordnung $1$ haben kann, haben alle anderen Elemente die Ordnung $|G|$, sind also Generatoren der Gruppe.
+Die erste Eigenschaft kann leicht gezeigt werden durch, $\Phi(10) = (5-1)(2-1) = 4$. Es muss also vier primitive Elemente in $\mathbb{Z}^*_{11}$ geben, welche konkret die Elemente $2,6,7$ und $8$ sind. Die zweite Eigenschaft folgt implizit aus der ersten, da bei einer primen Kardinalität der Gruppe keine natürliche Zahl außer der $1$ und der Kardinalität selber die Gruppenkardinalität teilt, und diese somit die einzigen möglichen Elementordnungen sind. Da nur das Element $1$ die Ordnung $1$ haben kann, haben alle anderen Elemente die Ordnung $|G|$, sind also Generatoren der Gruppe \cite[S. 244]{Paar.2016}.
 
-\subsection{Untergruppen}
+\subsection{Untergruppen} \label{sec:untergruppen}
 Untermengen innerhalb zyklischer Gruppe können wiederum selbst Gruppen sein. Solche werden als Untergruppen bezeichnet. Im Fall von zyklischen Gruppen ist die Anzahl der jeweiligen Untergruppen leicht zu ermitteln. Sie entspricht nämlich genau der Anzahl an natürlichen Teilern der Gruppenkardinalität, wie aus dem folgenden Satz von Lagrange hervorgeht.
 
 \paragraph{Satz: Satz von Lagrange}
-Sei $H$ eine Untegruppe von $G$. Dann teilt $|H|$ die Gruppenkardinalität $|G|$.
+Sei $H$ eine Untegruppe von $G$. Dann teilt $|H|$ die Gruppenkardinalität $|G|$ \cite[S. 245]{Paar.2016}.
 
 Das \textit{Finden} zyklischer Untergruppen innerhalb einer zyklischen Gruppe wird durch folgenden Satz gezeigt.
 
 \paragraph{Satz: zyklische Untergruppen}
-Sei $(G, \circ)$ eine zyklische Gruppe. Dann ist jedes Element $a \in G$ mit ord$(a) = s$ ein primitives Element einer zyklischen Untergruppe mit $s$ Elementen.
+Sei $(G, \circ)$ eine zyklische Gruppe. Dann ist jedes Element $a \in G$ mit ord$(a) = s$ ein primitives Element einer zyklischen Untergruppe mit $s$ Elementen \cite[S. 244]{Paar.2016}.
 
 Die Kernaussage dieses Satzes ist, dass jedes Element einer zyklischen Gruppe Generator einer zyklischen Untergruppe ist.  Wir betrachten erneut die zyklische Gruppe $\mathbb{Z}^*_{11}$. Wie oben bereits gezeigt hat das Gruppenelement $a=3$ die Ordnung $5$, ist also Generator einer Untergruppe mit mit $5$ Elementen. Die Elemente dieser Untergruppe sind eben jene, welche durch die Potenzierung von $3$ mod $11$ erzeugt werden können, also $\{3,9,5,4,1\}$. So kann für jedes Element verfahren werden, alle Untergruppen von $\mathbb{Z}^*_{11}$ gezeigt werden können. Folgende Aufstellung zeigt beispielhaft alle Untergruppen von $\mathbb{Z}^*_{11}$.
 \begin{align*}
@@ -267,18 +278,18 @@ Die Kernaussage dieses Satzes ist, dass jedes Element einer zyklischen Gruppe Ge
 &\text{Ordnung: } 5 \text{ Generatoren: } \{3,4,5,9\} \text{ Elemente: }\{1,3,4,5,9\}\\
 &\text{Ordnung: } 10 \text{ Generatoren: } \{2,5,7,8\} \text{ Elemente: } \{1,2,3,4,5,6,7,8,9,10\}\\
 \end{align*}
-Wie zu erkennen ist, kann es mehrere Generatoren der selben Untergruppe geben. Außerdem interessant ist die Tatsache, dass Untergruppen primer Ordnung $p$ abgesehen von dem neutralen $1$ keine Überschneidungen mit anderen Untergruppen primer Ordnung aufweisen, da jedes Element die Ordnung $p$ hat und somit Generator der Untergruppe ist. Dies verdeutlicht, dass der Satz \textit{ Primitive Elemente in einer zyklischen Gruppe} auch für zyklische Untergruppen gilt.
+Wie zu erkennen ist, kann es mehrere Generatoren der selben Untergruppe geben. Außerdem interessant ist die Tatsache, dass Untergruppen primer Ordnung $p$ abgesehen von dem neutralen $1$ keine Überschneidungen mit anderen Untergruppen primer Ordnung aufweisen, da jedes Element die Ordnung $p$ hat und somit Generator der Untergruppe ist. Dies verdeutlicht, dass der Satz \textit{Primitive Elemente in einer zyklischen Gruppe} auch für zyklische Untergruppen gilt \cite[S. 244-246]{Paar.2016}.
 
 Der folgende Satz fasst die Erkenntnisse des letzten Abschnitts zusammen und gibt eine Methode zur Konstruktion einer Untergruppe für eine gegebene zyklische Gruppe.
 
 \paragraph{Satz: Konstruktion einer zyklischen Untergruppe}
-Sei $G$ eine endliche zyklische Gruppe der Ordnung $n$ und sei $\alpha$ ein Generator von $G$. Dann existiert für jede ganze Zahl $k$, die $n$ teilt, genau eine zyklische Untergruppe $H$ von $G$ mit der Ordnung $k$. Diese Untergruppe wird erzeugt von $\alpha^{n/k}$. $H$ besteht genau aus den Elementen $a \in G$, die die Bedingung $a^k = 1$ erfüllen. Es gibt keine weiteren Untergruppen.
+Sei $G$ eine endliche zyklische Gruppe der Ordnung $n$ und sei $\alpha$ ein Generator von $G$. Dann existiert für jede ganze Zahl $k$, die $n$ teilt, genau eine zyklische Untergruppe $H$ von $G$ mit der Ordnung $k$. Diese Untergruppe wird erzeugt von $\alpha^{n/k}$. $H$ besteht genau aus den Elementen $a \in G$, die die Bedingung $a^k = 1$ erfüllen. Es gibt keine weiteren Untergruppen \cite[S. 246]{Paar.2016}.
 
 Mit anderen Worten sagt dieser Satz, dass lediglich ein primitives Element $\alpha$ und die Ordnung einer zyklischen Gruppe $|G|$ benötigt wird, um alle Untergruppen von $G$ zu konstruieren. Im folgenden Beispiel wollen wir dies zu Konstruktion einer Untergruppe anwenden.
 
 Betrachten wird erneut die zyklische Gruppe $\mathbb{Z}^*_{11}$ und das primitive Element $\alpha = 6$. Wenn wir nun eine Generator $\beta$ der Untergruppe mit der Ordnung $k = 5$ finden möchten, berechnen wir:
 $$\beta = \alpha^{n/k} = 6^{10/5} = 6^2 = 36 \equiv 3 \text{ mod } 11$$
-Wie wir oben schon gezeigt haben ist $3$ tatsächlich ein Generator der Untergruppe $\{1,3,4,5,9\}$ mit $k = 5$ Elementen.
+Wie wir oben schon gezeigt haben ist $3$ tatsächlich ein Generator der Untergruppe $\{1,3,4,5,9\}$ mit $k = 5$ Elementen\cite[S. 246]{Paar.2016}.
 
 \subsection{Ring}
 Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(0,0,2,2,1)$ mit den folgenden Eigenschaften:
@@ -292,7 +303,7 @@ Ist $(R,1,\cdot)$ ein kommutatives Monoid, so nennt man $(R,0,1,+,\cdot,-)$ eine
 \subsection{Körper}
 Ein Körper ist eine spezielle Form des Rings. Die Definition des Körpers wurde aus \cite[S. 364-365]{Berghammer.2021} entnommen. Ein Ring $(K,0,1,+,\cdot,-)$ heißt \textbf{Körper}, wenn er kommutativ ist sowie gilt, dass $0 \neq 1$. Weiterhin muss folgende Formel $$x \neq 0 \Rightarrow \exists y \in K : yx = 1$$ für alle $x \in K$ gelten.\\
 
-Berghammer beschreibt in seinem Buch ein Stilbruch bei der Definition der Körper. Im Vergleich zu den Monoiden, Gruppen und Ringen erfordert der Körper eine Ungleichung als Axiom. Weiterhin existier ein noch komplizierteres Axiom, nämlich eine implikation mit einer Ungleichung als linker und einer Existenzquantifizierung als rechter Seite. Weiterhin ist im Gegensatz zu den Gruppen das linksinverse Element y zu x im zweiten Axiom bezüglich der Multiplikation nicht durch eine Spezifikation, sondern durch eine Existenzquantifizierung spezifiziert. Dadurch spezifiziert Berghammer Körper als algebraische Strukturen, welche nicht gleichungsdefiniert sind \cite[S. 364-365]{Berghammer.2021} Der Satz $x \neq 0$ impliziert, dass es nur ein linksinverses Element geben kann. Aufgrund der Kommutativität von \glqq$\cdot$\grqq{} ist dieses linksinverse Element auch rechtsinvers.\\
+Berghammer beschreibt in seinem Buch ein Stilbruch bei der Definition der Körper. Im Vergleich zu den Monoiden, Gruppen und Ringen erfordert der Körper eine Ungleichung als Axiom. Weiterhin existiert ein noch komplizierteres Axiom, nämlich eine Implikation mit einer Ungleichung als linker und einer Existenzquantifizierung als rechter Seite. Weiterhin ist im Gegensatz zu den Gruppen das linksinverse Element y zu x im zweiten Axiom bezüglich der Multiplikation nicht durch eine Spezifikation, sondern durch eine Existenzquantifizierung spezifiziert. Dadurch spezifiziert Berghammer Körper als algebraische Strukturen, welche nicht gleichungsdefiniert sind \cite[S. 364-365]{Berghammer.2021} Der Satz $x \neq 0$ impliziert, dass es nur ein linksinverses Element geben kann. Aufgrund der Kommutativität von \glqq$\cdot$\grqq{} ist dieses linksinverse Element auch rechtsinvers.\\
 
 Desweiteren haben Körper weitere Eigenschaften. Diese sind dem Buch über elementare Algebra und Zahlentheorie von Stroth und Waldecker entnommen \cite[S. 57-59]{Stroth.2019}.Sei $K$ ein Körper. Dann gilt
 \begin{enumerate}

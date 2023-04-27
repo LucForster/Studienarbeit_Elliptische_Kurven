@@ -1,15 +1,6 @@
 import math
 import supportAlgos
 
-# Prüft, ob eine Zahl prim ist
-def is_prime(n):
-    if n <= 1:
-        return False
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            return False
-    return True
-
 
 class EllipticCurveInFp:
     def __init__(self, a, b, p):
@@ -58,18 +49,14 @@ class EllipticCurveInFp:
             return R
         # Addition inverser Punkte ergibt neutrales Element
         elif x1 == x2 and y1 != y2:
-            x3 = "N"
-            y3 = "N"
-            R = (x3, y3)
+            R = ("N", "N")
             return R
 
         # Addition nach bekannten Formeln
         if x1 == x2 and y1 == y2:
             # Punkt ist Nullstelle --> Tangente ist parallel zur y-Achse --> ergibt neutrales Element
             if y1 == 0:
-                x3 = "N"
-                y3 = "N"
-                R = (x3, y3)
+                R = ("N", "N")
                 return R
 
             # Punktaddition mit sich selbst
@@ -80,8 +67,4 @@ class EllipticCurveInFp:
         x3 = (s ** 2 - x1 - x2) % self.p
         y3 = (s * (x1 - x3) - y1) % self.p
         R = (x3, y3)
-
         return R
-
-
-
