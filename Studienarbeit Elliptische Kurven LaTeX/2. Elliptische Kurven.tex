@@ -488,10 +488,21 @@ Nun wird die Induktion durchgeführt.\\
 \item $x^{2^{l - i} \cdot t} \cdot b^{2n_0} = x^{2^{l} \cdot t} \cdot b^0 = x^{\frac{p - 1}{2}} \cdot 1 = 1$.
 \end{enumerate}
 
-\textit{Induktionsschluss} $i \rightarrow i + 1$ (\textit{mit} $i + 1 \leq l$)\\Als Induktionsvoraussetzung wird angenommen, dass ein $n_i$ gefunden wurde, welches $(l - i)$-mal durch 2 teilbar ist und $x^{2^{l - i} \cdot t} \cdot b^{2n_i} = 1$.\\Setze $$c_i = x^{2^{l - (i + 1)} \cdot t} \cdot b^{n_i}$$ Dann gilt $$c^2_i = {(x^{2^{l - (i + 1)} \cdot t} \cdot b^{n_i})}^2 = x^{2 \cdot 2^{l - (i + 1)} \cdot t} \cdot b^{2 \cdot n_i} = x^{2^{l - i}} \cdot b^{2n_i} = 1$$ durch die Induktionsvoraussetzung, wodurch $c_i = 1$ oder $c_i = - 1$.\\Wenn $c_i = 1$, dann setze $n_{i + 1} = \frac{n_i}{2}$. Dies ist möglich, da $n_i$ $(l - i)$-mal durch 2 teilbar und $i < i + 1 \leq l$. 
+\textit{Induktionsschluss} $i \rightarrow i + 1$ (\textit{mit} $i + 1 \leq l$)\\Als Induktionsvoraussetzung wird angenommen, dass ein $n_i$ gefunden wurde, welches $(l - i)$-mal durch 2 teilbar ist und $x^{2^{l - i} \cdot t} \cdot b^{2n_i} = 1$.\\Setze $$c_i = x^{2^{l - (i + 1)} \cdot t} \cdot b^{n_i}$$ Dann gilt $$c^2_i = {(x^{2^{l - (i + 1)} \cdot t} \cdot b^{n_i})}^2 = x^{2 \cdot 2^{l - (i + 1)} \cdot t} \cdot b^{2 \cdot n_i} = x^{2^{l - i}} \cdot b^{2n_i} = 1$$ durch die Induktionsvoraussetzung, wodurch $c_i = 1$ oder $c_i = - 1$.\\Wenn $c_i = 1$, dann setze $n_{i + 1} = \frac{n_i}{2}$. Dies ist möglich, da $n_i$ $(l - i)$-mal durch 2 teilbar und $i < i + 1 \leq l$. Hierfür gilt
 
+\begin{enumerate}
+\item $n_{i + 1}$ ist $(l - (i + 1)$-mal durch 2 teilbar
+\item $x^{2^{l - (i + 1)} \cdot t} \cdot b^{2 \cdot n_{i + 1}} = x^{2^{l - (i + 1)}} \cdot b^{n_i} = c_i = 1$
+\end{enumerate}
 
+Falls $c_i = - 1$, so setze $$n_{i + 1} = \frac{n_i}{2} + \frac{p - 1}{4} = \frac{n_i}{2} + 2^{l - 1} \cdot t$$ Hierfür gilt 
 
+\begin{enumerate}
+\item $n_{i + 1}$ ist $(l - (i + 1)$-mal durch 2 teilbar
+\item $x^{2^{l - (i + 1)} \cdot t} \cdot b^{2n_{i + 1}} = x^{2^{l - (i + 1)}} \cdot b^{n_i} \cdot b^{\frac{p - 1}{2}}= c_i \cdot b^{\frac{p - 1}{2}} = (- 1) \cdot (- 1) = 1$
+\end{enumerate}
+
+XXX
 
 
 
