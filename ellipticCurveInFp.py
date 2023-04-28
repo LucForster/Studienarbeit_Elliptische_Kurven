@@ -9,8 +9,53 @@ class EllipticCurveInFp:
         self.p = p
 
     def get_all_points_on_curve(self):
-        a = 1
-        # TODO: @Aaron hier kann dein Kram für die Punktermittlung rein
+        x_squares = []
+
+        if self.is_elliptic_curve_correct(self) != True:
+            return False
+
+        # Speichern von berechneten Quadraten in square_candidates
+        square_candidates = self.get_squares(range(self.p))
+
+        # Finde x-Werte, welche Quadrate sind
+        for x in range(square_candidates):
+            temp = (x ** 3 - self.a * x - self.b) % self.p
+            isPresent = temp in set(square_candidates)
+            if isPresent == True:
+                x_squares.append((x))
+            elif isPresent == False:
+                break
+
+        # Berechne die Punkte
+        for 
+
+    def get_squares(candidate_list):
+        squares = []
+
+        # Berechne Quadrate und speichere sie in squares
+        for x in candidate_list:
+            square = (x**2) % len(candidate_list)
+            isPresent = square in set(squares)
+            if isPresent == True:
+                break
+            elif isPresent == False:
+                squares.append((square))
+        return squares.sort()
+
+    def check_square(x, p):
+        for y in range(p):
+            if (y ** 2) % (p) == x:
+                return True
+        return False
+
+    def get_roots(x, p):
+        roots = []
+        for y in range(p):
+            if (y ** 2) % p == x:
+                roots.append(y)
+                if len(roots) == 2:
+                    break
+        return roots[0], roots[1]
 
     def is_elliptic_curve_correct(self):
         # p muss eine Primzahl sein
