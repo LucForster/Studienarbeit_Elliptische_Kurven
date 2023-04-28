@@ -1,0 +1,14 @@
+Zu erledigen:
+
+-Programm debuggen
+-Punktbestimmung: Brute-Force
+-Überarbeitung Kapitel 1 mit Anmeldung
+-Abstract deutsch
+-Abstract englisch
+-Fazit / Resumee
+-Python: Sieb des Erathosthenes
+-2.1.2. Probabilistische Primzahltests (Miller Rabin)
+-2.1.3. Weiterschreiben
+
+
+Fertig:
