@@ -65,9 +65,7 @@ $\not{91}$ & $\not{92}$ & $\not{93}$ & $\not{94}$ & $\not{95}$ & $\not{96}$
 
 Das Sieb des Eratosthenes ist eine Möglichkeit, Primzahlen genau zu bestimmen. Problematisch wird es jedoch bei großen Zahlen. Für jede Zahl müssen je alle anderen Zahlen durchgegangen werden und es muss eine Teilbarkeitsprüfung durchgeführt werden. Umso größer die Zahlen werden, desto rechenaufwendiger wird die Anwendung des Sieb des Eratosthenes, um Primzahlen zu finden. Dieses ist also kein optimaler Ansatz, große Primzahlen zu bestimmen. Neben dem Sieb des Eratosthenes gibt es viele weitere Methoden, Primzahlen zu bestimmen.\\
 
-Die Besprechung aller dieser Verfahren und Algorithmen soll nicht Thema dieser Arbeit sein, jedoch soll noch eine gängige Methode erläutert werden. Über Probabilistische Verfahrne kö
-
-WEITERSCHREIBEN
+Über Probabilistische Verfahren können ebenfalls Primzahlen bestimmt werden. Der Unterschied bei probabilistischen Primzahltests ist, dass die bestimmten Zahlen im Gegensatz zu den deterministischen Primzahltests wie das Sieb des Eratosthenes nur zu einem bestimmten Prozentsatz Primzahlen sind. Ein Beispiel ist der Miller-Rabin-Primzahltest. Weitz beschreibt diesen in seinem Buch über die Mathematik für Informatiker \cite[S. 97]{WEITZ.2021}. Der Miller-Rabin-Test basiert auf dem kleinen Satz von Fermat und auf einer Eigenschaft der modularen Arithmetik: Wenn $p$ eine Primzahl ist, dann sind die einzigen Zahlen in $\mathbb{Z}_p$, deren Quadrat 1 ist, die Zahl 1 und die Zahl - 1. Im Gegensatz zu anderen probabilistischen Primzahltests wie dem Fermat-Test kann bei dem Miller-Rabin-Test eine maximale Fehlerwahrscheinlichkeit für eine zu testende Zahl angegeben werden. Die Besprechung aller dieser Verfahren und Algorithmen soll jedoch nicht Thema dieser Arbeit sein.
 
 \subsection{Rolle der Primzahlen in der Kryptografie}
 Primzahlen haben einen effektiven Nutzen in der Kryptografie. Bevor man sich fragt, wie Primzahlen in der Kryptografie genutzt werden, sollte man die Kryptografie vorher definieren. Dietmar Wätjen beschreibt diesne Begriff seinem Buch \glqq\textit{Kryptographie: Grundlagen, Algorithmen, Protokolle}\grqq aus dem Jahr 2018 \cite[S. 1]{Watjen.2018}. Kryptografie ist die Wissenschaft vom geheimen Schreiben. Kernziel ist es dabei, einen unverschlüsselten Text, genannt Klartext in einen Chiffretext überführt. Dieser Vorgang heißt \textit{chiffrieren}. Der Vorgang, bei welchem der Chiffretext wieder in den Klartext überführt wird, heißt \textit{dechiffrieren}. Für beide Vorgänge werden Schlüssel notwendig. Die Abbildung \ref{fig:verschluesselung} stellt dies übersichtlich dar:
@@ -75,7 +73,7 @@ Primzahlen haben einen effektiven Nutzen in der Kryptografie. Bevor man sich fra
 \begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth]{grafiken/verschluesselung.png}
-    \caption[Kryptografische Verschlüsselung]{Kryptografische Verschlüsselung \\ Quelle: \cite{Watjen.2018}}
+    \caption[Kryptografische Verschlüsselung]{Kryptografische Verschlüsselung \\ Quelle: \cite[S. 1]{Watjen.2018}}
     \label{fig:verschluesselung}
 \end{figure}
 

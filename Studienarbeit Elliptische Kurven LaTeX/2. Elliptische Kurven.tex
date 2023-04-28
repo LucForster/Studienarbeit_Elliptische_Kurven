@@ -152,18 +152,18 @@ Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik 
 
  
 \section{Punktbestimmung}
-Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einiger Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit p > 3 durchführt und die Punkte anschließend in der Konsole ausgibt.
+Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einiger Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit $p > 3$ durchführt und die Punkte anschließend in der Konsole ausgibt.
 
 \subsection{Rechnerische Grundlagen}
-Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[S. 138]{JosephH.Silverman.2009}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper p zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[S. 181]{Dr.ReinholdHubl.2022} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über k, dann gilt
+Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[S. 138]{JosephH.Silverman.2009}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper $p$ zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[S. 181]{Dr.ReinholdHubl.2022} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über $k$, dann gilt
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
 \end{center} 
 
-Was ist jedoch die Hauptaussage der Hasse-Weil-Schranke? Sie besagt, dass sich bei großen p die Anzahl der Elemente der elliptischen Kurve in der Größenoprdnung von p bewegen. Diese Schranke bildet hierbei eine obere und untere Grenze. Die Anzahl der Punkte bewegt sich also innerhalb dieser Schranke. Dies ist für elliptische Kurven mit kleinem p uninteressant, jedoch wird diese Schranke für elliptische Kurven mit großem gewählten p, was in der Kryptographie gängig ist, relevant.\\
+Was ist jedoch die Hauptaussage der Hasse-Weil-Schranke? Sie besagt, dass sich bei großen $p$ die Anzahl der Elemente der elliptischen Kurve in der Größenoprdnung von $p$ bewegen. Diese Schranke bildet hierbei eine obere und untere Grenze. Die Anzahl der Punkte bewegt sich also innerhalb dieser Schranke. Dies ist für elliptische Kurven mit kleinem $p$ uninteressant, jedoch wird diese Schranke für elliptische Kurven mit großem gewählten $p$, was in der Kryptographie gängig ist, relevant.\\
 
 
-Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Reinhold Hübl in seinem Manuskript der Kryptologie \cite[S. 157]{Dr.ReinholdHubl.2022} erläutert, ist eine elliptische Kurve mit den Charakteristiken char(k) = 0 oder char(k) > 3 eine Kurve, die durch ein Polynom der Form
+Doch wie lassen sich die Punkte konkret berechnen? Um diese Frage zu beantworten, müssen wir noch einmal die Grundlagen für elliptische Kurven aufgreifen. Wie Reinhold Hübl in seinem Manuskript der Kryptologie \cite[S. 157]{Dr.ReinholdHubl.2022} erläutert, ist eine elliptische Kurve mit den Charakteristiken $char(k) = 0$ oder $char(k) > 3$ eine Kurve, die durch ein Polynom der Form
 \begin{center}
 $F(X, Y) = Y^{2} - X^{3} - aX - b$
 \end{center} 
@@ -172,22 +172,22 @@ mit $a, b \in k$ dargestellt ist, für die $4a^3 + 27b^2 \neq 0$  $\in k$ gilt.\
 
 Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgende Gleichung in zwei Variablen:
 \begin{center}
-$y^{2} =  x^{3}$ + ax + b  mod(p),
+$y^{2} =  x^{3} + ax + b  \text{ mod } p$,
 \end{center}
 
-wobei $a, b \in \mathbb{F}_p$. Diese Gleichung ist der Schlüssel für die im Voraus aufgeworfene Frage, was ein Punkt einer elliptischen Kurve ist. Diese sind nämlich alle Punkte (x, y), welche die Gleichung lösen.\\
+wobei $a, b \in \mathbb{F}_p$. Diese Gleichung ist der Schlüssel für die im Voraus aufgeworfene Frage, was ein Punkt einer elliptischen Kurve ist. Diese sind nämlich alle Punkte $(x, y)$, welche die Gleichung lösen.\\
 
-Um die Punkte auf einer Kurve zu berechnen, prüft man zunächst, ob es sich bei der betrachteten Kurve um eine elliptische Kurve mit p > 3 handelt. Dafür arbeitet man mit der Formel  $4a^3 + 27b^2 \neq 0$. Man setzt die Parameter a und b der vermeintlichen elliptischen Kurve ein. Wenn die linke Seite $\neq 0$ ist, dann handelt es sich bei der besagten Kurve tatsächlich um eine elliptische Kurve mit p > 3. Rechnen wir dies nun einmal schematisch durch. Gegeben ist eine Funktion F mit
+Um die Punkte auf einer Kurve zu berechnen, prüft man zunächst, ob es sich bei der betrachteten Kurve um eine elliptische Kurve mit $p > 3$ handelt. Dafür arbeitet man mit der Formel  $4a^3 + 27b^2 \neq 0$. Man setzt die Parameter $a$ und $b$ der vermeintlichen elliptischen Kurve ein. Wenn die linke Seite $\neq 0$ ist, dann handelt es sich bei der besagten Kurve tatsächlich um eine elliptische Kurve mit $p > 3$. Rechnen wir dies nun einmal schematisch durch. Gegeben ist eine Funktion $F$ mit
 \begin{center}
 $F(X, Y) = Y^{2} - X^{3} + 3X - 3 \in \mathbb{F}_{13}$
 \end{center} 
 
-Wie man der Funktion entnehmen kann ist a = - 3 = 10 und b = 3 in $\mathbb{F}_{13}$. Diese setzen wir nun in die Formel ein.
+Wie man der Funktion entnehmen kann ist $a = - 3 = 10$ und $b = 3$ in $\mathbb{F}_{13}$. Diese setzen wir nun in die Formel ein.
 \begin{center}
 $4 \cdot 10^3 + 27 \cdot 3^2 = 6 \neq 0$ mod(13)
 \end{center} 
 
-Da 6 $\neq$ 0 ist definiert die Funktion eine elliptische Kurve in $\mathbb{F}_{13}$. Die Abbildung \ref{fig:kurve_beispiel_1_punktberechnung} zeigt die Zeichnung der Funktion dieser elliptischen Kurve über den reellen Zahlen im kartesischen Koordinatensystem: 
+Da $6 \neq 0$ ist definiert die Funktion eine elliptische Kurve in $\mathbb{F}_{13}$. Die Abbildung \ref{fig:kurve_beispiel_1_punktberechnung} zeigt die Zeichnung der Funktion dieser elliptischen Kurve über den reellen Zahlen im kartesischen Koordinatensystem: 
 
 \begin{figure}[H]
     \centering
@@ -209,40 +209,40 @@ Neben dieser drei gängigen Methoden werden in der Mathematik und in der Kryptog
 \subsection{Punktbestimmung: Brute-Force-Methode}\label{sec:brute_force}
 Wie bereits erläutert wurde, ist die umgestellte Gleichung der elliptischen Kurve in zwei Variablen folgende:
 \begin{center}
-$y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
+$y^{2} =  x^{3} + ax + b  \in \mathbb{F}_{p}$
 \end{center}
 
-Da die linke Seite mit $y^{2}$ offensichtlich quadratisch ist, muss am Ende auf beiden Seiten der Gleichung die Quadratwurzel gezogen werden, um die Gleichung zu lösen und im weiteren Sinne Punkte auf der Kurve zu finden. Da dies umständlich und im endlichen Körper $\mathbb{F}_{p}$ schwer zu realisieren ist, wird die rechte Seite bis zu einem Quadrat aufgelöst. Dafür muss man als erstes alle Punkte x $\in \mathbb{F}_{p}$ bestimmen, für die $x^{3} + ax + b$ ein Quadrat in $\mathbb{F}_{p}$ sind. Die Quadratprüfung ist dabei simpel: Man geht jedes Element in $\mathbb{F}_{p}$ von 0 bis p-1 durch und prüft, ob das quadrierte Element in der Restklasse ein Quadrat ist. Hierbei geht es um keine komplexe Rechnung, sondern lediglich um stupides ausprobieren. Zur Verdeutlichung folgendes Beispiel: Wir haben den Körper $\mathbb{F}_{5}$. Der Körper beinhaltet die Elemente $\mathbb{F}_{5}$ = {0, 1, 2, 3, 4}. Die Quadrate mitsamt ihrer Wurzeln sind folgende:
+Da die linke Seite mit $y^{2}$ offensichtlich quadratisch ist, muss am Ende auf beiden Seiten der Gleichung die Quadratwurzel gezogen werden, um die Gleichung zu lösen und im weiteren Sinne Punkte auf der Kurve zu finden. Da dies umständlich und im endlichen Körper $\mathbb{F}_{p}$ schwer zu realisieren ist, wird die rechte Seite bis zu einem Quadrat aufgelöst. Dafür muss man als erstes alle Punkte $x \in \mathbb{F}_{p}$ bestimmen, für die $x^{3} + ax + b$ ein Quadrat in $\mathbb{F}_{p}$ sind. Die Quadratprüfung ist dabei simpel: Man geht jedes Element in $\mathbb{F}_{p}$ von $0$ bis $p - 1$ durch und prüft, ob das quadrierte Element in der Restklasse ein Quadrat ist. Hierbei geht es um keine komplexe Rechnung, sondern lediglich um stupides ausprobieren. Zur Verdeutlichung folgendes Beispiel: Wir haben den Körper $\mathbb{F}_{5}$. Der Körper beinhaltet die Elemente $\mathbb{F}_{5} = \{0, 1, 2, 3, 4\}$. Die Quadrate mitsamt ihrer Wurzeln sind folgende:
 \begin{center}
 $0 = 0^{2} \qquad 1 = 1^{2} = 4^{2} \qquad 4 = 2^{2} = 3^{2}$
 \end{center}
 
-Die Zahlen 0, 1 und 4 sind demnach in $\mathbb{F}_{5}$ Quadrate. Die Wurzeln wurden der Vollständigkeit halber ebenfalls obig rechts des Quadrates notiert. Man berechnet die Quadrate nach folgendem Schema:
+Die Zahlen $0$, $1$ und $4$ sind demnach in $\mathbb{F}_{5}$ Quadrate. Die Wurzeln wurden der Vollständigkeit halber ebenfalls obig rechts des Quadrates notiert. Man berechnet die Quadrate nach folgendem Schema:
 
 \begin{enumerate}
 \item Man hat k mit k $\in \mathbb{F}_{p}$
-\item Man beginnt bei k = 0
+\item Man beginnt bei $k = 0$
 \item Es wird quadriert mit $k^{2}$
 \item Der Wert von $k^{2}$ in $\mathbb{F}_{p}$ wird ermittelt, dafür rechnet man $k^{2}$ mod(p)
 \item Die ermittelte Zahl ist ein Quadrat in $\mathbb{F}_{p}$
-\item Man wiederholt alle Schritte mit allen k von 0 bis p-1
+\item Man wiederholt alle Schritte mit allen $k$ von $0$ bis $p - 1$
 \item Am Ende hat man alle Quadrate und ihre zugehörigen Wurzeln
 \end{enumerate}
 
-Dies wird anhand eines ausführlichen Beispiels deutlich. Sei p = 11 und somit $\mathbb{F}_{p}$ = $\mathbb{F}_{11}$. 
+Dies wird anhand eines ausführlichen Beispiels deutlich. Sei $p = 11$ und somit $\mathbb{F}_{p} = \mathbb{F}_{11}$. 
 
 \begin{itemize}
-\item $0^{2} \equiv 0 $  mod(11)
-\item $1^{2} \equiv 1 $  mod(11)
-\item $2^{2} \equiv 4 $  mod(11)
-\item $3^{2} \equiv 9 $  mod(11)
-\item $4^{2} \equiv 5 $  mod(11)
-\item $5^{2} \equiv 3 $  mod(11)
-\item $6^{2} \equiv 3 $  mod(11)
-\item $7^{2} \equiv 5 $  mod(11)
-\item $8^{2} \equiv 9 $  mod(11)
-\item $9^{2} \equiv 4 $  mod(11)
-\item $10^{2} \equiv 1 $  mod(11)
+\item $0^{2} \equiv 0 \text{ mod } 11$
+\item $1^{2} \equiv 1 \text{ mod } 11$
+\item $2^{2} \equiv 4 \text{ mod } 11$
+\item $3^{2} \equiv 9 \text{ mod } 11$
+\item $4^{2} \equiv 5 \text{ mod } 11$
+\item $5^{2} \equiv 3 \text{ mod } 11$
+\item $6^{2} \equiv 3 \text{ mod } 11$
+\item $7^{2} \equiv 5 \text{ mod } 11$
+\item $8^{2} \equiv 9 \text{ mod } 11$
+\item $9^{2} \equiv 4 \text{ mod } 11$
+\item $10^{2} \equiv 1 \text{ mod } 11$
 \end{itemize}
 
 Wenn man die Null dazuzählt, hat $\mathbb{F}_{11}$ die Quadrate 0, 1, 3, 4, 5, 9. Im Folgenden sind die Quadrate mitsamt ihrer Wurzeln aufgeschrieben:
@@ -258,35 +258,35 @@ Wenn man die Null dazuzählt, hat $\mathbb{F}_{11}$ die Quadrate 0, 1, 3, 4, 5, 
 
 Die berechneten Quadrate und Wurzeln sind nötig, um die Punkte zu bestimmen. Um dies zu bewerkstelligen, wird die Gleichung der elliptischen Kurve in zwei Variablen benötigt. Um die benötigte Formel zu erhalten, überführen wir die Ausgangsgleichung in zwei Variablen in eine Funktionsgleichung mit einer Variablen:
 \begin{center}
-$y^{2} =  x^{3}$ + ax + b  $\in \mathbb{F}_{p} \qquad \Longrightarrow \qquad f(x) =  x^{3}$ + ax + b  $\in \mathbb{F}_{p}$
+$y^{2} =  x^{3} + ax + b  \in \mathbb{F}_{p} \qquad \Longrightarrow \qquad f(x) =  x^{3} + ax + b \in \mathbb{F}_{p}$
 \end{center}
 
-Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Punkte. Man setzt nun alle x-Werte von 0 bis p-1 in die Funktionsgleichung ein. Jene x-Werte, welche die Quadrate ergeben, werden für die Punktbestimmung benötigt. Nehme als Beispiel p = 11. Wir haben die Quadrate und die Wurzeln oben bereits ausgerechnet. Sei weiterhin die Gleichung einer elliptischen Kurve E gegeben durch
+Diese Funktionsgleichung ist der Ausgangspunkt für die Berechnung der Punkte. Man setzt nun alle x-Werte von $0$ bis $p - 1$ in die Funktionsgleichung ein. Jene x-Werte, welche die Quadrate ergeben, werden für die Punktbestimmung benötigt. Nehme als Beispiel $p = 11$. Wir haben die Quadrate und die Wurzeln oben bereits ausgerechnet. Sei weiterhin die Gleichung einer elliptischen Kurve E gegeben durch
 \begin{center}
 $F(X, Y) =  Y^{2} - X^{3} - 1 \cdot X - 3 \in \mathbb{F}_{11}$
 \end{center}
 
 Damit ist die umgestellte Gleichung in zwei Variablen und die Funktionsgleichung mit einer Variablen
 \begin{center}
-$y^{2} =  x^{3}$ + x + 3 $\qquad \Longrightarrow \qquad f(x) =  x^{3}$ + x + 3 $\in \mathbb{F}_{11}$
+$y^{2} =  x^{3} + x + 3 \qquad \Longrightarrow \qquad f(x) =  x^{3} + x + 3 \in \mathbb{F}_{11}$
 \end{center}
-Setzen wir nun alle Elemente von 0 bis p-1 in die Funktionsgleichung ein und betrachten die Ergebnisse:
+Setzen wir nun alle Elemente von $0$ bis $p - 1$ in die Funktionsgleichung ein und betrachten die Ergebnisse:
 
 \begin{itemize}
-\item $f(0) =  0^{3}$ + 0 + 3 = 3 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(1) =  1^{3}$ + 1 + 3 = 5 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(2) =  2^{3}$ + 2 + 3 = 2 $\in \mathbb{F}_{11}$
-\item $f(3) =  3^{3}$ + 3 + 3 = 0 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(4) =  4^{3}$ + 4 + 3 = 5 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(5) =  5^{3}$ + 5 + 3 = 1 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(6) =  6^{3}$ + 6 + 3 = 5 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(7) =  7^{3}$ + 7 + 3 = 1 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(8) =  8^{3}$ + 8 + 3 = 6 $\in \mathbb{F}_{11}$
-\item $f(9) =  9^{3}$ + 9 + 3 = 4 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
-\item $f(10) = 10^{3}$ + 10 + 3 = 1 $\in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(0) =  0^{3} + 0 + 3 = 3 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(1) =  1^{3} + 1 + 3 = 5 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(2) =  2^{3} + 2 + 3 = 2 \in \mathbb{F}_{11}$
+\item $f(3) =  3^{3} + 3 + 3 = 0 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(4) =  4^{3} + 4 + 3 = 5 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(5) =  5^{3} + 5 + 3 = 1 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(6) =  6^{3} + 6 + 3 = 5 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(7) =  7^{3} + 7 + 3 = 1 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(8) =  8^{3} + 8 + 3 = 6 \in \mathbb{F}_{11}$
+\item $f(9) =  9^{3} + 9 + 3 = 4 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
+\item $f(10) = 10^{3} + 10 + 3 = 1 \in \mathbb{F}_{11} \qquad \Longrightarrow \qquad$ Quadrat
 \end{itemize}
 
-Die Ergebnisse zeigen dass für die folgenden $x$-Werte $f(x)$ ein Quadrat ist: 0, 1, 3, 4, 5, 6, 7, 9, 10. Bis jetzt wurde der einfache Brute-Force durchgeführt. Man muss nur noch wenige Schritte durchführen, um die Punkte auf der elliptischen Kurve zu bestimmen. Wir haben jetzt die Quadrate, die dazugehörigen Wurzeln sowie die x-Werte, welche Quadrate sind. Wie kombiniert man diese, um die Punkte auf der elliptischen Kurve zu erhalten? Es gilt, die Informationen der Punkte P mit P = (x, y) der elliptischen Kurve zu erhalten. Für den x-Wert der Punkte nimmt man das Ergebnis des eingesetzten x von 0 bis p-1 in die Funktion. Man nimmt als x-Wert das vorhandene Quadrat. Die y-Werte der Punkte ergeben sich aus dem Ergebnis des eingesetzten x in die umgestellte Funktion mit einer Variablen. Man nimmt die Wurzeln des zugehörigen Quadrates zum Ergebnis. Daraus ergeben sich die folgenden Punkte auf der obig eingeführten elliptischen Kurve E:
+Die Ergebnisse zeigen dass für die folgenden $x$-Werte $f(x)$ ein Quadrat ist: 0, 1, 3, 4, 5, 6, 7, 9, 10. Bis jetzt wurde der einfache Brute-Force durchgeführt. Man muss nur noch wenige Schritte durchführen, um die Punkte auf der elliptischen Kurve zu bestimmen. Wir haben jetzt die Quadrate, die dazugehörigen Wurzeln sowie die x-Werte, welche Quadrate sind. Wie kombiniert man diese, um die Punkte auf der elliptischen Kurve zu erhalten? Es gilt, die Informationen der Punkte $P$ mit $P = (x, y)$ der elliptischen Kurve zu erhalten. Für den x-Wert der Punkte nimmt man das Ergebnis des eingesetzten x von $0$ bis $p - 1$ in die Funktion. Man nimmt als x-Wert das vorhandene Quadrat. Die y-Werte der Punkte ergeben sich aus dem Ergebnis des eingesetzten x in die umgestellte Funktion mit einer Variablen. Man nimmt die Wurzeln des zugehörigen Quadrates zum Ergebnis. Daraus ergeben sich die folgenden Punkte auf der obig eingeführten elliptischen Kurve E:
 
 \begin{itemize}
 \item $f(0) = 3 \quad \Longrightarrow \quad$ Punkt 1: $(0, 5) \quad$ Punkt 2: $(0, 6)$
@@ -300,7 +300,7 @@ Die Ergebnisse zeigen dass für die folgenden $x$-Werte $f(x)$ ein Quadrat ist: 
 \item $f(10) = 1 \quad \Longrightarrow \quad$ Punkt 1: $(10, 1) \quad$ Punkt 2: $(10, 10)$
 \end{itemize}
 
-Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. Insbesondere, wenn das gewählte p groß ist, dann ist diese Brute-Force-Methode sehr aufwendig. Es müssen alle Quadrate in $\mathbb{F}_{p}$ und deren zugehörigen Wurzeln berechnet werden. Weiterhin entsteht Zeit- und Rechenaufwand beim Einsetzen in die Funktionen. In der Kryptografie ist jedoch die Wahl besonders großer p gängig, um ein hohes Sicherheitsniveau zu erreichen. Aus diesem Grund werden im Folgenden die beiden anderen angeführten Lösungsmöglichkeiten angeführt. 
+Die Berechnung der Punkte über die Brute-Force-Methode ist sehr umständlich. Insbesondere, wenn das gewählte $p$ groß ist, dann ist diese Brute-Force-Methode sehr aufwendig. Es müssen alle Quadrate in $\mathbb{F}_{p}$ und deren zugehörigen Wurzeln berechnet werden. Weiterhin entsteht Zeit- und Rechenaufwand beim Einsetzen in die Funktionen. In der Kryptografie ist jedoch die Wahl besonders großer $p$ gängig, um ein hohes Sicherheitsniveau zu erreichen. Aus diesem Grund werden im Folgenden die beiden anderen angeführten Lösungsmöglichkeiten angeführt. 
 
 \subsection{Punktbestimmung: Punktaddition und -verdopplung}
 Eine weitere Methode zur Berechnung von Punkten auf einer elliptischen Kurve ist die Punktaddition und die Punktverdopplung. Dies ist eine elegante Methode, da man über einen simplen Algorithmus alle Punkte auf einer elliptischen Kurve bestimmen kann, sofern der Startpunkt ein primitives Element der elliptischen Kurve ist. Der Nachteil dieser Methode ist jedoch, dass im Vorfeld ein Punkt auf der elliptischen Kurve bekannt sein muss, der gleichzeitig ein Erzeuger der Gruppe ist oder eine hohe Ordnung auf der Kurve hat. Dieser Punkt muss über die Brute-Force-Methode oder einem anderen Ansatz berechnet werden oder ein ist im Voraus bekannt. Die offene Frage ist jedoch, ob jeder beliebige Punkt als Ausgangsobjekt genutzt werden kann, um auf seiner Grundlage alle anderen Punkte zu erzeugen.\\
@@ -316,9 +316,9 @@ Diese gibt eine obere und untere Schranke für $\overline{E}$ an. Liegt innerhal
 $y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
 \end{center}
 
-Der Erzeuger der Gruppe ist der Punkt P = (5, 1). Um zu zeigen, dass dieser Punkt ein Erzeuger oder Generator ist, muss er mit sich selbst so oft addiert werden, bis er den Punkt im Unendlichen ergibt. Bei dem gegebenen Punkt ist dies bei 19 $\cdot$ P der Fall. Gegeben sei außerdem 18 $\cdot$ P = (5, -1). Da 19 $\cdot$ P = 18 $\cdot$ P + P = (5, 1) + (5, -1) = $\mathcal O$. Dieses kurze Beispiel macht deutlich, dass es aufwendig sein kann zu prüfen, ob ein Punkt P ein Erzeuger ist. In der Praxis werden in Kryptosystemen Punktgeneratoren mit großer Ordnung gewählt, um die Sicherheit in den verwendeten kryptografischen System zu gewährleisten. Der Erzeuger der Gruppe ist so nicht einfach berechenbar. In den folgenden Beispielen ist jedoch ein Erzeuger gegeben, damit die Punktaddition respektive die Punkterdopplung trivial ist.\\
+Der Erzeuger der Gruppe ist der Punkt P = (5, 1). Um zu zeigen, dass dieser Punkt ein Erzeuger oder Generator ist, muss er mit sich selbst so oft addiert werden, bis er den Punkt im Unendlichen ergibt. Bei dem gegebenen Punkt ist dies bei 19 $\cdot$ P der Fall. Gegeben sei außerdem 18 $\cdot P = (5, -1)$. Da 19 $\cdot$ $P$ = 18 $\cdot$ $P + P = (5, 1) + (5, -1)$ = $\mathcal O$. Dieses kurze Beispiel macht deutlich, dass es aufwendig sein kann zu prüfen, ob ein Punkt $P$ ein Erzeuger ist. In der Praxis werden in Kryptosystemen Punktgeneratoren mit großer Ordnung gewählt, um die Sicherheit in den verwendeten kryptografischen System zu gewährleisten. Der Erzeuger der Gruppe ist so nicht einfach berechenbar. In den folgenden Beispielen ist jedoch ein Erzeuger gegeben, damit die Punktaddition respektive die Punkterdopplung trivial ist.\\
 
-Bevor das Beispiel durchgegangen wird, werden noch einmal die benötigten Formeln und die Vorgehensweise erläutert. Es sei ein Erzeugerpunkt P gegeben mit $P = (x_1, y_2)$. Da nur dieser gegeben ist, wird er mit sich selbst addiert. Somit gilt: 2 $\cdot$ P = P + P. Durch die Punktverdopplung entsteht ein neuer Punkt. P kann jetzt mit 2 $\cdot$ P addiert werden. Dies wird solange fortgeführt, bis der Punkt im Unendlichen herauskommt. Anschließend hat man alle Punkte auf E berechnet. Im Folgenden wird die Vorgehensweise über Pseudocode in Python erläutert, wenn ein Erzeugerpunkt gegeben ist. Es soll gesagt sein, dass es sich hierbei um eine starke Vereinfachung handelt. Beispielsweise wird nicht darauf eingegangen, dass das p des Primkörpers für die Durchführung der Addition von Punkten benötigt wird:\\
+Bevor das Beispiel durchgegangen wird, werden noch einmal die benötigten Formeln und die Vorgehensweise erläutert. Es sei ein Erzeugerpunkt P gegeben mit $P = (x_1, y_2)$. Da nur dieser gegeben ist, wird er mit sich selbst addiert. Somit gilt: 2 $\cdot$ $P = P + P$. Durch die Punktverdopplung entsteht ein neuer Punkt. $P$ kann jetzt mit 2 $\cdot$ $P$ addiert werden. Dies wird solange fortgeführt, bis der Punkt im Unendlichen herauskommt. Anschließend hat man alle Punkte auf E berechnet. Im Folgenden wird die Vorgehensweise über Pseudocode in Python erläutert, wenn ein Erzeugerpunkt gegeben ist. Es soll gesagt sein, dass es sich hierbei um eine starke Vereinfachung handelt. Beispielsweise wird nicht darauf eingegangen, dass das $p$ des Primkörpers für die Durchführung der Addition von Punkten benötigt wird:\\
 
 \begin{lstlisting}[caption={Punktberechnung in Python}, captionpos=b]
 function punktbestimmung(P, Q):
@@ -340,103 +340,101 @@ function punktbestimmung(P, Q):
 	return Punkte
 \end{lstlisting}
 
-Der Pseudocode zeigt lediglich eine beispielhafte Umsetzung. In \ref{sec:python_add_double} wird der ausprogrammierte Python-Code inklusive Erklärungen angegeben und weiter ausgeführt.\\
-
 Damit die Theorie anschaulich wird, folgt nun ein Beispiel für die Punktaddition und -verdopplung, um alle Punkte auf einer elliptischen Kurve zu berechnen. Das Beispiel ist angelehnt an \cite[S. 279-280]{Paar.2016}. Gegeben sei eine elliptische Kurve E mit
 \begin{center}
 $y^{2} =  x^{3} + 2x + 2 \in \mathbb{F}_{17}$
 \end{center}
 
-Weiterhin sei ein Punkt P auf der elliptischen Kurve gegeben durch P = (5, 1). Da nur ein Punkt gegeben ist, muss dieser verdoppelt werden. Es gilt $2 \cdot P = P + P = (x_1, y_1) + (x_2, y_2) = (5, 1) + (5, 1) = (x_3, y_3)$. Es gilt
+Weiterhin sei ein Punkt $P$ auf der elliptischen Kurve gegeben durch $P = (5, 1)$. Da nur ein Punkt gegeben ist, muss dieser verdoppelt werden. Es gilt $2 \cdot P = P + P = (x_1, y_1) + (x_2, y_2) = (5, 1) + (5, 1) = (x_3, y_3)$. Es gilt
 $$s = \frac{3x_1^2 + a}{2y_1} \text{, da } P = Q $$
 Setzt man die Werte ein, erhält man 
 $$s = \frac{3x_1^2 + a}{2y_1} = (2 \cdot 1)^{-1}(3 \cdot 5^2 + 2) = 2^{-1} \cdot 9 \equiv 9 \cdot 9 \equiv 13 \text{ mod } 17$$
 Da nun s berechnet wurde, kann man nun die folgenden Formeln lösen und $x_3$ sowie $y_3$ bestimmen.
 $$x_3 = s^2 - x_1 - x_2 = 13^2 - 5 - 5 = 159 \equiv 6 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 13(5 - 6) - 1 = - 14 \equiv 3 \text{ mod } 17$$
-Damit ist $2 \cdot P = (6, 3)$. Da jetzt zwei (unterschiedliche) Punkte vorhanden sind, kann nun die im Vergleich zur Punktverdopplung simplere Punktaddition durchgeführt werden, um weitere Punkte zu finden. Dafür addieren wir nun alle aufeinander folgenden Punkte zusammen. $3 \cdot P = P + Q = (5, 1) + (6, 3)$, wobei Q = $2 \cdot P$.\\
+Damit ist $2 \cdot P = (6, 3)$. Da jetzt zwei (unterschiedliche) Punkte vorhanden sind, kann nun die im Vergleich zur Punktverdopplung simplere Punktaddition durchgeführt werden, um weitere Punkte zu finden. Dafür addieren wir nun alle aufeinander folgenden Punkte zusammen. $3 \cdot P = P + Q = (5, 1) + (6, 3)$, wobei $Q$ = $2 \cdot P$.\\
 Für s berechnet man
 $$s = \frac{y_2 - y_1}{x_2 - x_1} \text{, da } P \neq Q $$
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{3 - 1}{6 - 5} = 2 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 6 = - 7 \equiv 10 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 2(5 - 10) - 1 = - 11 \equiv 6 \text{ mod } 17$$
-Damit ist $3 \cdot P = (10, 6)$. $4 \cdot P = P + Q = (5, 1) + (10, 6)$, wobei Q = $3 \cdot P$. 
+Damit ist $3 \cdot P = (10, 6)$. $4 \cdot P = P + Q = (5, 1) + (10, 6)$, wobei $Q$ = $3 \cdot P$. 
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{6 - 1}{10 - 5} = 1 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 10 = -14 \equiv 3 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 1(5 - 3) - 1 = 1 \text{ mod } 17$$
-Damit ist $4 \cdot P = (3, 1)$. $5 \cdot P = P + Q = (5, 1) + (3, 1)$, wobei Q = $4 \cdot P$.\\
+Damit ist $4 \cdot P = (3, 1)$. $5 \cdot P = P + Q = (5, 1) + (3, 1)$, wobei $Q$ = $4 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{1 - 1}{3 - 5} = 0 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 0 - 5 - 3 = - 8 \equiv 9 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 0(5 - 9) - 1 = - 1 \equiv 16 \text{ mod } 17$$
-Damit ist $5 \cdot P = (9, 16)$. $6 \cdot P = P + Q = (5, 1) + (9, 16)$, wobei Q = $5 \cdot P$.\\
+Damit ist $5 \cdot P = (9, 16)$. $6 \cdot P = P + Q = (5, 1) + (9, 16)$, wobei $Q$ = $5 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{16 - 1}{9 - 5} = 15 \cdot 13 \equiv 8 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 13 - 5 - 9 = -1 \equiv 16 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 8(5 - 16) - 1 = - 89 \equiv 13 \text{ mod } 17$$
-Damit ist $6 \cdot P = (16, 13)$. $7 \cdot P = P + Q = (5, 1) + (16, 13)$, wobei Q = $6 \cdot P$.\\
+Damit ist $6 \cdot P = (16, 13)$. $7 \cdot P = P + Q = (5, 1) + (16, 13)$, wobei $Q$ = $6 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{13 - 1}{16 - 5} = 12 \cdot 14 \equiv 15 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 16 = - 17 \equiv 0 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 15(5 - 0) - 1 = 6 \text{ mod } 17$$
-Damit ist $7 \cdot P = (0, 6)$. $8 \cdot P = P + Q = (5, 1) + (0, 6)$, wobei Q = $7 \cdot P$.\\
+Damit ist $7 \cdot P = (0, 6)$. $8 \cdot P = P + Q = (5, 1) + (0, 6)$, wobei $Q$ = $7 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{6 - 1}{0 - 5} = -1 \equiv 16 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 0 = -4 \equiv 13 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 16(5 - 13) - 1 = - 129 \equiv 7 \text{ mod } 17$$
-Damit ist $8 \cdot P = (13, 7)$. $9 \cdot P = P + Q = (5, 1) + (13, 7)$, wobei Q = $8 \cdot P$.\\
+Damit ist $8 \cdot P = (13, 7)$. $9 \cdot P = P + Q = (5, 1) + (13, 7)$, wobei $Q$ = $8 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{7 - 1}{13 - 5} = 6 \cdot 15 = 5 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 25 - 5 - 13 = 7 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 5(5 - 7) - 1 = - 11 \equiv 6 \text{ mod } 17$$
-Damit ist $9 \cdot P = (7, 6)$. $10 \cdot P = P + Q = (5, 1) + (7, 6)$, wobei Q = $9 \cdot P$.\\
+Damit ist $9 \cdot P = (7, 6)$. $10 \cdot P = P + Q = (5, 1) + (7, 6)$, wobei $Q$ = $9 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{6 - 1}{7 - 5} = 5 \cdot 9 \equiv 11 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 2 - 5 - 7 = -10 \equiv 7 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 11(5 - 7) - 1 = - 23 \equiv 11 \text{ mod } 17$$
-Damit ist $10 \cdot P = (7, 11)$. $11 \cdot P = P + Q = (5, 1) + (7, 11)$, wobei Q = $10 \cdot P$.\\
+Damit ist $10 \cdot P = (7, 11)$. $11 \cdot P = P + Q = (5, 1) + (7, 11)$, wobei $Q$ = $10 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{11 - 1}{7 - 5} = 5 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 25 - 5 - 7 = 13 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 5(5 - 13) - 1 = - 41 \equiv 10 \text{ mod } 17$$
-Damit ist $11 \cdot P = (13, 10)$. $12 \cdot P = P + Q = (5, 1) + (13, 10)$, wobei Q = $11 \cdot P$.\\
+Damit ist $11 \cdot P = (13, 10)$. $12 \cdot P = P + Q = (5, 1) + (13, 10)$, wobei $Q$ = $11 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{10 - 1}{13 - 5} = 9 \cdot 15 \equiv 16 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 13 = - 17 \equiv 0 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 16(5 - 0) - 1 = 79 \equiv 11 \text{ mod } 17$$
-Damit ist $12 \cdot P = (0, 11)$. $13 \cdot P = P + Q = (5, 1) + (0, 11)$, wobei Q = $12 \cdot P$.\\
+Damit ist $12 \cdot P = (0, 11)$. $13 \cdot P = P + Q = (5, 1) + (0, 11)$, wobei $Q$ = $12 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{11 - 1}{0 - 5} = - 2 \equiv 15 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 0 = - 1 \equiv 16 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 15(5 - 16) - 1 = - 166 \equiv 4 \text{ mod } 17$$
-Damit ist $13 \cdot P = (16, 4)$. $14 \cdot P = P + Q = (5, 1) + (16, 4)$, wobei Q = $13 \cdot P$.\\
+Damit ist $13 \cdot P = (16, 4)$. $14 \cdot P = P + Q = (5, 1) + (16, 4)$, wobei $Q$ = $13 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{4 - 1}{16 - 5} = 3 \cdot 14 \equiv 8 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 13 - 5 - 16 = - 8 \equiv 9 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 8(5 - 9) - 1 = - 33 \equiv 1 \text{ mod } 17$$
-Damit ist $14 \cdot P = (9, 1)$. $15 \cdot P = P + Q = (5, 1) + (9, 1)$, wobei Q = $14 \cdot P$.\\
+Damit ist $14 \cdot P = (9, 1)$. $15 \cdot P = P + Q = (5, 1) + (9, 1)$, wobei $Q$ = $14 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{1 - 1}{9 - 5} = 0 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 0 - 5 - 9 = - 14 \equiv 3 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 0(5 - 3) - 1 = - 1 \equiv 16 \text{ mod } 17$$
-Damit ist $15 \cdot P = (3, 16)$. $16 \cdot P = P + Q = (5, 1) + (3, 16)$, wobei Q = $15 \cdot P$.\\
+Damit ist $15 \cdot P = (3, 16)$. $16 \cdot P = P + Q = (5, 1) + (3, 16)$, wobei $Q$ = $15 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{16 - 1}{3 - 5} = - 15 \cdot 9 \equiv 1 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 1 - 5 - 3 = - 7 \equiv 10 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 1(5 - 10) - 1 = - 6 \equiv 11 \text{ mod } 17$$
-Damit ist $16 \cdot P = (10, 11)$. $17 \cdot P = P + Q = (5, 1) + (10, 11)$, wobei Q = $16 \cdot P$.\\
+Damit ist $16 \cdot P = (10, 11)$. $17 \cdot P = P + Q = (5, 1) + (10, 11)$, wobei $Q$ = $16 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{11 - 1}{10 - 5} = 2 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 4 - 5 - 10 = - 11 \equiv 6 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 2(5 - 6) - 1 = - 3 \equiv 14 \text{ mod } 17$$
-Damit ist $17 \cdot P = (6, 14)$. $18 \cdot P = P + Q = (5, 1) + (6, 14)$, wobei Q = $17 \cdot P$.\\
+Damit ist $17 \cdot P = (6, 14)$. $18 \cdot P = P + Q = (5, 1) + (6, 14)$, wobei $Q$ = $17 \cdot P$.\\
 Daraus ergibt sich 
 $$s = \frac{y_2 - y_1}{x_2 -x_1} = \frac{14 - 1}{6 - 5} = 13 \text{ mod } 17$$
 $$x_3 = s^2 - x_1 - x_2 = 16 - 5 - 6 = 5 \text{ mod } 17$$
 $$y_3 = s(x_1 - x_3) - y_1 = 13(5 - 5) - 1 = - 1 \equiv 16 \text{ mod } 17$$
-Damit ist $18 \cdot P = (5, 16)$. $19 \cdot P = P + Q = (5, 1) + (5, 16) = \infty $, wobei Q = $18 \cdot P$. Der Punkt im unendlichen wurde erreicht, womit nun alle Punkte gefunden wurden. Da die Ordnung der Untergruppe von P auf der elliptischen Kurve ein Teiler der Gruppenordnung ist, muss die Anzahl der Elemente der Kurve ein Vielfaches von 19 sein. Da wir insgesamt 19 Punkte mit dem Punkt im Unendlichen berechnet haben und $2 \cdot 19$ zu groß für die Hasse-Weil-Schranke ist da es das Intervall überschreitet, beudeutet dies, dass alle Punkte auf der elliptischen Kurve gefunden wurden.\\
+Damit ist $18 \cdot P = (5, 16)$. $19 \cdot P = P + Q = (5, 1) + (5, 16) = \infty $, wobei $Q$ = $18 \cdot P$. Der Punkt im unendlichen wurde erreicht, womit nun alle Punkte gefunden wurden. Da die Ordnung der Untergruppe von $P$ auf der elliptischen Kurve ein Teiler der Gruppenordnung ist, muss die Anzahl der Elemente der Kurve ein Vielfaches von 19 sein. Da wir insgesamt 19 Punkte mit dem Punkt im Unendlichen berechnet haben und $2 \cdot 19$ zu groß für die Hasse-Weil-Schranke ist da es das Intervall überschreitet, beudeutet dies, dass alle Punkte auf der elliptischen Kurve gefunden wurden.\\
 
 Ähnlich wie bei der Brute-Force-Methode in \ref{sec:brute_force} ist die Berechnung über die Punktaddition und -verdopplung sehr rechenaufwendig. Die Schritte können in dieser Methode nicht ohne weiteres vereinfacht werden. Dadurch bleiben nur die Möglichkeiten offen, diese Methode in Code abzubilden, wie in \ref{sec:python_add_double} oder es händisch auszurechnen, was sehr zeit- und rechenaufwendig ist. Berechnet man die Punkte mit der Hand, dann ist die Fehleranfälligkeit hoch, da die vielen Rechnungen schnell unübersichtlich werden. Dadurch bleibt die Implementierung dieser Methode über Programmcode die einzige logische und effiziente Möglichkeit. Die nächste angeführte Methode zur Berechnung von Punkten auf einer elliptischen Kurve ist die algorithmische Brute-Force-Methode. Durch sie kann im Vergleich zu den zwei vorausgehenden Methoden der Zeit- und Rechenaufwand verringert werden.
 
@@ -444,7 +442,7 @@ Damit ist $18 \cdot P = (5, 16)$. $19 \cdot P = P + Q = (5, 1) + (5, 16) = \inft
 Die algorithmische Brute-Force-Methode ist der klassischen Brute-Force-Methode in \ref{sec:brute_force} sehr ähnlich. Sie unterscheidet sich jedoch in einem wichtigen Aspelt. Während man bei der klassichen Methode die Quadrate und ihre Quadratwurzeln durch Ausprobieren aller Möglichkeiten herausfindet, wird bei der algorithmischen Methode die Findung der Quadrate und ihrer Wurzeln über einen Algorithmus durchgeführt. Der Algorithmus beinhaltet eine Quadratprüfung sowie eine Quadratwurzelprüfung über Schlussfolgerungen aus dem Satz von Fermat. Bei großen $p$ ist das Finden von Quadraten und der Quadratwurzeln durch Ausprobieren sehr aufwendig. Der Vorteil der algorithmischen Methode ist, dass diese auch bei einem großen $p$ noch effizient berechnet werden können. 
 
 \paragraph{Satz von Fermat}
-Ist $\mathbb{F}_q$ ein endlicher Körper mit $q = p^e$ Elementen und p ist eine Primzahl, so ist die Einheitengruppe $\mathbb{F}_q^* = \mathbb{F}_q \setminus \{0\}$ zyklisch von der Ordnung $q - 1$.
+Ist $\mathbb{F}_q$ ein endlicher Körper mit $q = p^e$ Elementen und $p$ ist eine Primzahl, so ist die Einheitengruppe $\mathbb{F}_q^* = \mathbb{F}_q \setminus \{0\}$ zyklisch von der Ordnung $q - 1$.
 
 Aus diesem Satz lassen sich zwei Folgerungen herleiten, welche Grundlage für die algorithmische Brute-Force-Methode sind. Die genaue Herleitung der Folgerungen soll kein Teil dieser Arbeit sein. Die Folgerungen wurden dem Script von Hübl entnommen \cite[S. 269]{Dr.ReinholdHubl.2022}.
 
