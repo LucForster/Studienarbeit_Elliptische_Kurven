@@ -59,6 +59,24 @@ class CyclicGroup:
 
         return sub_groups
 
+    def get_all_sub_groups2(self):
+        sub_groups = []
+        sub_group_generators = []
+        divisors = []
+        order = self.get_group_order()
+        primitive_elements = self.get_primitive_elements()
+        # Finden von echten Teilern der Gruppenordnung
+        for number in range(int(order/2 + 1)):
+            if order % number == 0:
+                divisors.append(number)
+        # Berechnen der Untergruppen-Generatoren
+        for div in divisors:
+            sub_group_generators.append(primitive_elements[0] ** (order/div))
+        # Berechnen der Untergruppen
+        for gen in sub_group_generators:
+            sub_groups.append(self.get_sub_group_elements(gen))
+        return sub_groups
+
     def get_primitive_elements(self):
         elements = self.get_group_elements()
         group_order = self.get_group_order()
