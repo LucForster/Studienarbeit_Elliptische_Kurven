@@ -5,10 +5,10 @@ from DHKE import DHKE
 from drawEC import DrawCurves
 
 # Kleine Beispielkurve
-# a = 2
-# b = 2
-# p = 17
-# gen_point = (5, 1)
+a = 2
+b = 2
+p = 17
+gen_point = (5, 1)
 
 # Weitere kleine Beispielkurve
 # a = -3
@@ -17,10 +17,10 @@ from drawEC import DrawCurves
 # gen_point = (4, 4)
 
 # Beispielkurve für Punktberechnung
-a = 1
-b = 3
-p = 11
-gen_point = (0, 5)
+# a = 1
+# b = 3
+# p = 11
+# gen_point = (0, 5)
 
 
 # Mittlere Beispielkurve
@@ -37,13 +37,13 @@ gen_point = (0, 5)
 #               int("0x07192b95ffc8da78631011ed6b24cdd573f977a11e794811", 16))
 
 ell_curve = EllipticCurveInFp(a, b, p)
-ell_curve_in_r = EllipticCurveInR(a, b)
-
-xValues, f1Values, f2Values = ell_curve_in_r.get_points()
-draw = DrawCurves()
-draw.add_plot(xValues, f1Values)
-draw.add_plot(xValues, f2Values)
-draw.draw()
+if False:
+    ell_curve_in_r = EllipticCurveInR(a, b)
+    xValues, f1Values, f2Values = ell_curve_in_r.get_points()
+    draw = DrawCurves()
+    draw.add_plot(xValues, f1Values)
+    draw.add_plot(xValues, f2Values)
+    draw.draw()
 
 if p < 1000000:
     if ell_curve.is_elliptic_curve_correct():
@@ -56,9 +56,12 @@ if ell_curve.is_point_on_curve(gen_point):
 else:
     print("Point ist NOT on curve!")
 
-print("All points on the curve:" + ell_curve.get_all_points_on_curve())
-
 cyc_group = CyclicGroup(ell_curve)
+print(f"All points on curve: {cyc_group.get_group_elements()}")
+print(f"Group order: {cyc_group.get_group_order()}")
+print(f"All Subgroups: {cyc_group.get_all_sub_groups()}")
+print(f"Primitive Elements: {cyc_group.get_primitive_elements()}")
+
 if p < 1000000:
     print(f"Subgroup of {gen_point} is: {cyc_group.get_sub_group_elements(gen_point)}")
     print(f"Order of {gen_point} is: {cyc_group.get_element_order(gen_point)}")

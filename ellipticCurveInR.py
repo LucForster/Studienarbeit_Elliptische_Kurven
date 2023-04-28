@@ -47,8 +47,8 @@ class EllipticCurveInR:
     def get_points(self):
         # Punkte auf x-Achse erzeugen
         # x = np.linspace(-5, 5, 100000, endpoint=True)
-        x = np.arange(-5, 5, 0.001)
         # Funktion
+        x = np.arange(-5, 5, 0.001)
         f = np.sqrt(x ** 3 + self.a * x + self.b)
         f1 = f
         f2 = -f

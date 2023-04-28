@@ -9,34 +9,32 @@ class EllipticCurveInFp:
         self.p = p
 
     def get_all_points_on_curve(self):
-        x_squares = []
+        x_values = []
         points = []
 
-        if self.is_elliptic_curve_correct() != True:
+        if not self.is_elliptic_curve_correct():
             return False
 
-        # Speichern von berechneten Quadraten in square_candidates
-        square_candidates = supportAlgos.get_squares(range(self.p))
-
-        # Finde x-Werte, welche Quadrate sind
-        for x in range(square_candidates):
-            temp = (x ** 3 - self.a * x - self.b) % self.p
-            isPresent = temp in set(square_candidates)
-            if isPresent == True:
-                x_squares.append((x))
-            elif isPresent == False:
-                break
-
-        # Berechne die Punkte
-        for x in x_squares:
-            # Berechne das Quadrat der aktuellen Zahl
-            y_squared = (x ** 3 + self.a * x + self.b) % self.p
-            root_1, root_2 = supportAlgos.get_roots(y_squared, self.p)
-            point_1 = (x, root_1)
-            point_2 = (x, root_2)
-            points.append(point_1)
-            points.append(point_2)
-
+        # Berechnen der Quadrate und zugehörige Wurzeln in F_p
+        squares_with_roots = supportAlgos.get_squares_with_roots(range(self.p))
+        # Liste mit Quadraten erstellen
+        squares = []
+        for tupel in squares_with_roots:
+            if tupel[0] not in squares:
+                squares.append(tupel[0])
+        # Prüfe für jedes x in F_p, ob es eingesetzt ein Quadrat ergibt
+        for x in range(self.p):
+            if (x ** 3 + self.a * x + self.b) % self.p in squares:
+                x_values.append(x)
+        # Ermitteln der Punkte auf der Kruve
+        points = []
+        for x in x_values:
+            y_quad = (x ** 3 + self.a * x + self.b) % self.p
+            for tupel in squares_with_roots:
+                if y_quad == tupel[0]:
+                    points.append((x, tupel[1]))
+        # Neutrales Element hinzufügen
+        points.append(("N", "N"))
         return points
 
     def is_elliptic_curve_correct(self):
@@ -57,10 +55,18 @@ class EllipticCurveInFp:
 
     def is_point_on_curve(self, P):
         x, y = P
+        if x == "N":
+            return True
         # y^2 = x^3 + ax + b muss erfüllt sein in F_p
         return (y ** 2 - x ** 3 - self.a * x - self.b) % self.p == 0
 
     def add(self, P, Q):
+
+        if not self.is_point_on_curve(P):
+            return None
+        if not self.is_point_on_curve(Q):
+            return None
+
         x1, y1 = P
         x2, y2 = Q
         # Addition des neutralen Elements mit sich selbst ergibt das neutrale Element

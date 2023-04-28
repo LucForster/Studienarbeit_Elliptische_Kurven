@@ -53,12 +53,12 @@ class CyclicGroup:
         order = self.get_group_order()
         primitive_elements = self.get_primitive_elements()
         # Finden von echten Teilern der Gruppenordnung
-        for number in range(int(order/2 + 1)):
+        for number in range(1, int(order/2 + 1)):
             if order % number == 0:
                 divisors.append(number)
         # Berechnen der Untergruppen-Generatoren
         for div in divisors:
-            sub_group_generators.append(self.scalar_dot_element((order/div), primitive_elements[0]))
+            sub_group_generators.append(self.scalar_dot_element(int((order/div)), primitive_elements[0]))
         # Berechnen der Untergruppen
         for gen in sub_group_generators:
             sub_groups.append(self.get_sub_group_elements(gen))

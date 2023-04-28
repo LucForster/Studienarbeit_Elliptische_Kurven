@@ -181,28 +181,12 @@ def remove_negs(num_list):
     return [item for item in num_list if item >= 0]
 
 
-def get_squares(candidate_list):
-    squares = []
+def get_squares_with_roots(candidate_list):
+    squares_with_roots = []
     for x in candidate_list:
-        square = (x**2) % len(candidate_list)
-        isPresent = square in set(squares)
-        if isPresent == True:
-            break
-        elif isPresent == False:
-            squares.append((square))
-    return squares.sort()
+        square = (x ** 2) % len(candidate_list)
+        squares_with_roots.append((square, x))
 
-def check_square(x, p):
-    for y in range(p):
-        if (y ** 2) % (p) == x:
-            return True
-    return False
+    return squares_with_roots
 
-def get_roots(x, p):
-    roots = []
-    for y in range(p):
-        if (y ** 2) % p == x:
-            roots.append(y)
-            if len(roots) == 2:
-                break
-    return roots[0], roots[1]
+
