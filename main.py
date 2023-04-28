@@ -11,10 +11,16 @@ from drawEC import DrawCurves
 # gen_point = (5, 1)
 
 # Weitere kleine Beispielkurve
-a = -3
-b = 3
-p = 13
-gen_point = (4, 4)
+# a = -3
+# b = 3
+# p = 13
+# gen_point = (4, 4)
+
+# Mittlere Beispielkurve
+a = -12
+b = -17
+p = 421
+gen_point = (200, 414)
 
 # NIST Curve P-192
 # a = -3
@@ -46,7 +52,7 @@ else:
 cyc_group = CyclicGroup(ell_curve)
 if p < 1000000:
     print(f"Subgroup of {gen_point} is: {cyc_group.get_sub_group_elements(gen_point)}")
-    print(f"Oder of {gen_point} is: {cyc_group.get_element_order(gen_point)}")
+    print(f"Order of {gen_point} is: {cyc_group.get_element_order(gen_point)}")
 
 dh_alice = DHKE(cyc_group)
 dh_bob = DHKE(cyc_group)
