@@ -1,13 +1,12 @@
 Zu erledigen:
 -Abstract deutsch
 -Abstract englisch
-
+-Überarbeitung Kapitel 1 mit abgegebener Anmeldung
 
 
 In Arbeit:
 -2.1.3. Weiterschreiben
 -Fazit / Resumee
--Überarbeitung Kapitel 1 mit Anmeldung
 -Einarbeitung des Feedbacks von Hübl
 -Erläuterungen zu Python Project allgemein
 

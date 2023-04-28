@@ -207,7 +207,7 @@ def get_all_sub_groups(self):
     return sub_groups
 \end{lstlisting}
 \vspace{\baselineskip}
-Zunächst werden unter Verwendung der Methoden \textit{get\_group\_order()} und \textit{get\_primitive\_elements()} die Gruppenordnung und die primitiven Elemente ermittelt. Im Grunde wird aber nur ein primitives Element benötigt. Im folgenden Schritt werden die echten Teiler der Gruppenordnung identifiziert und gespeichert. Um die Generatoren der Untergruppen zu finden, wird anschließend für jeden echten Teiler das primitive Element mit  $\frac{Gruppenordnung}{echter Teiler}$ multipliziert. Nach Erhalt der Generatoren, wir mittels der Methode \textit{get\_sub\_group\_elements()} für jeden Generator die erzeugte Untergruppe berechnet und diese in einer List gespeichert, welche schlussendlich zurückgegeben wird. 
+Zunächst werden unter Verwendung der Methoden \textit{get\_group\_order()} und \textit{get\_primitive\_elements()} die Gruppenordnung und die primitiven Elemente ermittelt. Im Grunde wird aber nur ein primitives Element benötigt. Im folgenden Schritt werden die echten Teiler der Gruppenordnung identifiziert und gespeichert. Um die Generatoren der Untergruppen zu finden, wird anschließend für jeden echten Teiler das primitive Element mit  $\frac{Gruppenordnung}{echter Teiler}$ multipliziert. Nach Erhalt der Generatoren, wir mittels der Methode \textit{get\_sub\_group\_elements} für jeden Generator die erzeugte Untergruppe berechnet und diese in einer List gespeichert, welche schlussendlich zurückgegeben wird. 
 \subsection{Methode: get\_primitive\_elements()}
 Primitive Elemente zeichnen sich dadurch aus, dass ihre Ordnung der Gruppenordnung entspricht, sie also bei Addition zu sich selbst die gesamte Gruppe generieren. Die Methode \textit{get\_primitive\_elements()} prüft für jedes Element der Gruppe dessen Ordnung und gibt eine Liste jener Elemente zurück deren Ordnung der Gruppenordnung entspricht.
 
@@ -302,16 +302,3 @@ def inverse_mod2(a, m):
 \vspace{\baselineskip}
 
 Im Fall, das der $GGT$ von $a$ und $m$ ungleich 1 ist, was gleichbedeutend damit ist, dass kein Inverses existiert, wird \textit{None} zurückgegeben, ansonsten das  multiplikative Inverse.
-
-\section{Erweiterter Euklidischer Algorithmus}\label{sec:python_euklid}
-XXX
-
-
-\section{Brute-Force-Methode}\label{sec:python_brute_force}
-XXX
-
-\section{Punktaddition und -verdopplung}\label{sec:python_add_double}
-XXX
-
-\section{Algorithmische Brute-Force-Methode}\label{sec:python_algo_brute_force}
-XXX
