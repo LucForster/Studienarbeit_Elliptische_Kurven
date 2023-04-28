@@ -12,7 +12,7 @@ class EllipticCurveInFp:
         x_squares = []
         points = []
 
-        if not self.is_elliptic_curve_correct():
+        if self.is_elliptic_curve_correct() != True:
             return False
 
         # Speichern von berechneten Quadraten in square_candidates
