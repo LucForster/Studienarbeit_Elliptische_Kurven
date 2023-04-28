@@ -87,28 +87,22 @@ Wätjen beshreibt Kryptografische System, auch Kryptosystem genannt, als ein Sys
 \item[ 5. ]  Familie von Dehiffriertransformationen $D_k:C \rightarrow M$ mit $k \in K$
 \end{itemize}
 
-Laut Watjen sind $M$, $C$ und $K$ höchstens, abzählbare Mengen. Eine Chiffriertransformation $E_K$ wird durch einen Schlüssel $K$ und einen Chiffrieralgorithmus $E$ definiert, welcher für jede Familie gleich ist. Eine Dechiffriertransformation $D_K$ wird ebenfalls durch einen Schhlüssel $K$ bestimmt. Desweiteren sollen die Kryptografischen Systeme nach Watjen die folgenden drei Eigenschaften aufweisen:
+Laut Watjen sind $M$, $C$ und $K$ höchstens, abzählbare Mengen. Eine Chiffriertransformation $E_K$ wird durch einen Schlüssel $K$ und einen Chiffrieralgorithmus $E$ definiert, welcher für jede Familie gleich ist. Eine Dechiffriertransformation $D_K$ wird ebenfalls durch einen Schhlüssel $K$ bestimmt. Desweiteren sollen die Kryptografischen Systeme nach Watjen die folgenden drei Eigenschaften aufweisen \cite[S. 3]{Watjen.2018}:
 
 \begin{itemize}
-\item[ (1) ]  Klartextraum $M$
-\item[ (2) ]  Chiffretextraum C
-\item[ (3) ]  Schlüsselraum K
+\item[ (1) ]  Chiffrier- und Dechiffriertransformationen müssen für alle Schlüssel effizient berechnet werden können.
+\item[ (2) ]  Kryptographische Systeme müssen leicht zu benutzen sein. Das bedeutet, dass es ohne Schwierigkeiten möglich sein muss, einen Schlüssel $K$ sowie die zugehörigen Abbildungen
+$E_K$ und $D_K$ zu finden.
+\item[ (3) ]  Die Sicherheit des Systems sollte auf der Geheimhaltung der Schlüssel und nicht
+auf der Geheimhaltung der Algorithmen beruhen. Die Kenntnis der Methode des
+Chiffrierens und Dechiffrierens soll also noch nicht den Klartext liefern.
 \end{itemize}
 
-Laut
+Die heutzutage eingesetzten kryptographischen Systeme ermöglichen also eine schnelle und sichere Übertragung von sensiblen Informationen. Die Übertragung der Daten läuft also privat ab, da ein abgefangenes Chiffrat nicht direkt lesbar ist. Doch wie helfen dabei Primzahlen?\\
 
+Primzahlen sind aufgrund ihrer hervorragenden Eigenschaften für die Kryptographie nützlich. Viele Verfahren, welche den Klartext in einen Chiffretext überführen, benötigen für ihren Algorithmus Primzahlen. Ein gutes Beispiel ist der Diffie-Hellmann-Schlüsselaustausch (DHKE). In  \ref{sec:DHKE} wird gezeigt, wie Primzahlen beim DHKE verwendet werden.
 
-
-Durch die Kryptografie können dadurch Übertragungen von sensiblen Informationen zum einen sicherer als auch privater ablaufen, da ein abgefangenes Chiffrat nicht direkt lesbar ist. 
-
-
-
-
-
-
-Primzahlen sind aufgrund ihrer hervorragenden Eigenschaften für die Kryptologie nützlich. Viele Verfahren, welche den Klartext in einen Chiffretext überführen, benötigen für ihren Algorithmus Primzahlen. Ein gutes Beispiel ist der Diffie-Hellmann-Schlüsselaustausch 
-
-hier diffie-hellmann
+XXX
 
 
 
@@ -425,7 +419,7 @@ Gruppen auf denen ein DLP für kryptografische Zwecke definiert werden kann sind
 
 Es gab im Laufe der Zeit einige weitere Vorschläge für mögliche Gruppen gegeben, welche jedoch nicht weiter verfolgt wurden, da sich meist herausstellte, dass das DLP einfacher zu lösen ist.\cite{Paar.2016}
 
-\subsection{Diffie-Hellmann Key Exchange (DHKE)} \label{DHKE}
+\subsection{Diffie-Hellmann Key Exchange (DHKE)} \label{sec:DHKE}
 Der DHKE wurde im Jahr 1976 von Whitfield Diffie und Martin Hellmann veröffentlicht. Damit ist er das älteste asymmetrsiche Verfahren überhaupt. Der DHKE bringt eine Lösung für das große Problem der symmetrischen Kryptografie: den Schlüsselaustausch. Er ermöglicht zwei Parteien den Austausch bzw. die Vereinbarung eines gemeinsamen Geheimnisses über einen unsicheren Kanal. Dabei nutzt der DHKE das im vorigen Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} erläuterte DLP.  Prinzipiell beruht der DHKE auf der Idee, dass das Potenzieren in $\mathbb{Z}^*_p$ mit primen $p$ eine Einwegfunktion ist und die Exponentation kommutativ ist, d.h. $$k = (\alpha ^x)^y \equiv (\alpha ^y)^x \text{ mod } p.$$
 Im Folgenden wird der der DHKE in seiner Grundform erläutert. In der Praxis wird der DHKE oft in erweiterter Form verwendet um Angriffen entgegenzuwirken.
 
