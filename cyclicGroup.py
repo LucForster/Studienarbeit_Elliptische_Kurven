@@ -48,18 +48,6 @@ class CyclicGroup:
         return self.elliptic_curve.get_all_points_on_curve()
 
     def get_all_sub_groups(self):
-        elements = self.get_group_elements()
-        checked_elements = []
-        sub_groups = []
-        for element in elements:
-            if element not in checked_elements:
-                sub_group = self.get_sub_group_elements(element)
-                checked_elements.extend(sub_group)
-                sub_groups.append(sub_group)
-
-        return sub_groups
-
-    def get_all_sub_groups2(self):
         sub_groups = []
         sub_group_generators = []
         divisors = []
@@ -71,7 +59,7 @@ class CyclicGroup:
                 divisors.append(number)
         # Berechnen der Untergruppen-Generatoren
         for div in divisors:
-            sub_group_generators.append(primitive_elements[0] ** (order/div))
+            sub_group_generators.append(self.scalar_dot_element((order/div), primitive_elements[0]))
         # Berechnen der Untergruppen
         for gen in sub_group_generators:
             sub_groups.append(self.get_sub_group_elements(gen))

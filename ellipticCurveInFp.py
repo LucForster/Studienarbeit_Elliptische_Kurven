@@ -10,6 +10,7 @@ class EllipticCurveInFp:
 
     def get_all_points_on_curve(self):
         x_squares = []
+        points = []
 
         if self.is_elliptic_curve_correct(self) != True:
             return False
@@ -27,7 +28,16 @@ class EllipticCurveInFp:
                 break
 
         # Berechne die Punkte
-        for 
+        for x in x_squares:
+            # Berechne das Quadrat der aktuellen Zahl
+            y_squared = (x ** 3 + self.a * x + self.b) % self.p
+            root_1, root_2 = self.get_roots(y_squared, self.p)
+            point_1 = (x, root_1)
+            point_2 = (x, root_2)
+            points.append(point_1)
+            points.append(point_2)
+
+        return points
 
     def get_squares(candidate_list):
         squares = []

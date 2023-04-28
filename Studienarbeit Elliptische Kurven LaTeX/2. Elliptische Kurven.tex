@@ -128,6 +128,23 @@ $$s = \begin{cases}
 	\frac{3x_1^2 + a}{2y_1} & \text{, falls } P = Q \text{ (Punktverdopplung)}
 	\end{cases}
 $$
+\vspace{\baselineskip}
+Nachfolgend wollen wir ein Beispiel zur Punktaddition auf der elliptischen Kurve rechnen. Wir betrachten dazu die elliptische Kurve $$E : y^2 \equiv x^3 +2x +2 \text{ mod } 17.$$ Die Koeffizienten sind dementsprechend $a=2$ und $b=2$. Es gilt den Punkt $P = (5,1)$ zu verdoppeln:
+$$2P = P + P = (5,1) + (5,1) = (x_3, y_3)$$
+Zunächst wird $s$ mittels der Formel für die Punktverdopplung berechnet.
+$$s = \frac{3x_1^2 + a}{2y_1} = (2 \cdot 1)^{-1} \cdot ( 3 \cdot 5^2 + 2) = 2^{-1} \cdot 9 \equiv 9 \cdot 9 \equiv 13 \text{ mod } 17$$
+Zur Berechnung von $2^{-1}$ mod $17$, also dem multiplikativem Inversen von $2$ mod $17$, wird der in Kapitel \ref{sec:koerper} behandelte erweiterte euklidische Algorithmus verwendet. Im letzten Schritt werden $x_3$ und $y_3$ berechnet.
+\begin{align*}
+&x_3 = s^2 - x_1 - x_2 = 13^2 -5 -5 = 159 \equiv 6 \text{ mod } 17\\
+&y_3 = s(x_1 - x_3) - y_1 = 13(5-6) -1 = -14 \equiv 3 \text{ mod } 17\\
+&2P = (5,1) + (5,1) = (6,3)
+\end{align*}
+
+
+
+
+
+
 
 \section{Gruppeneigenschaften} \label{sec:Gruppeneigenschaften}
 Zur Erfüllung der Gruppeneigenschaften wird außerdem ein neutrales Element $\mathcal{O}$ benötigt. Alle Punkte $P$ der elliptischen Kurve müssen die Eigenschaft $P + \mathcal{O} = P$ erfüllen. Da kein Punkt der elliptischen Kurve diese Eigenschaft erfüllen kann, wird der imaginäre \textit{unendlich ferne Punkt} als neutrales Element $\mathcal{O}$ definiert. Dieser Punkt liefert außerdem den \textit{Schnittpunkt} im oben genannten Sonderfall, also falls ein Punkt $P$ und der bezüglich der $x$-Achse gegenüberliegende Punkt $-P$ addiert werden. Die hier verwendete Terminologie $-P$ ist schon ein wenig voraus gegriffen, denn die Existenz eines neutralen Elements $\mathcal{O}$ ermöglicht nämlich die Definition eines Inversen $-P$ für jeden Punkt $P$ auf der Kurve. Laut der allgemeine Gruppengesetze gilt $$P + (-P) = \mathcal{O}.$$
