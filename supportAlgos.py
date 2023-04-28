@@ -179,3 +179,30 @@ def chinesischerRestsatz(a, modules):
 def remove_negs(num_list):
     # Remove the negative numbers from the list num_list.
     return [item for item in num_list if item >= 0]
+
+
+def get_squares(candidate_list):
+    squares = []
+    for x in candidate_list:
+        square = (x**2) % len(candidate_list)
+        isPresent = square in set(squares)
+        if isPresent == True:
+            break
+        elif isPresent == False:
+            squares.append((square))
+    return squares.sort()
+
+def check_square(x, p):
+    for y in range(p):
+        if (y ** 2) % (p) == x:
+            return True
+    return False
+
+def get_roots(x, p):
+    roots = []
+    for y in range(p):
+        if (y ** 2) % p == x:
+            roots.append(y)
+            if len(roots) == 2:
+                break
+    return roots[0], roots[1]
