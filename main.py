@@ -26,7 +26,7 @@ gen_point = (4, 4)
 ell_curve = EllipticCurveInFp(a, b, p)
 ell_curve_in_r = EllipticCurveInR(a, b)
 
-xValues, f1Values, f2Values = ell_curve_in_r.getPoints()
+xValues, f1Values, f2Values = ell_curve_in_r.get_points()
 draw = DrawCurves()
 draw.add_plot(xValues, f1Values)
 draw.add_plot(xValues, f2Values)
