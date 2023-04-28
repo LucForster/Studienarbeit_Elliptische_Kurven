@@ -2,7 +2,7 @@
 \chapter{Elliptische Kurven} \label{sec:elliptische_kurve}
 
 
-Als Basis für asymmetrische Kryptosysteme können elliptische Kurven dazu genutzt werden, die verschlüsselungstechnische Effektivität mathematischer Probleme, wie das des diskreten Logarithmus, zu erhöhen. Bei der Kryptographie unter Verwendung elliptischer Kurven, kann mit deutlich kürzerer Schlüssellänge ein gleichwertiges Ergebnis erzielt werden. Dieser Effekt wird durch die spezielle Arithmetik auf elliptischen Kurven erzielt, deren mathematische Grundlage, konkrete Eingenschaften und Funktionsweise im folgenden Kapitel erörtert werden soll.\\
+Als Basis für asymmetrische Kryptosysteme können elliptische Kurven dazu genutzt werden, die verschlüsselungstechnische Effektivität mathematischer Probleme, wie das des diskreten Logarithmus, zu erhöhen. Bei der Kryptographie unter Verwendung elliptischer Kurven, kann mit deutlich kürzerer Schlüssellänge ein gleichwertiges Ergebnis im Vergleich zum klassichen Diffie-Hellman-Key-Exchange oder der ElGamal-Verschlüsselung erzielt werden. Dieser Effekt wird durch die spezielle Arithmetik auf elliptischen Kurven erzielt, deren mathematische Grundlage, konkrete Eingenschaften und Funktionsweise im folgenden Kapitel erörtert werden soll.\\
 
 Elliptische Kurven können über beliebigen Körpern definiert werden. Für die Kryptographie interessant sind elliptische Kurven über Primkörpern.\\
 
@@ -22,7 +22,7 @@ Elliptische Kurven können über beliebigen Körpern definiert werden. Für die 
 
 
 
-Um das weitere Verständnis zu verbessern, wollen wir erst eine uns schon bekannte Kurve ansehen. In Abbildung \ref{fig:Einheitskreis} ist das Polynom $x^2 + y^2 = r^2$ über $\mathbb{R}$ dargestellt. Wie zu sehen ist, handelt es sich hierbei um die Kreisgleichung. Der zu sehende Kreis ist nichts anderes als die Menge aller Punkte, welche die Kreisgleichung erfüllen.
+Um das weitere Verständnis zu verbessern, wollen wir erst eine uns schon bekannte Kurve ansehen. In Abbildung \ref{fig:Einheitskreis} ist die Lösungsmenge der Polynomgleichung $x^2 + y^2 = r^2$ über $\mathbb{R}$ dargestellt. Wie zu sehen ist, handelt es sich hierbei um die Kreisgleichung. Der zu sehende Kreis ist nichts anderes als die Menge aller Punkte, welche die Kreisgleichung erfüllen.
 Ein Beispiel für eine solchen ist der Punkt $(r,0)$. Wenn $x$ den Wert $r$ hat, muss $y$ folglich den Wert $0$ haben. Ein Gegenbeispiel ist der Punkt $(r,r/2)$. Dieser erfüllt die Kreisgleichung nicht.
 \begin{figure}[!h]
     \centering
@@ -44,15 +44,15 @@ Eine elliptische Kurve ist nun eine spezielle Polynomgleichung, der Form $y^2 = 
     \caption{Elliptische Kurve}
     \label{fig:Elliptische_Kurve}
 \end{figure}
-Damit elliptische Kurven sinnvoll in der Kryptologie eingesetzt werden können, muss die Polynomgleichung über einem Primkörper betrachtet werden. Das heißt einfach gesprochen, alle Berechnungen werden modulo $p$ durchgeführt.
+Damit elliptische Kurven sinnvoll in der Kryptologie eingesetzt werden können, muss die Polynomgleichung über einem endlichen Körper betrachtet werden. Dies können entweder Primkörper oder Erweiterungskörper dieser sein, wobei in dieser Arbeit nur Primkörper behandelt werden. Einfach gesprochen heißt das: alle Berechnungen werden modulo $p$ durchgeführt.
 \paragraph{Definition: Elliptische Kurven über Primkörpern}
-Die \textit{elliptische Kurve} über $\mathbb{F_p}$, ist die Menge aller Punkte $(x,y)$ mit $x,y \in \mathbb{F_p}$, welche die folgende Gleichung erfüllen: 
+Die \textit{elliptische Kurve} über $\mathbb{F}_p$, ist die Menge aller Punkte $(x,y)$ mit $x,y \in \mathbb{F_p}$, welche die folgende Gleichung erfüllen: 
 \begin{center}
 $y^2 \equiv x^3 + ax + b$ mod $p$, wobei $a,b \in \mathbb{F}_p$
 \end{center} 
 und die Bedingung
 \begin{equation}
-3 + 27b^3 \neq 0
+4a^3 + 27b^2 \neq 0
 \label{eq:constraint}
 \end{equation} gelten müssen. Zu der elliptischen Kurve gehört des Weiteren auch der imaginäre \textit{Punkt im Unendlichen} $\mathcal{O}$.\\
 
@@ -86,7 +86,7 @@ Falls P und Q identisch sind erfolgt die geometrische Konstruktion, indem eine T
 \end{figure}
 
 \paragraph{Sonderfall $P + (-P)$:}
-In beiden genannten Fällen, Punktaddition und Punktverdopplung, kann es passieren, dass es keinen weiteren Schnittpunkt mit der Kurve gibt. Dieser Fall tritt für die Punktaddition ein, wenn die $x$-Koordinaten der Punkte identisch sind. Für die Punktverdopplung tritt der Fall ein, wenn die $y$-Koordinate Null ist. In beiden Situationen ergibt sich für die Gerade, welche den genannten Schnittpunkt liefern soll, eine Parallele zur $y$-Achse. Diese schneidet die elliptische Kurve nicht mehr. Abbildung \ref{fig:UnendlichFernerPunkt} zeigt den Sonderfall für die Punktaddition. Als Ergebnis in einem solchem Fall wird der \textit{unendlich ferne Punkt} $\mathcal{O}$ definiert. Dieser hat noch weitere Eigenschaften im Bezug auf die Gruppeneigenschaften, welche im Kapitel \ref{sec:Gruppeneigenschaften} genauer erläutert werden.
+In beiden genannten Fällen, Punktaddition und Punktverdopplung, kann es passieren, dass es keinen weiteren Schnittpunkt mit der Kurve gibt. Dieser Fall tritt für die Punktaddition ein, wenn die $x$-Koordinaten der Punkte identisch sind. Für die Punktverdopplung tritt der Fall ein, wenn die $y$-Koordinate Null ist. In beiden Situationen ergibt sich für die Schnittgerade bzw. Tangente, welche den genannten Schnittpunkt liefern soll, eine Parallele zur $y$-Achse. Diese schneidet die elliptische Kurve nicht mehr. Abbildung \ref{fig:UnendlichFernerPunkt} zeigt den Sonderfall für die Punktaddition. Als Ergebnis in einem solchem Fall wird der \textit{unendlich ferne Punkt} $\mathcal{O}$ definiert. Dieser hat noch weitere Eigenschaften im Bezug auf die Gruppeneigenschaften, welche im Kapitel \ref{sec:Gruppeneigenschaften} genauer erläutert werden.
 
 \begin{figure}[H]
     \centering
@@ -100,7 +100,8 @@ Nach dieser grafischen Veranschaulichung sollte es leichter fallen die folgenden
 Die Formeln für die Punktaddition und - verdopplung auf elliptischen Kurven können anhand der grade gezeigten Veranschaulichung hergeleitet werden.\\ 
 
 \paragraph{Herleitung: Formeln für Punktaddition bzw. Punktverdopplung}
-Gegeben ist die Gleichung der elliptischen Kurve $y^2 = x^3 +ax + b$ und die Punkte $P = (x_1, y_1)$ und $Q = (x_2, y_2)$. Zunächst ist die Geradengleichung der Sekante durch $P$ und $Q$ zu ermitteln. Eine Grade im Allgemeinen hat die Form $$g: y = sx + m.$$ Der Parameter $s$ ist dabei die Steigung der Geraden und $m$ ist der Schnittpunkt mit der $y$-Achse. Die Steigung $s$ lässt sich (im Fall der Punktaddition) wie gewohnt durch Anlegen des Steigungsdreiecks berechnen, also mit der Formel $$s = \frac{y_2 - y_1}{x_2  - x_1}.$$ Im Falle einer Punktverdopplung muss $s$ über die Tangente der Elliptischen Kurve im entsprechenden Punkt ermittelt werden. Dazu leiten leiten wir die Kurvengleichung der elliptischen Kurve nach $x$ ab. Es ergibt sich $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2 \sqrt{x^3 + ax + b}}.$$ Bei genauerer Betrachtung fällt auf, dass der Nenner genau $2y$ entspricht, weshalb auch $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2y}$$ geschrieben werden kann. Da die erste Ableitung die Steigung der elliptischen Kurve in jedem Punkt beschreibt, haben wir somit eine Formel mit welcher wird durch einsetzen eines Punktes $P = (x_1, y_1)$, die jeweilige Tangentensteigung ermitteln können. Es gilt also $$s = \frac{3x_1^2 + a}{2y_1}\text{.}$$
+Gegeben ist die Gleichung der elliptischen Kurve $y^2 = x^3 +ax + b$ und die Punkte $P = (x_1, y_1)$ und $Q = (x_2, y_2)$. Zunächst ist die Geradengleichung der Sekante durch $P$ und $Q$ zu ermitteln. Eine Grade im Allgemeinen hat die Form $$g: y = sx + m.$$ 
+Der Parameter $s$ ist dabei die Steigung der Geraden und $m$ ist der Schnittpunkt mit der $y$-Achse. Die Steigung $s$ lässt sich unter der Bedingung $x_1 \neq x_2$ und $y_1 \neq y_2$  wie gewohnt durch Anlegen des Steigungsdreiecks berechnen, also mit der Formel $$s = \frac{y_2 - y_1}{x_2  - x_1}.$$ Sollte $x_1 = x_2$ und $y_1 \neq y_2$ sein, ergibt sich durch Punktaddition der unendlich ferne Punkt $\mathcal{O}$, aufgrund der zur $y$-Achse parallelen Schnittgerade. Im Falle einer Punktverdopplung muss $s$ über die Tangente der Elliptischen Kurve im entsprechenden Punkt ermittelt werden. Dazu leiten leiten wir die Kurvengleichung der elliptischen Kurve nach $x$ ab. Es ergibt sich $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2 \sqrt{x^3 + ax + b}}.$$ Für den Fall das $y = 0$ ist, wird die Steigung unendlich groß, es ergibt sich als Ergebnis der Punktverdopplung also der unendlich ferne Punkt. Bei genauerer Betrachtung fällt auf, dass der Nenner genau $2y$ entspricht, weshalb auch $$\frac{\delta y}{\delta x} = \frac{3x^2 + a}{2y}$$ geschrieben werden kann. Da die erste Ableitung die Steigung der elliptischen Kurve in jedem Punkt beschreibt, haben wir somit eine Formel mit welcher wird durch einsetzen eines Punktes $P = (x_1, y_1)$, die jeweilige Tangentensteigung ermitteln können. Es gilt also $$s = \frac{3x_1^2 + a}{2y_1}\text{.}$$
 
 Zur Bestimmung des Schnittpunkts mit der $y$-Achse kann nun einer der beiden Punkte $P$ oder $Q$ in die Geradengleichung $y = s \cdot x + m$ eingesetzt werden. Durch Einsetzen des Punkts $P = (x_1, y_1)$  erhalten wir die folgende Gleichung $$y_1 = s \cdot x_1 + m\text{,}$$ welche nach $m$ aufgelöst folgendermaßen aussieht: $$m = y_1 - s \cdot x_1$$
 Durch Einsetzten aller Parameter in die obige Geradengleichung ergibt sich $$y = \frac{y_2 - y_1}{x_2  - x_1} \cdot x + y_1 - \frac{y_2 - y_1}{x_2  - x_1} \cdot x_1$$ für die gesuchte Gerade $g$ durch die Punkte $P$ und $Q$. Um den dritten Schnittpunkt dieser Geraden $g$ mit der elliptischen Kurve $E$ zu ermitteln, sind beide Kurven gleichzusetzen. Da es für das weitere Vorgehen keine Rolle spielt und es der Übersichtlichkeit dient, werden im Folgenden wieder die Parameter $s$ und $m$ statt eben gezeigten Konkretisierungen verwendet. Es ergibt sich die Gleichung $$(sx+m)^2 = x^3 + ax + b\text{.}$$ Nach ausmultiplizieren der Gleichung erhalten wir $$0 =  x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b \text{.}$$
@@ -108,12 +109,12 @@ Durch Einsetzten aller Parameter in die obige Geradengleichung ergibt sich $$y =
 Im Normalfall ist das allgemeine Lösen eines solchen kubischen Polynoms nicht trivial. Wir haben hier jedoch den Vorteil, dass zwei der drei Schnittpunkte von $g$ mit $E$ schon bekannt sind. Fassen wir das Polynom als Funktion $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b$$ auf, so sind wir Im Grunde auf der Suche nach den Nullstellen dieser kubischen Funktion. Da die Punkte $P$ und $Q$ auf der Geraden $g$ sowie auf der elliptischen Kurve $E$ liegen, lösen sie die obige
 Gleichung, sind also Nullstellen der Funktion $f(x)$. Daraus folgt, dass die Funktion $f(x)$ restlos durch $(x-x_1)$ und $(x-x_2)$ geteilt werden kann um den Funktionsgrad zu verringern.
 $$f(x) \div (x-x_1) \cdot (x-x_2) = l(x) \text{  Rest }0$$
-Aufgrund dessen, dass $f(x)$ den Grad 3 hat, muss $l(x)$ den Grad 1 haben und durch $l(x) = ux + v$ beschrieben werden können. Da $$l(x) + (x-x_1) \cdot (x-x_2) = g(x)\text{,}$$ muss auch gelten $$u \cdot x \cdot x \cdot x  = x^3\text{,}$$ weshalb $u = 1$ gelten muss. Daraus ergibt sich $$l(x) = x + v \text{.}$$ Somit ist $x_3 = -v$ eine weitere Nullstelle von $f(x)$. Es folgt also $$g(x) = (x-x_1) \cdot (x-x_2) \cdot (x-x_3) \text{,}$$ woraus durch ausmultiplizieren $$f(x) = x^3 - (x_1 + x_2 + x_3) \cdot x^2 + (x_1 x_2 + x_1 x_3 + x_2 x_3) * x - x_1 x_2 x_3$$ entsteht. Vergleicht man nun diese Darstellung mit der obigen also $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b\text{,}$$ so folgt durch Koeffizientenvergleich $$s^2 = x_1 + x_2 +x_3$$ also $$x_3 = x^2 -x_1 - x_2.$$
+Aufgrund dessen, dass $f(x)$ den Grad 3 hat, muss $l(x)$ den Grad 1 haben und durch $l(x) = ux + v$ beschrieben werden können. Da $$l(x) \cdot (x-x_1) \cdot (x-x_2) = f(x)\text{,}$$ muss auch gelten $$u \cdot x \cdot x \cdot x  = x^3\text{,}$$ weshalb $u = 1$ gelten muss. Daraus ergibt sich $$l(x) = x + v \text{.}$$ Somit ist $x_3 = -v$ eine weitere Nullstelle von $f(x)$. Es folgt also $$f(x) = (x-x_1) \cdot (x-x_2) \cdot (x-x_3) \text{,}$$ woraus durch ausmultiplizieren $$f(x) = x^3 - (x_1 + x_2 + x_3) \cdot x^2 + (x_1 x_2 + x_1 x_3 + x_2 x_3) \cdot x - x_1 x_2 x_3$$ entsteht. Vergleicht man nun diese Darstellung mit der obigen also $$f(x) = x^3 - s^2x^2 + (a-2sm)\cdot x - m^2+b\text{,}$$ so folgt durch Koeffizientenvergleich $$s^2 = x_1 + x_2 +x_3$$ also $$x_3 = s^2 -x_1 - x_2.$$
 
 Um die Formel für $y_3$ zu ermitteln kann nun der Punkt $R$ in die Formel für $s$ eingesetzt werden. Dies ist möglich, da der Punkt $R$ auf der gleichen Geraden wie $P$ und $Q$ liegt, weshalb auch die Steigung $s$ identisch ist.
 Es gilt also $$s = \frac{y_2 - y_1}{x_2  - x_1} = \frac{y_3 - y_1}{x_3  - x_1}.$$ 
 Aufgelöst nach $y_3$ ergibt sich $$y_3 = s \cdot (x_3 - x_1) + y_1 \text{.}$$
-Da der Schnittpunkt an der $x$-Achse gespiegelt wird um $R$ zu erhalten müssen die Vorzeichen in der Formel für $y$ noch gedreht werden. Final ergeben sich für den Punkt $R = (x_3, y_3)$ also die Formeln:
+Da der Schnittpunkt an der $x$-Achse gespiegelt wird um $R$ zu erhalten müssen die Vorzeichen in der Formel für $y$ noch gedreht werden. Im Fall der Punktverdopplung kann genauso argumentiert werden, wobei hier $x_1 = x_2$ ist. Final ergeben sich für den Punkt $R = (x_3, y_3)$ also die Formeln:
 $$x_3 = s^2 + x_1 - x_2$$
 $$y_3 = s \cdot (x_1 - x_3) - y_1$$
 
@@ -128,7 +129,8 @@ $$s = \begin{cases}
 	\frac{3x_1^2 + a}{2y_1} & \text{, falls } P = Q \text{ (Punktverdopplung)}
 	\end{cases}
 $$
-\vspace{\baselineskip}
+Um sicherzugehen, dass die Berechnung korrekt durchgeführt wurde kann im Nachgang geprüft werden, ob der errechnete Punkt überhaupt auf der Kurve liegt, indem man diesen in die Gleichung der elliptischen Kurve einsetzt. Ist die Gleichung erfüllt, wurde wahrscheinlich richtig gerechnet.\\
+
 Nachfolgend wollen wir ein Beispiel zur Punktaddition auf der elliptischen Kurve rechnen. Wir betrachten dazu die elliptische Kurve $$E : y^2 \equiv x^3 +2x +2 \text{ mod } 17.$$ Die Koeffizienten sind dementsprechend $a=2$ und $b=2$. Es gilt den Punkt $P = (5,1)$ zu verdoppeln:
 $$2P = P + P = (5,1) + (5,1) = (x_3, y_3)$$
 Zunächst wird $s$ mittels der Formel für die Punktverdopplung berechnet.
@@ -148,13 +150,13 @@ Zur Berechnung von $2^{-1}$ mod $17$, also dem multiplikativem Inversen von $2$ 
 
 \section{Gruppeneigenschaften} \label{sec:Gruppeneigenschaften}
 Zur Erfüllung der Gruppeneigenschaften wird außerdem ein neutrales Element $\mathcal{O}$ benötigt. Alle Punkte $P$ der elliptischen Kurve müssen die Eigenschaft $P + \mathcal{O} = P$ erfüllen. Da kein Punkt der elliptischen Kurve diese Eigenschaft erfüllen kann, wird der imaginäre \textit{unendlich ferne Punkt} als neutrales Element $\mathcal{O}$ definiert. Dieser Punkt liefert außerdem den \textit{Schnittpunkt} im oben genannten Sonderfall, also falls ein Punkt $P$ und der bezüglich der $x$-Achse gegenüberliegende Punkt $-P$ addiert werden. Die hier verwendete Terminologie $-P$ ist schon ein wenig voraus gegriffen, denn die Existenz eines neutralen Elements $\mathcal{O}$ ermöglicht nämlich die Definition eines Inversen $-P$ für jeden Punkt $P$ auf der Kurve. Laut der allgemeine Gruppengesetze gilt $$P + (-P) = \mathcal{O}.$$
-Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik auf elliptischen Kurven ist das Inverse eines Punktes $P = (x_p, y_p)$ der Punkt $-P = (y_p, -y_p)$, also der bezogen auf die $x$-Achse gegenüberliegende Punkt. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.\cite[279]{Paar.2016}
+Folgend aus der im vorigen Kapitel \ref{sec:Arithmetik} erläuterten Arithmetik auf elliptischen Kurven ist das Inverse eines Punktes $P = (x_p, y_p)$ der Punkt $-P = (x_p, -y_p)$, also der bezogen auf die $x$-Achse gegenüberliegende Punkt. In einem Primkörper berechnet sich die negative $y$-Koordinate durch $-y_p = p - y_p$.\cite[279]{Paar.2016}
 
  
 \section{Punktbestimmung}
 Die Arithmetik für Elliptische Kurven wurde bereits besprochen. Nun wird erarbeitet, wie man die Punkte einer elliptischen Kurve bestimmt. Doch was ist ein Punkt einer elliptischen Kurve? Im Foglenden wird erklärt, was ein Punkt auf einer elliptischen Kurve ist und wie diese berehcnet werden können. Die Erklärungen werden anschließend anhand einiger Beispiele näher erläutert. Anschließend wird Python-Code präsentiert, welcher die Punktbestimmung für eine elliptische Kurve mit $p > 3$ durchführt und die Punkte anschließend in der Konsole ausgibt.
 
-\subsection{Rechnerische Grundlagen}
+\subsection{Rechnerische Grundlagen} \label{sec:rechengrundlagen}
 Viele Mathematiker suchten eine Formel, mit denen sich die Anzahl der Punkte einer elliptischen Kurve schätzen lässt, ohne dass man diese vorher aus- oder berechnen muss. Joseph H. Silverman beweist in seinem Buch einen mathematischen Satz aus der Zahlentheorie, welcher eine allgemeine Aussage über die Anzahl der rationalen Punkte auf einer elliptischen Kurve trifft \cite[S. 138]{JosephH.Silverman.2009}. Dieser Satz kann also herangezogen werden, um eine ungefähre Abschätzung über die Anzahl der Punkte auf einer elliptischen Kurve über einem Primkörper $p$ zu treffen. Bei dem mathematischen Satz handelt es sich um die Hasse–Weil–Schranke. Diese wird im allgemeinen dafür benutzt, um die Anzahl der Lösungen der Gleichung und der Bedingungen aber auch für die Einschränkung des Lösungsraums. Die Hasse-Weil-Schranke wird angelehnt an \cite[S. 181]{Dr.ReinholdHubl.2022} wie folgt beschrieben. Sei $k = \mathbb{F}_p$ ein endlicher Körper und $\overline{E}$ eine elliptische Kurve über $k$, dann gilt
 \begin{center}
 $p + 1 - 2 \cdot \sqrt{p} \leq | \overline{E} | \leq p + 1 + 2 \cdot \sqrt{p}$
@@ -533,23 +535,25 @@ Das Beispiel ist zwar kompliziert, doch wenn man alle Schritte der Induktion dur
 \item Die Zahl $a$ ist eine Quadratwurzel von x in $\mathbb{F}_p$.
 \end{enumerate}
 
+
 \section{Diskreter Logarithmusproblem über elliptischen Kurven} \label{sec:DLPüberEC}
-Wie in Kapitel XY gezeigt, kann das DLP verallgemeinert werden, sodass über jeder zyklischen Gruppe (mehr oder weniger effektiv) ein DLP definiert erden kann. Im ersten Abschnitts dieses Kapitels wurden die Gruppeneigenschaften der Punktmenge auf der elliptischen Kurve gezeigt. Gruppenelemente werden können über die Gruppenoperation $+$ \textit{addiert} werden. Es gilt der Folgende Satz:
+Wie in Kapitel \ref{sec:DLP} gezeigt, kann das DLP verallgemeinert werden, sodass über jeder zyklischen Gruppe (mehr oder weniger effektiv) ein DLP definiert erden kann. Im ersten Abschnitts dieses Kapitels wurden die Gruppeneigenschaften der Punktmenge auf der elliptischen Kurve gezeigt. Gruppenelemente können über die Gruppenoperation $+$ \textit{addiert} werden. \\
+%Es gilt der Folgende Satz:
 
-\paragraph{Satz:}
-Die Punkte einer elliptischen Kurve zusammen mit $O$ haben zyklischen Untergruppen. Unter bestimmten Bedingungen bilden \textit{alle} Punkte einer elliptischen Kurve eine zyklische Gruppe.\\
+%\paragraph{Satz:}
+%Die Punkte einer elliptischen Kurve zusammen mit $O$ haben zyklischen Untergruppen. Unter bestimmten Bedingungen bilden \textit{alle} Punkte einer elliptischen Kurve eine zyklische Gruppe.\\
 
-Um eine kryptografisch \textit{sicheres} DLP zu konstruieren, ist es wichtig die Gruppenkardinalität zu kennen. Deren exakte Bestimmung ist bei elliptischen Kurven jedoch sehr aufwendig. Für die grobe Bestimmung der Gruppenkardinalität wurde in Kapitel XY bereits die Hasse-Weil-Schranke vorgestellt. Diese erlaubt es uns die Anzahl der Punkte einer elliptischen Kurve abzuschätzen. Vereinfacht kann man sagen das die Anzahl der Punkte in etwa $p$ entspricht, wenn die elliptische Kurve über $\mathbb{Z}^*_p$ definiert ist.\\
+Um eine kryptografisch \textit{sicheres} DLP zu konstruieren, ist es wichtig die Gruppenkardinalität zu kennen. Deren exakte Bestimmung ist bei elliptischen Kurven jedoch sehr aufwendig. Für die grobe Bestimmung der Gruppenkardinalität wurde in Kapitel \ref{sec:rechengrundlagen} bereits die Hasse-Weil-Schranke vorgestellt. Diese erlaubt es uns die Anzahl der Punkte einer elliptischen Kurve abzuschätzen. Vereinfacht kann man sagen das die Anzahl der Punkte in etwa $p$ entspricht, wenn die elliptische Kurve über $\mathbb{Z}^*_p$ definiert ist. Es gibt außerdem ein Verfahren von R. Schoof, das relativ effiziernt die Ordnung einer elliptischen Kurve bestimmt. Hat diese Ordnung einen ausreichend großen Primteiler, so ist sie für die Kryptografie geeignet. Der Algorithmus kann unter \cite[S. 219-254] {J.Theor.NombresBordaux.} nachgeschlagen werden.\\
 
 Im folgenden wollen wir das DLP über elliptischen Kurven definieren:
 
 \paragraph{Definition: Das DLP über elliptischen Kurven (ECDLP)}
-Gegeben sei eine elliptische Kurve $E$. Wir betrachten ein primitives Element $P$ und ein beliebiges weiteres Element $T$. Das DLP ist die Bestimmung der natürlichen Zahl $d$ zwischen $1 \leq d \leq \#E$, sodass gilt:
+Gegeben sei eine elliptische Kurve $E$. Wir betrachten eine zyklische Untergruppe $U$ von $E$ mit hinreichend großer Primzahlordnung, ein primitives Element $P$ von $U$ und ein beliebiges weiteres Element $T$. Das DLP ist Entscheidung ob $T \in U$ ist und ggf. die Bestimmung der natürlichen Zahl $d$ zwischen $1 \leq d \leq \#E$, sodass gilt:
 $$\underbrace{P + P + \dots + P}_{d-mal} = d P = T$$\\
 
-Die Bestimmung der natürlichen Zahl $d$ ist wie auch schon beim DLP über $\mathbb{Z}^*_p$ nicht trivial. In einem Kryptosystem wäre dementsprechend die natürliche Zahl $d$ der private Schlüssel und das Element $T$ der öffentliche Schlüssel. Anders als beim DLP über Primkörpern, wo beide Schlüssel natürliche Zahlen waren, ist der private Schlüssel $T$ hier ein Punkt der elliptischen Kurve. Der in der obigen Definition verwendete Ausdruck $dP$ wird \textit{Punktmultiplikation} genannt, da man schreiben kann $T = dP$. Es ist jedoch zu beachten das es dafür keine Rechenvorschrift gibt, die Zahl $d$ mit $P$ zu multiplizieren. Der Ausdruck bedeutet lediglich, dass die Gruppenoperation $d$ mal auf $P$ angewendet wird.\\
+Die Bestimmung der natürlichen Zahl $d$ ist wie auch schon beim DLP über $\mathbb{Z}^*_p$ nicht trivial. In einem Kryptosystem wäre dementsprechend die natürliche Zahl $d$ der private Schlüssel und das Element $T$ der öffentliche Schlüssel. Anders als beim DLP über Primkörpern, wo beide Schlüssel natürliche Zahlen waren, ist der öffentliche Schlüssel $T$ hier ein Punkt der elliptischen Kurve. Der in der obigen Definition verwendete Ausdruck $dP$ wird \textit{Punktmultiplikation} genannt, da man schreiben kann $T = dP$. Es ist jedoch zu beachten das es dafür keine unmittelbare Rechenvorschrift gibt, die Zahl $d$ mit $P$ zu multiplizieren. Der Ausdruck bedeutet lediglich, dass die Gruppenoperation $d-1$ mal auf $P$ angewendet wird.\\
 
-Der Erzeuger eines Schlüsselpaars muss allerdings nicht einzeln $d$ mal $P$ auf sich selbst addieren, sonder kann sich eines \textit{Tricks} bedienen. Wie beim DLP über dem Primkörper $\mathbb{Z}^*_p$, wo der Square-And-Multiply-Algorithmus zu effizienten Berechnung des öffentlichen Schlüssels verwendet wurde, kann hier der sog. \textit{Double-And-Add-Algorithmus} verwendet werden. Dieser ist von der Idee her zum Square-And-Multiply-Algorithmus identisch, und unterscheidet sich nur durch die angewandten Operationen. Der folgende Code zeigt eine Beispielhafte Implementierung:
+Der Erzeuger eines Schlüsselpaars muss allerdings nicht einzeln $d-1$ mal $P$ auf sich selbst addieren, sondern kann sich eines \textit{Tricks} bedienen. Wie beim DLP über dem Primkörper $\mathbb{Z}^*_p$, wo der Square-And-Multiply-Algorithmus zur effizienten Berechnung des öffentlichen Schlüssels verwendet wurde, kann hier der sog. \textit{Double-And-Add-Algorithmus} verwendet werden. Dieser ist von der Idee her zum Square-And-Multiply-Algorithmus ähnlich, und unterscheidet sich hauptsächlich durch die angewandten Operationen. Statt einer Potenzierung durch iteriertes Quadrieren, wird bei diesem Algorithmus eine Vielfachenbildung durch iteriertes Verdoppeln erreicht. Der folgende Code zeigt eine Beispielhafte Implementierung:
 
 \vspace{\baselineskip}
 \begin{lstlisting}[caption={Double-And-Add-Algorithmus in Python}, captionpos=b]
@@ -590,49 +594,38 @@ Das darstellen von $d$ als binäre Zahl ermöglicht es, diese ausgehend von der 
 
 Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht.\cite[280-284]{Paar.2016}
 
-\section{Elliptic-Curve-Diffie-Hellman Key Exchange (ECDHKE)}
-Der ECDHKE ist eine Anpassung des klassischen DHKE, wobei hier als zyklische Gruppe nicht $\mathbb{Z}_p^*$ sondern die Punktemenge einer elliptischen Kurve verknüpft durch die in Kapitel \ref{sec:Arithmetik} definierte Gruppenoperation. Wie in Kaptiel \ref{sec:DLPüberEC} gezeigt, kann auch in einer solchen zyklischen Gruppe bzw. Untergruppe ein DLP definiert werden, welches sogar deutlich schwieriger zu lösen ist, als das DLP über $\mathbb{Z}_p^*$.
 
-Die Konstruktion des ECDHKE funktioniert analog zu jener des DHKE, welche in Kapitel \ref{sec:DHKE} erläutert wurde. zunächst müssen wieder die Domain-Parameter festgelegt werden:
 
-\paragraph{ECDHKE-Domain-Parameter}
-\begin{enumerate}
-\item Wähle eine Primzahl $p$ und eine elliptische Kurve $$E: y^2 \equiv x^3 + a \cdot x +b \text{ mod } p$$
-\item Wähle ein primitives Element $P = (x_P, y_P)$
-\end{enumerate}
-Die Primzahl $p$, die Kurvenkoeffizienten $a$, $b$ und der Punkt $P$ bilden die sog. Domain-Parameter.
 
-Die Wahl dieser Parameter hat großen Einfluss auf die Anzahl der Gruppenelemente und damit auf die Sicherheit des Protokolls. Die Bestimmung geeigneter Parameter ist relativ rechenaufwändig, weshalb dies in der Praxis nicht jedes mal neu gemacht wird, sondern z.B. von der NIST vorgegebene Parameter verwendet werden. Der Schlüsselaustausch erfolgt nun analog zum DHKE über endlichen Körpern:
 
-\paragraph{Diffie-Hellman-Schlüsselaustausch mit elliptischen Kurven (ECDH)}
-\begin{tabbing}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \= \qquad \qquad \qquad \= \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \kill
-\textbf{Alice} \> \> \textbf{Bob}\\
-Wähle $a=k_{pr,A} \in \{2,..., \#E-1\}$ \> \> Wähle $b=k_{pr,B} \in \{2,..., \#E-1\}$\\
-Berechne $k_{pub,A} = aP = A = (x_A,y_A)$ \> \> Berechne $k_{pub,B} = bP = B = (x_B, y_B)$\\
-\> $\xleftarrow{k_{pub,A} = A}$ \> \\
-\> $\xrightarrow{k_{pub,B} = B}$ \> \\
-Berechne $aB = T_{AB}$ \> \> Berechne $bA = T_{AB}$\\
-Gemeinsames Geheimnis zwischen Alice und Bob: $T_{AB} = (x_{AB}, y_{AB})$\\
-\end{tabbing}
-Das Alice und Bob den gleichen Punkt berechnet haben lässt sich einfach zeigen.\\
 
-Alice berechnet: $$aB = a(bP)$$
-Bob berechnet: $$bA = b(aP)$$
 
-Da die Punktaddition assoziativ ist, berechnen Alice und Bob den gleichen Punkt $T_{AB} = abP$.\\
 
-Alice und Bob wählen zunächst jeweils eine große zufällige Primzahl $a$ und $b$, welche als private Schlüssel dienen. Beide multiplizieren ihren privaten Schlüssel mit dem durch die Domain-Parameter gegebenen Generatorpunkt $P$ um die öffentlichen Schlüssel $A$ und $B$ zu erhalten. Diese werden gegenseitig ausgetauscht. Im folgenden multiplizieren beide ihren privaten Schlüssel ($a$ bzw. $b$) mit dem empfangenen öffentlichen Schlüssel ($B$ bzw. $A$) des anderen um $T_{AB}$ zu erhalten. Aus diesem gemeinsamen Geheimnis kann nun ein Schlüssel für eine symmetrische Verschlüsselung abgeleitet werden. In der Regel wird dazu der Wert der $x$-Koordinate verwendet. Folgend wird der ECDHKE beispielhaft mit kleinen Zahlen durchgeführt.\\
 
-\begin{tabbing}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \= \qquad \qquad \qquad \= \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \kill
-\textbf{Alice} \> \> \textbf{Bob}\\
-Wähle $a=k_{pr,A} = 3$ \> \> Wähle $b=k_{pr,B} = 10$\\
-$k_{pub,A} = A = 3P = (10,6)$ \> \> $k_{pub,B} = B = 10P = (7,11)$\\
-\> $\xleftarrow{k_{pub,A} = A}$ \> \\
-\> $\xrightarrow{k_{pub,B} = B}$ \> \\
-$T_{AB} = aB = 3(7,11) = (13,10)$ \> \> $T_{AB} = bA = 10(10,6) = (13,10)$\\
-Gemeinsames Geheimnis zwischen Alice und Bob: $T_{AB} = (13,10)$\\
-\end{tabbing}
-Für die Punktmultiplikationen wird der in Kapitel \ref{sec:DLPüberEC} erläuterte Double-and-Add-Algorithmus verwendet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

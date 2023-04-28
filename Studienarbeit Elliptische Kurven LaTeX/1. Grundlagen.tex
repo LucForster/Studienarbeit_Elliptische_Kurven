@@ -112,7 +112,7 @@ Eine homogene algebraische Struktur ist ein Tupel $(M,c_1,\dots,c_m,f_1,\dots,f_
 
 Laut dieser Definition muss eine homogen algebraische Struktur nicht unbedingt Konstanten enthalten, jedoch mindestens eine Operation. Das Paar $(\mathbb{N},+)$ bildet beispielsweise eine homogene algebraische Struktur des Typs (2). Das 5-Tupel $(\mathbb{N},0,1,+,\cdot)$ bildet ebenfalls eine homogen algebraische Struktur des Typs (0,0,2,2).
 
-Algebraische Strukturen unterscheiden sich grundsätzlich durch ihren Typ. Wirklich charakterisiert werden sie aber erst durch die jeweils geltenden Axiome, d.h. bestimmte Eigenschaften, welche für die Konstanten und Operationen gefordert werden. Durch die Hinzunahme immer weiterer Axiome, entsteht eine Hierarchie immer feinerer Strukturen, an deren Anfang der Monoid steht.\cite[S. 355, 356]{Berghammer.2021}
+Algebraische Strukturen unterscheiden sich grundsätzlich durch ihren Typ. Wirklich charakterisiert werden sie aber erst durch die jeweils geltenden Axiome, d.h. bestimmte Eigenschaften, welche für die Konstanten und Operationen gefordert werden. Durch die Hinzunahme immer weiterer Axiome, entsteht eine Hierarchie immer feinerer Strukturen. Wir beginnen mit dem Monoid.\cite[S. 355, 356]{Berghammer.2021}
 
 \subsection{Monoid}
 
@@ -130,7 +130,7 @@ Einfache Beispiele für Monoide sind $(\mathbb{N},0,+)$, $(\mathbb{N},1,\cdot)$ 
 \paragraph{Definition: Potenzierung}
 In einem Monoid $(M,e,\cdot)$ definiert man die $n$-te \textbf{Potenz} $x^n$ von $x \in M$ durch $x^0 := e$ und $x^{x+1} = x \cdot x^n$ für alle $n \in \mathbb{N}$.\\
 
-Daraus ergibt sich für den Monoid $(\mathbb{N},1,\cdot)$ die aus $\mathbb{R}$ gewohnte Potenzierung. Nach welcher für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 \cdot x_2 \cdot \dots \cdot x_n$ ergibt. Betrachtet man jedoch den Monoid $(\mathbb{N},0,+)$, so ergibt analog dazu für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 + x_2 + \dots + x_n = x \cdot n$, was also einer Multiplikation von $x$ mit $n$ entspricht \cite[S. 356, 357]{Berghammer.2021}.
+Daraus ergibt sich für das Monoid $(\mathbb{N},1,\cdot)$ die aus $\mathbb{R}$ gewohnte Potenzierung. Nach welcher für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 \cdot x_2 \cdot \dots \cdot x_n$ ergibt. Betrachtet man jedoch den Monoid $(\mathbb{N},0,+)$, so ergibt analog dazu für ein $x \in \mathbb{N}$ die Potenzierung $x^n = x_1 + x_2 + \dots + x_n = x \cdot n$, was also einer Multiplikation von $x$ mit $n$ entspricht \cite[S. 356, 357]{Berghammer.2021}.
 
 \subsection{Gruppe}\label{sec:gruppe}
 
@@ -143,7 +143,7 @@ Eine algebraische Struktur $(G,e,\circ,inv)$ des Typs $(0,2,1)$ heißt \textbf{G
     \item (Inv)    $inv(x) \circ x = e$
 \end{itemize}
 
-Gilt wiederum die Gleichung $x \circ y = y \circ x$ für alle $x,y \in G$, so heißt $(G,e,\circ,inv)$ eine \textbf{kommutative Gruppe} oder Abelsche Gruppe. Die Gruppenoperation $\circ$ ist \textit{abgeschlossen}. D.h. für alle $a,b \in G$ gilt $a \circ b = c \in G$.
+Gilt zusätzlich die Gleichung $x \circ y = y \circ x$ für alle $x,y \in G$, so heißt $(G,e,\circ,inv)$ eine \textbf{kommutative Gruppe} oder Abelsche Gruppe. Die Gruppenoperation $\circ$ ist \textit{abgeschlossen}. D.h. für alle $a,b \in G$ gilt $a \circ b = c \in G$.
 
 In jeder Gruppe $(G,e,\circ,inv)$ gelten für alle $x \in G$ folgende Formeln \cite[S. 357-359]{Berghammer.2021}:
 \begin{align*}
@@ -159,7 +159,7 @@ Diese lassen sich durch Anwendung der obigen Axiome und ein wenig Logik beweisen
 Auch diese lassen sich mit den schon bekannten Gruppengesetzen beweisen, was unter \cite[S. 358, 359]{Berghammer.2021} nachgeschlagen werden kann. Weiterhin sind die folgenden Rechenregeln für Gruppen zu nennen.
 
 \begin{align*}
-&inv(x \circ y) = inv(x) \circ inv(y)
+&inv(x \circ y) = inv(y) \circ inv(x)
 &&inv(inv(x)) = x
 &&inv(e) = e
 \end{align*}
@@ -171,7 +171,7 @@ Damit ist gezeigt, dass $inv(y) \circ inv(x)$ linksinvers zu $x \circ y$ ist. Un
 Um Gruppen ein wenig anschaulicher zu machen, betrachten wir im Folgenden ein paar Beispiele:
 \begin{itemize}
 \item $(\mathbb{Z}, +)$ ist eine Gruppe. $\mathbb{Z} = \{\dots, -1, 0, 1, \dots \}$ ist die Menge der ganzen Zahlen, welche zusammen mit der Addition als Gruppenoperation eine abelsche Gruppe bildet, wobei $e = 0$ das neutrale Element und $-a$ das Inverse eines beliebigen Elements $a \in \mathbb{Z}$ ist.
-\item Ein Gegenbeispiel ist $(\mathbb{Z} \setminus \{0\}, \cdot)$. Die Menge der ganzen Zahlen (ohne die 0) mit der Multiplikation als Gruppenoperation bildet keine Gruppe, da es kein Inverses Element $a^(-1)$ für jedes Element $a \in \mathbb{Z}$ gibt \cite[S. 239, 240]{Paar.2016}.
+\item Ein Gegenbeispiel ist $(\mathbb{Z} \setminus \{0\}, \cdot)$. Die Menge der ganzen Zahlen (ohne die 0) mit der Multiplikation als Gruppenoperation bildet keine Gruppe, da es kein Inverses Element $a^{-1}$ für jedes Element $a \in \mathbb{Z}$ gibt \cite[S. 239, 240]{Paar.2016}.
 \end{itemize}
 \subsection{Zyklische Gruppe} \label{sec:zyklische_Gruppe}
 Die eben eingeführten Gruppen besitzen unendlich viele Elemente. Für die Kryptographie interessant sind jedoch endliche algebraische Strukturen, weshalb im Folgenden die endlichen Gruppen eingeführte werden.
@@ -220,16 +220,16 @@ Eine Gruppe $G$, die ein Element $\alpha$ mit der maximalen Ordnung ord($\alpha$
 
 Der Name \textit{Generator} kommt daher, dass durch die Potenzierung $\alpha^i = a$ des primitiven Elements jedes andere Gruppenelement $a$ dargestellt werden kann, also die gesamte Gruppe \textit{generiert} wird. Das folgende Beispiel zeigt die Erzeugung der zyklischen Gruppe $\mathbb{Z}^*_{11}$ durch das primitive Element $\alpha = 2$.
 \begin{align*}
-&a = 2 \qquad \qquad \qquad a^6 \equiv 9 \text{ mod } 11\\
-&a^2 = 4 \qquad \qquad \qquad a^7 \equiv 7 \text{ mod } 11\\
-&a^3 = 8 \qquad \qquad \qquad a^8 \equiv 3 \text{ mod } 11\\
-&a^4 \equiv 5 \text{ mod } 11 \qquad a^9 \equiv 6 \text{ mod } 11\\
-&a^5 \equiv 10 \text{ mod } 11 \qquad a^{10} \equiv 1 \text{ mod } 11\\
+&\alpha = 2 \qquad \qquad \qquad \alpha^6 \equiv 9 \text{ mod } 11\\
+&\alpha^2 = 4 \qquad \qquad \qquad \alpha^7 \equiv 7 \text{ mod } 11\\
+&\alpha^3 = 8 \qquad \qquad \qquad \alpha^8 \equiv 3 \text{ mod } 11\\
+&\alpha^4 \equiv 5 \text{ mod } 11 \qquad \alpha^9 \equiv 6 \text{ mod } 11\\
+&\alpha^5 \equiv 10 \text{ mod } 11 \qquad \alpha^{10} \equiv 1 \text{ mod } 11\\
 \end{align*}
 
 Aus der letzten Gleichung folgt, dass ord$(a=2)=10=|\mathbb{Z}^*_{11}|$. Damit ist gezeigt, dass das Element $a = 2$ wirklich ein Generator der zyklischen Gruppe $\mathbb{Z}^*_{11}$ ist.
 
-Wie man aus den eben gezeigten Beispielen erkennen kann, sind einige Gruppenelemente Generatoren der Gruppe und andere nicht. Welche Ordnungen der Elemente in einer zyklischen Gruppe vorkommen hängt davon ab, welche natürlichen Zahlen die Gruppenkardinalität teilen. Betrachten wir nun wieder die Gruppe $\mathbb{Z}^*_{11}$, deren Kardinalität $|\mathbb{Z}^*_{11}| = 10$ ist, so ergeben sich mögliche Ordnungen der Elemente von $1,2,5 \text{ und }10$, da diese die einzigen natürlichen Zahlen sind die $10$ teilen. Folgende Veranschaulichung zeigt dies \cite[S. 243, 244]{Paar.2016}.
+Wie man aus den eben gezeigten Beispielen erkennen kann, sind einige Gruppenelemente Generatoren der Gruppe und andere nicht. Welche Ordnungen der Elemente in einer zyklischen Gruppe vorkommen hängt davon ab, welche natürlichen Zahlen die Gruppenkardinalität teilen, da die Ordnung eines Elements immer die Gruppenkardinalität teilt. Betrachten wir nun wieder die Gruppe $\mathbb{Z}^*_{11}$, deren Kardinalität $|\mathbb{Z}^*_{11}| = 10$ ist, so ergeben sich mögliche Ordnungen der Elemente von $1,2,5 \text{ und }10$, da diese die einzigen natürlichen Zahlen sind die $10$ teilen. Folgende Veranschaulichung zeigt dies \cite[S. 243, 244]{Paar.2016}.
 \begin{align*}
 &\text{ord }(1) = 1 \qquad \text{ord }(6) = 10\\
 &\text{ord }(2) = 10 \qquad \text{ord }(7) = 10\\
@@ -283,7 +283,7 @@ Ein \textbf{Ring} ist eine algebraische Struktur $(R,0,1,+,\cdot,-)$ des Typs $(
 \begin{enumerate}
 \item Es ist $(R,0,+,-)$ eine kommutative Gruppe
 \item Es ist $(R,1,\cdot)$ ein Monoid.
-\item Für alle $x,y,z \in R$ gelten die Distributivgesetze $x(y+z) = xy$ und $(y+z)x = yx +zx$
+\item Für alle $x,y,z \in R$ gelten die Distributivgesetze $x(y+z) = xy + xz$ und $(y+z)x = yx +zx$
 \end{enumerate}
 Ist $(R,1,\cdot)$ ein kommutatives Monoid, so nennt man $(R,0,1,+,\cdot,-)$ einen kommutativen Ring.
 
@@ -384,20 +384,20 @@ Für kleinere Gruppen lässt sich $x$ natürlich durch stumpfes Ausprobieren sog
 
 Um den diskreten Logarithmus $x$ von $\alpha^x \equiv \beta \text{ mod } p$ zu ermitteln muss ein potenzieller Angreifer jedes $x$ zwischen $1$ und $p-1$ als möglichen Exponenten ausprobieren. Der Erzeuger kann zum effizienten berechnen von $\beta$, jedoch den Square-and-Multiply-Algorithmus verwenden, was das DLP zu einer Einwegfunktion macht.\\
 
-Neben dem trivialen brute Force Angriff auf das DLP gibt es weitere Verfahren, welche die Menge an möglichen $x$ Werten einschränken. Der Babystep-Giantstep-Algorithmus reduziert die Komplexität des DLPs von $O(n)$ auf $O(\sqrt{n})$. Noch weiter kann die Komplexität durch den Pohling-Hellman-Algorithums eingeschränkt werden. Durch diesen Angriff kann bei bekannter Primfaktorzerlegung der Gruppenordnung $n$, die Komplexität des DLPs auf $O(\sqrt{q})$ reduzieren, wobei $q$ der größte Faktor von $n$ ist. Aus diesem Grund wählt man in der Praxis eine Gruppe mit primer Ordnung für das DLP. Da die Ordnung von Gruppen $\mathbb{Z}^*_p$ dem Wert $p-1$ entspricht, der offensichtlich nicht prim ist, greift man auf Untergruppen von $\mathbb{Z}^*_p$ mit primer Ordnung zurück.\cite{Paar.2016}
+Neben dem trivialen brute Force Angriff auf das DLP gibt es weitere Verfahren, welche die Menge an möglichen $x$ Werten einschränken. Der Babystep-Giantstep-Algorithmus reduziert die Komplexität des DLPs von $O(p-1)$ auf $O(\sqrt{p-1})$. Noch weiter kann die Komplexität durch den Pohling-Hellman-Algorithums eingeschränkt werden. Durch diesen Angriff kann bei bekannter Primfaktorzerlegung der Gruppenordnung $n$, die Komplexität des DLPs auf $O(\sqrt{q})$ reduzieren, wobei $q$ der größte Faktor von $n$ ist. Aus diesem Grund wählt man in der Praxis eine Gruppe mit primer Ordnung für das DLP. Da die Ordnung von Gruppen $\mathbb{Z}^*_p$ dem Wert $p-1$ entspricht, der offensichtlich nicht prim ist, greift man auf Untergruppen von $\mathbb{Z}^*_p$ mit primer Ordnung zurück.\cite{Paar.2016}
 
-\subsubsection{Das verallgemeinerte diskrete Logarithmusproblem}
+\subsubsection{Das verallgemeinerte diskrete Logarithmusproblem} \label{sec:DLP}
 Wie oben bereits erwähnt kann das DLP in jeglichen zyklischen Gruppen definiert werden. Bis jetzt haben wir immer die zyklische Gruppe $\mathbb{Z}^*_p$ betrachtet. Das DLP kann folgendermaßen verallgemeinert werden:
 
 \paragraph{Definition: Verallgemeinertes diskretes Logarithmusproblem}
 Gegeben sei eine endliche zyklische Gruppe $G$ mit der Gruppenoperation $\circ$ und der Kardinalität $n$. Wir betrachten ein primitives Element $\alpha \in G$ und ein weiteres Element $\beta \in G$. Das diskrete Logarihtmusproblem liegt darin, eine ganze Zahl $x$ im Bereich $1 \leq x \leq n$ zu finden, sodass:
 $$\beta = \underbrace{\alpha \circ \alpha \circ \dots \circ \alpha}_{\text{$x$ mal}} = \alpha^x$$\\
 
-Auch hier ist die Existenz von $x$ sicher, da $\alpha$ als primitives Element die gesamte Gruppe generiert. Das DLP lässt sich zwar in jeglichen zyklischen Gruppen definieren, jedoch ist es in einigen nicht \textit{schwierig} zu lösen, wodurch es keine Einwegfunktion mehr darstellt. Ein Beispiel dafür sind additive Gruppen $G = (\mathbb{Z}_p, +)$. Die $x$-fache Anwendung der Gruppenoperation auf einen Generator $\alpha$ zur Erzeugung eines Elements $\beta$ kann als \textit{Multiplikation} mod $p$ dargestellt werden. Der gesuchte Faktor $x$ lässt sich dann leicht durch die Multiplikation von $\beta$ und inv$(\alpha)$ berechnen. Letzteres lässt sich effizient mittels des EEAs ermitteln.
+Auch hier ist die Existenz von $x$ sicher, da $\alpha$ als primitives Element die gesamte Gruppe generiert. Das DLP lässt sich zwar in jeglichen zyklischen Gruppen definieren, jedoch ist es in einigen nicht \textit{schwierig} zu lösen, wodurch es keine Einwegfunktion mehr darstellt. Ein Beispiel dafür sind additive Gruppen $G = (\mathbb{Z}_p, +)$. Die $x$-fache Anwendung der Gruppenoperation auf einen Generator $\alpha$ zur Erzeugung eines Elements $\beta$ kann als \textit{Multiplikation} mod $p$ dargestellt werden. Der gesuchte Faktor $x$ lässt sich dann leicht durch die Multiplikation von $\beta$ und $inv(\alpha)$ berechnen. Letzteres lässt sich effizient mittels des EEAs ermitteln.
 
 Gruppen auf denen ein DLP für kryptografische Zwecke definiert werden kann sind:
 \begin{enumerate}
-\item Multiplikative Gruppen des Primkörpers $\mathbb{Z}_p$ oder Untergruppen davon. Der DHKE nutz klassischerweise diese Gruppen. Auch die Elgamal-Verschlüsselung und der digitale Signaturalgorithmus (DSA) nutzen diese Gruppen.
+\item Multiplikative Gruppen des Primkörpers $\mathbb{Z}_p$ oder Untergruppen von hoher Primzahlordnung. Der DHKE nutz klassischerweise diese Gruppen. Auch die Elgamal-Verschlüsselung und der digitale Signaturalgorithmus (DSA) nutzen diese Gruppen.
 
 \item Zyklische Gruppen welche über elliptischen Kurven gebildet werden. Das DLP ist in diesen Gruppen besonders schwer zu lösen, da kein Algorithmus bekannt ist, der die Komplexität des DLPs stark reduziert, wie dies beispielsweise beim DLP in $\mathbb{Z}^*_p$ durch den Babystep-Giantstep-Algorithmus möglich ist. Deshalb werden diese Gruppen in modernen Kryptosystemen zunehmend eingesetzt, mit dem Effekt, dass gleiche Sicherheit mit deutlich geringerer Schlüssellänge erzielt werden kann.
 
@@ -406,7 +406,7 @@ Gruppen auf denen ein DLP für kryptografische Zwecke definiert werden kann sind
 \item Hyperelliptische Kurven oder algebraische Varietäten, die auch Verallgemeinerungen von elliptischen Kurven sind. Trotz einiger Vorteile gegenüber den klassischen elliptischen Kurven, sind die hyperelliptischen Kurven in der Praxis nicht sehr verbreitet.
 \end{enumerate}
 
-Es gab im Laufe der Zeit einige weitere Vorschläge für mögliche Gruppen gegeben, welche jedoch nicht weiter verfolgt wurden, da sich meist herausstellte, dass das DLP einfacher zu lösen ist.\cite{Paar.2016}
+Es gab im Laufe der Zeit einige weitere Vorschläge für mögliche Gruppen, welche jedoch nicht weiter verfolgt wurden, da sich meist herausstellte, dass das DLP einfacher zu lösen ist.\cite{Paar.2016}
 
 \subsection{Diffie-Hellmann Key Exchange (DHKE)} \label{sec:DHKE}
 Der DHKE wurde im Jahr 1976 von Whitfield Diffie und Martin Hellmann veröffentlicht. Damit ist er das älteste asymmetrsiche Verfahren überhaupt. Der DHKE bringt eine Lösung für das große Problem der symmetrischen Kryptografie: den Schlüsselaustausch. Er ermöglicht zwei Parteien den Austausch bzw. die Vereinbarung eines gemeinsamen Geheimnisses über einen unsicheren Kanal. Dabei nutzt der DHKE das im vorigen Kapitel \ref{sec:Das_diskrete_Logarithmusproblem} erläuterte DLP.  Prinzipiell beruht der DHKE auf der Idee, dass das Potenzieren in $\mathbb{Z}^*_p$ mit primen $p$ eine Einwegfunktion ist und die Exponentation kommutativ ist, d.h. $$k = (\alpha ^x)^y \equiv (\alpha ^y)^x \text{ mod } p.$$
