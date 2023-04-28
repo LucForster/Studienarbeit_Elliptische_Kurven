@@ -470,21 +470,43 @@ Da $1^{\frac{7 - 1}{2}} = 1$ mod(7) und $4^{\frac{7 - 1}{2}} = 1$ mod(7) handelt
 \item $f(2) = 4 \quad \Longrightarrow \quad$ Punkt 1: $(2, 2) \quad$ Punkt 2: $(2, 5)$
 \end{itemize}
 
-Wie man sieht, ist die Anwendung relativ einfach umzusetzen. Es gibt jedoch einen weiteren Fall, welcher betrachtet werden muss, um die Wurzeln der Quadrate zu finden. Der Fall 1 wurde soeben betrachtet und anhand eines beispiels durchgerechnet. In diesem Fall ist 4 ein Teiler von $p + 1$ ist. Wenn es diesen Fall gibt kann es auch sein, dass $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ ist. Für diesen Fall 2 gibt es einen probabilistischen Ansatz, um die Quadratwurzeln zu finden. Dafür wird eine Induktion durchgeführt. Hübl beschreibt in seinem Script die Vorgehensweise um die Quadratwurzeln zu finden, wenn $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ \cite[S. 270-272]{Dr.ReinholdHubl.2022}. \\
+Wie man sieht, ist die Anwendung relativ einfach umzusetzen. Es gibt jedoch einen weiteren Fall, welcher betrachtet werden muss, um die Wurzeln der Quadrate zu finden. Der Fall 1 wurde soeben betrachtet und anhand eines beispiels durchgerechnet. In diesem Fall ist 4 ein Teiler von $p + 1$ ist. Wenn es diesen Fall gibt kann es auch sein, dass $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ ist. Für diesen Fall 2 gibt es einen probabilistischen Ansatz, um die Quadratwurzeln zu finden. Dafür wird eine Induktion durchgeführt. Hübl beschreibt in seinem Script die Vorgehensweise der Induktion um die Quadratwurzeln zu finden, wenn $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ \cite[S. 270-272]{Dr.ReinholdHubl.2022}.\\
 
-Dafür wählt man ein $b \in \mathbb{F}_p^*$, das kein Quadrat ist. Dafür muss $b^{\frac{p - 1}{2}} \neq 1$ sein in $\mathbb{F}_p^*$. Da die Hälfte der Elemente von $\mathbb{F}_p^*$ diese Bedingung erfüllt, kann ein Element, welches kein Quadrat ist, relativ schnell gefunden werden.Notwendigerweise gilt dadurch $b^{\frac{p - 1}{2}} = - 1$. Da $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$, gilt außerdem auch, dass $4 | (p - 1)$. Dadurhc kann man den bruch im Exponenten umschreiben: $$\frac{p - 1}{2} = 2^l \cdot t$$ mit einem $l \geq 1$ und einem ungeraden $t$. Jetzt werden induktiv die Zahlen $n_0, n_1, ..., n_i \in \mathbb{Z}$ konstruiert mit folgenden Eigenschaften:
+Dafür wählt man ein $b \in \mathbb{F}_p^*$, das kein Quadrat ist. Dafür muss $b^{\frac{p - 1}{2}} \neq 1$ sein in $\mathbb{F}_p^*$. Da die Hälfte der Elemente von $\mathbb{F}_p^*$ diese Bedingung erfüllt, kann ein Element, welches kein Quadrat ist, relativ schnell gefunden werden. Notwendigerweise gilt dadurch $b^{\frac{p - 1}{2}} = - 1$. Da $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$, gilt außerdem auch, dass $4 | (p - 1)$. Dadurch kann man den Bruch im Exponenten umschreiben: $$\frac{p - 1}{2} = 2^l \cdot t$$ mit einem $l \geq 1$ und einem ungeraden $t$. Jetzt werden nach dem Ansatz von Hübl induktiv die Zahlen $n_0, n_1, ..., n_l \in \mathbb{Z}$ konstruiert mit folgenden Eigenschaften:
 
 \begin{itemize}
 \item $n_i$ ist $(l - i)$-mal durch 2 teilbar.
 \item $x^{2^{l - i} \cdot t} \cdot b^{2n_i} = 1$.
 \end{itemize}
 
+Nun wird die Induktion durchgeführt.\\
 
+\textit{Induktionsanfang} $i = 0$:\\Setze $n_0 = 0$. Es gilt:
 
+\begin{enumerate}
+\item $n_0$ ist beliebig oft, also sicherlich $(l - 0)$-mal durch 2 teilbar
+\item $x^{2^{l - i} \cdot t} \cdot b^{2n_0} = x^{2^{l} \cdot t} \cdot b^0 = x^{\frac{p - 1}{2}} \cdot 1 = 1$.
+\end{enumerate}
 
-Da der Fall sehr kompliziert ist, wollen wir dies nun anhand eines Beispiels vollständig durchrechnen. Gegeben sei ein Polynom einer elliptischen Kurve E der Form $$F(X, Y) = Y^{2} - X^{3} - 12 \cdot X - 17 \in \mathbb{F}_{421}$$ Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgende Gleichung: $$y^{2} =  x^{3} + 12 \cdot x + 17 \text{ mod }421$$ Es soll geprüft werden, ob $x_0 = 50$, $x_1 = 200$ und $x_2 = 400$ auf der elliptischen Kurve E Quadrate sind. Weiterhin sollen die Wurzeln bestimmt werden, sofern es sich bei $x_0$, $x_1$ und $x_2$ um Quadrate handelt.\\
+\textit{Induktionsschluss} $i \rightarrow i + 1$ (\textit{mit} $i + 1 \leq l$)\\Als Induktionsvoraussetzung wird angenommen, dass ein $n_i$ gefunden wurde, welches $(l - i)$-mal durch 2 teilbar ist und $x^{2^{l - i} \cdot t} \cdot b^{2n_i} = 1$.\\Setze $$c_i = x^{2^{l - (i + 1)} \cdot t} \cdot b^{n_i}$$ Dann gilt $$c^2_i = {(x^{2^{l - (i + 1)} \cdot t} \cdot b^{n_i})}^2 = x^{2 \cdot 2^{l - (i + 1)} \cdot t} \cdot b^{2 \cdot n_i} = x^{2^{l - i}} \cdot b^{2n_i} = 1$$ durch die Induktionsvoraussetzung, wodurch $c_i = 1$ oder $c_i = - 1$.\\Wenn $c_i = 1$, dann setze $n_{i + 1} = \frac{n_i}{2}$. Dies ist möglich, da $n_i$ $(l - i)$-mal durch 2 teilbar und $i < i + 1 \leq l$. Hierfür gilt
 
-XXXXX\\
+\begin{enumerate}
+\item $n_{i + 1}$ ist $(l - (i + 1)$-mal durch 2 teilbar
+\item $x^{2^{l - (i + 1)} \cdot t} \cdot b^{2 \cdot n_{i + 1}} = x^{2^{l - (i + 1)}} \cdot b^{n_i} = c_i = 1$
+\end{enumerate}
+
+Falls $c_i = - 1$, so setze $$n_{i + 1} = \frac{n_i}{2} + \frac{p - 1}{4} = \frac{n_i}{2} + 2^{l - 1} \cdot t$$ Hierfür gilt 
+
+\begin{enumerate}
+\item $n_{i + 1}$ ist $(l - (i + 1)$-mal durch 2 teilbar
+\item $x^{2^{l - (i + 1)} \cdot t} \cdot b^{2n_{i + 1}} = x^{2^{l - (i + 1)}} \cdot b^{n_i} \cdot b^{\frac{p - 1}{2}}= c_i \cdot b^{\frac{p - 1}{2}} = (- 1) \cdot (- 1) = 1$
+\end{enumerate}
+
+Der Induktionsschritt wurde damit erfolgreich beendet und die Konstruktion ist dadurch abgeschlossen. Nun wird $n = n_l$ gesetzt. Nach der Konstruktion gilt hierfür dann $$x^t \cdot b^{2n} = x \cdot x^t \cdot b^{2n} = x \cdot 1 = x$$ Da $t$ ungerade ist, muss $t + 1$ gerade sein. Aus diesem Grund existiert $$a = x^{\frac{t + 1}{2}} \cdot b^n$$ und hierfür gilt $$a^2 = {(x^{\frac{t + 1}{2}} \cdot b^n)}^2 = x^{t + 1} \cdot b^{2n} = x$$ und damit ist $a$ eine Quadratwurzel von x.\\
+
+Hübl beschreibt hier sehr anschaulich, wie die Induktion durchzurechnen ist. Da der Fall $4 \hspace{-0.4em}\not\hspace{0.025em}|\, (p + 1)$ sehr kompliziert ist, wollen wir dies nun anhand eines Beispiels vollständig durchrechnen. Gegeben sei ein Polynom einer elliptischen Kurve E der Form $$F(X, Y) = Y^{2} - X^{3} - 12 \cdot X - 17 \in \mathbb{F}_{421}$$ Stellt man die Gleichung der Funktion nach $y^{2}$ um, dann erhält man folgende Gleichung: $$y^{2} =  x^{3} + 12 \cdot x + 17 \text{ mod }421$$ Es soll geprüft werden, ob $x_0 = 200$ und $x_1 = 400$ auf der elliptischen Kurve E Quadrate sind. Weiterhin sollen die Wurzeln und die Punkte auf der elliptischen Kurve bestimmt werden, sofern es sich bei $x_0$ und $x_1$ um Quadrate handelt.\\
+
+Als erstes wird geprüft, ob $x_1 = 200$ ein Quadrat ist. $$f(200) =  200^{3} + 12 \cdot 200 + 17 = 49 \in \mathbb{F}_{421}$$ Nun prüfen wir, ob $49^{\frac{p - 1}{2}} = 1 \text{ mod } 421$. $$49^{\frac{421 - 1}{2}} = 49^210 = 1 \text{ mod } 421$$ Da $49^{\frac{p - 1}{2}} = 1 \text{ mod } 421$, handelt es sich bei $x_0$ um ein Quadrat. Nun müssen die Wurzeln bestimmt werden. 4 ist kein Teiler von $p + 1$. Wir setzen $$\frac{p - 1}{2} = 210 \enspace \Longrightarrow \enspace 2^l \cdot t = 2^1 \cdot 105$$ Nun wird ein $b \in \mathbb{F}_{421}^*$ gewählt, das kein Quadrat ist. Dafür gehen wir alle $\mathbb{P}$ durch, die kleiner als 421 sind: $$2^210 \equiv 420 \equiv - 1 \text{ mod } 421$$ Die Primzahl 2 ist kein Quadrat und wird für $b$ gewählt. $$c_0 = x^{2^{l - (0 + 1)} \cdot t} \cdot b^{n_0} \enspace \Longrightarrow \enspace 49^{2^{0} \cdot 105} \cdot 2^0 = 1 \text{ mod } 421$$ Da $c_0 = 1$, setze $$n_{1} = \frac{n_0}{2} \enspace \Longrightarrow \enspace \frac{0}{2} = 0$$ Wir setzen $$a = x^{\frac{t + 1}{2}} \cdot b^n  \enspace \Longrightarrow \enspace a = 49^{\frac{105 + 1}{2}} \cdot 2^0 = 414$$ Die Zahl 414 ist eine Quadratwurzel von $x_0$. Um beide Quadratwurzeln zu bekommen negieren wir 414: $$- 414 \equiv 7 \text{ mod } 421$$ Das Element $x_0$ ist ein Quadrat und hat die Wurzeln 414 und 7. Daraus ergeben sich die folgenden Punkte: $$P_1 = (200, 414) \enspace \text{ und } \enspace P_2 = (200, 7)$$
 
 XXXXX\\
 
