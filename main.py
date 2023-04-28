@@ -17,15 +17,15 @@ from drawEC import DrawCurves
 # gen_point = (4, 4)
 
 # Beispielkurve für Punktberechnung
-a = 10
-b = 8
+a = 1
+b = 3
 p = 11
 gen_point = (0, 5)
 
 
 # Mittlere Beispielkurve
-#a = -12
-#b = -17
+#a = 12
+#b = 17
 #p = 421
 #gen_point = (200, 414)
 
