@@ -1,7 +1,10 @@
 Zu erledigen:
 
 -Programm debuggen
+-get_subgroups beschreiben
 -Punktbestimmung: Brute-Force
+-Beispiel Punktaddition
+-Erläuterungen zu Python Project allgemein
 -Überarbeitung Kapitel 1 mit Anmeldung
 -Abstract deutsch
 -Abstract englisch

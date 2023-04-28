@@ -185,9 +185,29 @@ def get_group_elements(self):
 \vspace{\baselineskip}
   
 \subsection{Methode: get\_all\_sub\_groups()}
-Diese Methode gibt alle Untergruppen der zyklischen Gruppe in einer List wieder. Dazu werden zunächst alle Elemente der Gruppe mittels der Methode \textit{get\_group\_elements()} ermittelt. Anschließen wird diese Menge in einer Schleife durchlaufen. Zu dem jeweiligen Element wird mittels der Methode \textit{get\_sub\_group\_elements()} die generierte Untergruppe ermittelt. 
-% Die muss ich nochmal überarbeiten
-
+Diese Methode gibt alle Untergruppen der zyklischen Gruppe in einer Liste wieder. Dazu wird der Satz \textit{Konstruktion einer zyklischen Untergruppe} aus Kapitel \ref{sec:untergruppen} angewandt. Dieser besagt im Kern, dass nur die Gruppenkardinalität sowie ein primitives Element benötigt wird, um alle Untergruppen zu ermitteln.
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_all\_sub\_groups()}, captionpos=b]
+def get_all_sub_groups(self):
+    sub_groups = []
+    sub_group_generators = []
+    divisors = []
+    order = self.get_group_order()
+    primitive_elements = self.get_primitive_elements()
+    # Finden von echten Teilern der Gruppenordnung
+    for number in range(int(order/2 + 1)):
+        if order % number == 0:
+            divisors.append(number)
+    # Berechnen der Untergruppen-Generatoren
+    for div in divisors:
+        sub_group_generators.append(self.scalar_dot_element((order/div), primitive_elements[0]))
+    # Berechnen der Untergruppen
+    for gen in sub_group_generators:
+        sub_groups.append(self.get_sub_group_elements(gen))
+    return sub_groups
+\end{lstlisting}
+\vspace{\baselineskip}
+Zunächst werden unter Verwendung der Methoden \textit{get\_group\_order()} und \textit{get\_primitive\_elements()} die Gruppenordnung und die primitiven Elemente ermittelt. Im Grunde wird aber nur ein primitives Element benötigt. Im folgenden Schritt werden die echten Teiler der Gruppenordnung identifiziert und gespeichert. Um die Generatoren der Untergruppen zu finden, wird anschließend für jeden echten Teiler das primitive Element mit  $\frac{Gruppenordnung}{echter Teiler}$ multipliziert. Nach Erhalt der Generatoren, wir mittels der Methode \textit{get\_sub\_group\_elements} für jeden Generator die erzeugte Untergruppe berechnet und diese in einer List gespeichert, welche schlussendlich zurückgegeben wird. 
 \subsection{Methode: get\_primitive\_elements()}
 Primitive Elemente zeichnen sich dadurch aus, dass ihre Ordnung der Gruppenordnung entspricht, sie also bei Addition zu sich selbst die gesamte Gruppe generieren. Die Methode \textit{get\_primitive\_elements()} prüft für jedes Element der Gruppe dessen Ordnung und gibt eine Liste jener Elemente zurück deren Ordnung der Gruppenordnung entspricht.
 
