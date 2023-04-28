@@ -1,17 +1,22 @@
 Zu erledigen:
-
--Programm debuggen
--get_subgroups beschreiben
--Punktbestimmung: Brute-Force
--Beispiel Punktaddition
--Erläuterungen zu Python Project allgemein
--Überarbeitung Kapitel 1 mit Anmeldung
 -Abstract deutsch
 -Abstract englisch
--Fazit / Resumee
--Python: Sieb des Erathosthenes
--2.1.2. Probabilistische Primzahltests (Miller Rabin)
+
+
+
+In Arbeit:
 -2.1.3. Weiterschreiben
+-Fazit / Resumee
+-Überarbeitung Kapitel 1 mit Anmeldung
+-Einarbeitung des Feedbacks von Hübl
+-Erläuterungen zu Python Project allgemein
+
 
 
 Fertig:
+-Punktbestimmung: Brute-Force
+-Beispiel Punktaddition
+-2.1.2. Probabilistische Primzahltests (Miller Rabin)
+-Python: Sieb des Erathosthenes
+-Programm debuggen
+-get_subgroups beschreiben
