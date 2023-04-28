@@ -56,7 +56,7 @@ if ell_curve.is_point_on_curve(gen_point):
 else:
     print("Point ist NOT on curve!")
 
-print(f"All points on the curve: {ell_curve.get_all_points_on_curve(a, b, p)}")
+print(f"All points on the curve: {ell_curve.get_all_points_on_curve()}")
 
 cyc_group = CyclicGroup(ell_curve)
 if p < 1000000:
