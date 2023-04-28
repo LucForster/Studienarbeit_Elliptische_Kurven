@@ -10,12 +10,13 @@ class EllipticCurveInFp:
 
     def get_all_points_on_curve(self):
         x_squares = []
+        points = []
 
         if self.is_elliptic_curve_correct(self) != True:
             return False
 
         # Speichern von berechneten Quadraten in square_candidates
-        square_candidates = self.get_squares(range(self.p))
+        square_candidates = supportAlgos.get_squares(range(self.p))
 
         # Finde x-Werte, welche Quadrate sind
         for x in range(square_candidates):
@@ -27,35 +28,16 @@ class EllipticCurveInFp:
                 break
 
         # Berechne die Punkte
-        for 
+        for x in x_squares:
+            # Berechne das Quadrat der aktuellen Zahl
+            y_squared = (x ** 3 + self.a * x + self.b) % self.p
+            root_1, root_2 = supportAlgos.get_roots(y_squared, self.p)
+            point_1 = (x, root_1)
+            point_2 = (x, root_2)
+            points.append(point_1)
+            points.append(point_2)
 
-    def get_squares(candidate_list):
-        squares = []
-
-        # Berechne Quadrate und speichere sie in squares
-        for x in candidate_list:
-            square = (x**2) % len(candidate_list)
-            isPresent = square in set(squares)
-            if isPresent == True:
-                break
-            elif isPresent == False:
-                squares.append((square))
-        return squares.sort()
-
-    def check_square(x, p):
-        for y in range(p):
-            if (y ** 2) % (p) == x:
-                return True
-        return False
-
-    def get_roots(x, p):
-        roots = []
-        for y in range(p):
-            if (y ** 2) % p == x:
-                roots.append(y)
-                if len(roots) == 2:
-                    break
-        return roots[0], roots[1]
+        return points
 
     def is_elliptic_curve_correct(self):
         # p muss eine Primzahl sein
