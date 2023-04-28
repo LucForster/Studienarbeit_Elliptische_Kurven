@@ -14,7 +14,7 @@ class EllipticCurveInFp:
 
     def is_elliptic_curve_correct(self):
         # p muss eine Primzahl sein
-        if not is_prime(self.p):
+        if not supportAlgos.is_prime(self.p):
             return False
 
         # p muss größer als 3 sein
@@ -63,7 +63,7 @@ class EllipticCurveInFp:
             s = (3 * x1 ** 2 + self.a) * supportAlgos.inverse_mod(2 * y1, self.p) % self.p
         else:
             # Punktaddition von unterschiedlichen Punkten
-            s = (y2 - y1) * supportAlgos.inverse_mod(x2 - x1, self.p) % self.p
+            s = (y2 - y1) * supportAlgos.inverse_mod((x2 - x1) % self.p, self.p) % self.p
         x3 = (s ** 2 - x1 - x2) % self.p
         y3 = (s * (x1 - x3) - y1) % self.p
         R = (x3, y3)
