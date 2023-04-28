@@ -11,10 +11,8 @@ class EllipticCurveInFp:
     def get_all_points_on_curve(self):
         x_values = []
         points = []
-
         if not self.is_elliptic_curve_correct():
             return False
-
         # Berechnen der Quadrate und zugehörige Wurzeln in F_p
         squares_with_roots = supportAlgos.get_squares_with_roots(range(self.p))
         # Liste mit Quadraten erstellen
