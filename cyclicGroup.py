@@ -1,4 +1,3 @@
-from ellipticCurveInFp import EllipticCurveInFp
 
 
 class CyclicGroup:
