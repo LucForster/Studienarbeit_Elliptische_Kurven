@@ -41,8 +41,6 @@ class EllipticCurveInFp:
 
     def get_squares(candidate_list):
         squares = []
-
-        # Berechne Quadrate und speichere sie in squares
         for x in candidate_list:
             square = (x**2) % len(candidate_list)
             isPresent = square in set(squares)

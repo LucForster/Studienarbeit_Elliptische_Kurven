@@ -16,11 +16,18 @@ from drawEC import DrawCurves
 # p = 13
 # gen_point = (4, 4)
 
+# Beispielkurve für Punktberechnung
+a = 10
+b = 8
+p = 11
+gen_point = (0, 5)
+
+
 # Mittlere Beispielkurve
-a = -12
-b = -17
-p = 421
-gen_point = (200, 414)
+#a = -12
+#b = -17
+#p = 421
+#gen_point = (200, 414)
 
 # NIST Curve P-192
 # a = -3
@@ -48,6 +55,8 @@ if ell_curve.is_point_on_curve(gen_point):
     print("Point is on curve!")
 else:
     print("Point ist NOT on curve!")
+
+print(f"All points on the curve: {ell_curve.get_all_points_on_curve(a, b, p)}")
 
 cyc_group = CyclicGroup(ell_curve)
 if p < 1000000:
