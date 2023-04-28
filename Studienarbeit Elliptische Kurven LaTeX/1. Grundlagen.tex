@@ -100,12 +100,7 @@ Chiffrierens und Dechiffrierens soll also noch nicht den Klartext liefern.
 
 Die heutzutage eingesetzten kryptographischen Systeme ermöglichen also eine schnelle und sichere Übertragung von sensiblen Informationen. Die Übertragung der Daten läuft also privat ab, da ein abgefangenes Chiffrat nicht direkt lesbar ist. Doch wie helfen dabei Primzahlen?\\
 
-Primzahlen sind aufgrund ihrer hervorragenden Eigenschaften für die Kryptographie nützlich. Schon der Mathematiker Riemann suchte nach einer Ordnung hinter den Primzahlen. Die Verteilung der Primzahlen scheint pseudozufällig. Dadurch können nur sehr schwierig Vorhersagen zu kryptographischen Systemen getroffen werden, die Primzahlen verwenden.  Viele Verfahren, welche den Klartext in einen Chiffretext überführen, benötigen für ihren Algorithmus Primzahlen. Ein gutes Beispiel ist der Diffie-Hellmann-Schlüsselaustausch (DHKE). In  \ref{sec:DHKE} wird gezeigt, wie Primzahlen beim DHKE verwendet werden.
-
-XXX
-
-
-
+Primzahlen sind aufgrund ihrer hervorragenden Eigenschaften für die Kryptographie nützlich. Schon der Mathematiker Riemann suchte nach einer Ordnung hinter den Primzahlen. Die Verteilung der Primzahlen scheint pseudozufällig. Dadurch können nur sehr schwierig Vorhersagen zu kryptographischen Systemen getroffen werden, die Primzahlen verwenden. Weiterhin besteht das Problem, dass es sehr schwer ist, ein Produkt aus zwei Primzahlen zu faktorisiern, wenn die Primzahlen sehr groß sind. Hübl erklärt dies in seinem Skript zur Ktyptologie \cite[S. 93]{Dr.ReinholdHubl.2022}. Auf dem Faktorisierungsproblem baut beispielsweise das RSA-Verfahren auf, dass es sich zunutze macht, dass die Faktorisierung von $N = p \cdot q$ nicht einfach gefunden werden kann, wenn $p$ groß ist. Aus diesem Grund sind RSA-Verfahren sicherer, umso größer die Schlüssellänge ist, da dafür dafür große Primzahlen benötigt werden. Generell gesprochen benötigen viele Verfahren, welche den Klartext in einen Chiffretext überführen, für ihren Algorithmus Primzahlen. Ein gutes Beispiel ist der Diffie-Hellmann-Schlüsselaustausch (DHKE). In  \ref{sec:DHKE} wird anschaulich gezeigt, wie Primzahlen beim DHKE verwendet werden.
 
 \section{Algebraische Strukturen}
 Definiert durch die Zahlentheorie und als zentraler Untersuchungsgegenstand des mathematischen Teilgebietes der universellen Algebra, liefern algebraische Strukturen die Basis zur Realisierung komplexer symmetrischer und asymmetrischer Kryptosysteme, weshalb wir im folgenden Kapitel die Eigenschaften relevanter algebraischer Strukturen näher betrachten wollen. Darüber hinaus möchten wir Ihnen auch einige Werkzeuge zum Rechnen in der jeweiligen algebraischen Struktur an die Hand geben, welche zur späteren Realisierung von Kryptosystemen benötigt werden.\\
@@ -374,12 +369,6 @@ Damit wurde die Gleichung, die den Rest beschreibt gefunden. Diese ist $$1 = 159
 Das multiplikative Inverse von 575 Modulo 839 ist 607.\\
 
 Bei der Berechnung der Punkte einer elliptischen Kurve wird oft das Inverse benötigt, da man durch die Formeln zur Berechnung der x-Werte und der y-Werte oft rationale Zahlen in Form von Brüchen bekommt. Durch das multiplikative Inverse kann eine rationale Zahl $\mathbb{Q}$ durch eine ganze Zahl $\mathbb{Z}$ dargestellt werden. Dies ist essentiell für die Rechnung in $\mathbb{F}_p$, da man nur mit ganzen Zahlen rechnet. Da die Rechnung von Hand sehr umständlich und unübersichtlich ist empfiehlt es sich, den euklidischen Algorithmus und den erweiterten euklidischen Algorithmus als Programm abzubilden. In Kapitel \ref{sec:python_euklid} wurde die beiden Algorithmen in Python umgesetzt.
-
-\section{Allgemeines zur Verschlüsselung}
-XXX
-
-\subsection{Symmetrische und Asymmetrische Verschlüsselung}
-XXX
 
 \section{Das diskreter Logarithmusproblem} \label{sec:Das_diskrete_Logarithmusproblem}
 Das DLP bildet die mathematische Grundlage für viele asymmetrische Kryptosysteme, wie den DHKE oder die Elgamal-Verschlüsselung. Etwas legere ausgedrückt könnte man das DLP als Baukasten für asymmetrische Kryptosysteme betrachten, da es für zyklische Gruppen verallgemeinert werden kann. Im Folgenden wollen wir zunächst das DLP in Primzahlkörpern betrachten. Hierzu greifen wir auf die in Kapitel \ref{sec:zyklische_Gruppe} erläuterten Eigenschaften zyklischer Gruppen zurück. 
