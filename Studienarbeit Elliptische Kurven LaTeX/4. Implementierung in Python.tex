@@ -347,17 +347,26 @@ def inverse_mod2(a, m):
 
 Im Fall, das der $GGT$ von $a$ und $m$ ungleich 1 ist, was gleichbedeutend damit ist, dass kein Inverses existiert, wird \textit{None} zurückgegeben, ansonsten das  multiplikative Inverse.
 
-\subsection{Funktion: get\_squares\_with\_roots()}
-Diese Funktion gibt bei einer gegebenen Liste von Zahlen zu jeder Zahl das Quadrat modulo der Anzahl der Zahlen wieder. Die Funktion wird im Zuge der Punktbestimmung verwendet.
-\vspace{\baselineskip}
-\begin{lstlisting}[caption={Funktion: get\_squares\_with\_roots()}, captionpos=b]
-def get_squares_with_roots(candidate_list):
-    squares_with_roots = []
-    for x in candidate_list:
-        square = (x ** 2) % len(candidate_list)
-        squares_with_roots.append((square, x))
 
-    return squares_with_roots
+\subsection{Funktion: eratosthenes(limit)}
+Mit Hilfe des Siebes des Eratosthenes können alle Primzahlen bis zu einem Parameter \textit{limit} berechnet, zu der Liste \textit{primes} hinzugefügt und auch angezeigt werden.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Funktion: eratosthenes(limit)}, captionpos=b]
+def eratosthenes(limit):
+    primes = []
+    for number in range(2, limit + 1):
+        primes.append(number)
+    # print(primes)
+
+    for prime in primes:
+        for number in primes[primes.index(prime) + 1:]:
+            if number % prime == 0:
+                primes.remove(number)
+
+    print(primes)
+    return primes
 \end{lstlisting}
 \vspace{\baselineskip}
-Für jede Zahl in der Liste wird das Quadrat in $\mathbb{F}_p$ berechnet und anschließend werden alle Tupel in der Form $(Quadrat, Wurzel)$ zurückgegeben.
+
+Für das Durchlaufen der Zahlen bis zum eingegebenen Limit werden mehrere Schleifen benötigt. 
