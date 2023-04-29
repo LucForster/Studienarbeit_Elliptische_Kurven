@@ -349,7 +349,7 @@ Im Fall, das der $GGT$ von $a$ und $m$ ungleich 1 ist, was gleichbedeutend damit
 
 
 \subsection{Funktion: eratosthenes(limit)}
-Mit Hilfe des Siebes des Eratosthenes können alle Primzahlen bis zu einem Parameter \textit{limit} berechnet, zu der Liste \textit{primes} hinzugefügt und auch angezeigt werden.
+Mit Hilfe des Siebes des Eratosthenes können alle Primzahlen bis zu einem Parameter \textit{limit} berechnet, zu der Liste \textit{primes} hinzugefügt und auch angezeigt werden. Es wird eine Liste mit allen Zahlen von 2 bis \textit{limit} + 1 erstellt. In einer folgenden Schleife wird durch jede Zahl in der Liste durchiteriert und es wird geprüft, ob sie durch eine Zahl in der Liste teilbar ist. Wenn ja, dann wird die Zahl aus der ersten Liste entfernt. Am Ende bleiben alle Zahlen in der Liste \textit{primes}, welche keine Teiler haben. 
 
 \vspace{\baselineskip}
 \begin{lstlisting}[caption={Funktion: eratosthenes(limit)}, captionpos=b]
@@ -369,19 +369,4 @@ def eratosthenes(limit):
 \end{lstlisting}
 \vspace{\baselineskip}
 
-Für das Durchlaufen der Zahlen bis zum eingegebenen Limit werden mehrere Schleifen benötigt.
-
-\subsection{Funktion: get\_squares\_with\_roots()}
-Diese Funktion gibt bei einer gegebenen Liste von Zahlen zu jeder Zahl das Quadrat modulo der Anzahl der Zahlen wieder. Die Funktion wird im Zuge der Punktbestimmung verwendet.
-\vspace{\baselineskip}
-\begin{lstlisting}[caption={Funktion: get\_squares\_with\_roots()}, captionpos=b]
-def get_squares_with_roots(candidate_list):
-    squares_with_roots = []
-    for x in candidate_list:
-        square = (x ** 2) % len(candidate_list)
-        squares_with_roots.append((square, x))
-
-    return squares_with_roots
-\end{lstlisting}
-\vspace{\baselineskip}
-Für jede Zahl in der Liste wird das Quadrat in $\mathbb{F}_p$ berechnet und anschließend werden alle Tupel in der Form $(Quadrat, Wurzel)$ zurückgegeben.
+Für das Durchlaufen der Zahlen bis zum eingegebenen Limit werden mehrere Schleifen benötigt. 
