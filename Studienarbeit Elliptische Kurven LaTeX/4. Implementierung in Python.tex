@@ -369,4 +369,19 @@ def eratosthenes(limit):
 \end{lstlisting}
 \vspace{\baselineskip}
 
-Für das Durchlaufen der Zahlen bis zum eingegebenen Limit werden mehrere Schleifen benötigt. 
+Für das Durchlaufen der Zahlen bis zum eingegebenen Limit werden mehrere Schleifen benötigt.
+
+\subsection{Funktion: get\_squares\_with\_roots()}
+Diese Funktion gibt bei einer gegebenen Liste von Zahlen zu jeder Zahl das Quadrat modulo der Anzahl der Zahlen wieder. Die Funktion wird im Zuge der Punktbestimmung verwendet.
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Funktion: get\_squares\_with\_roots()}, captionpos=b]
+def get_squares_with_roots(candidate_list):
+    squares_with_roots = []
+    for x in candidate_list:
+        square = (x ** 2) % len(candidate_list)
+        squares_with_roots.append((square, x))
+
+    return squares_with_roots
+\end{lstlisting}
+\vspace{\baselineskip}
+Für jede Zahl in der Liste wird das Quadrat in $\mathbb{F}_p$ berechnet und anschließend werden alle Tupel in der Form $(Quadrat, Wurzel)$ zurückgegeben.
