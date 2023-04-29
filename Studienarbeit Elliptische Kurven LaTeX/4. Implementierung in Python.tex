@@ -346,3 +346,27 @@ def inverse_mod2(a, m):
 \vspace{\baselineskip}
 
 Im Fall, das der $GGT$ von $a$ und $m$ ungleich 1 ist, was gleichbedeutend damit ist, dass kein Inverses existiert, wird \textit{None} zurückgegeben, ansonsten das  multiplikative Inverse.
+
+
+\subsection{Funktion: eratosthenes(limit)}
+XXX
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Funktion: eratosthenes(limit)}, captionpos=b]
+def eratosthenes(limit):
+    primes = []
+    for number in range(2, limit + 1):
+        primes.append(number)
+    # print(primes)
+
+    for prime in primes:
+        for number in primes[primes.index(prime) + 1:]:
+            if number % prime == 0:
+                primes.remove(number)
+
+    print(primes)
+    return primes
+\end{lstlisting}
+\vspace{\baselineskip}
+
+XXX
