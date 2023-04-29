@@ -1,4 +1,4 @@
-import math
+import numpy as np
 
 
 # # Beispiel: Erstelle eine elliptische Kurve y^2 = x^3 - 3x + 1
@@ -33,58 +33,22 @@ import math
 def is_prime(n):
     if n <= 1:
         return False
-    for i in range(2, int(math.sqrt(n)) + 1):
+    for i in range(2, int(np.sqrt(n)) + 1):
         if n % i == 0:
             return False
     return True
 
 
-def inverse_mod2(a, m):
-    # Berechnet das inverse Element von a modulo m
-    # nutzt den Erweiterten Euklidischen Algorithmus
-    if a < 0:
-        a = a % m
-    c, d, uc, vc, ud, vd = a, m, 1, 0, 0, 1
-    while c != 0:
-        q, c, d = divmod(d, c) + (c,)
-        uc, vc, ud, vd = ud - q * uc, vd - q * vc, uc, vc
-    if ud > 0:
-        return ud
-    else:
-        return ud + m
-
-
-def square(value, n):
-    temp = value
-    value = value ** 2 % n
-    print(str(temp) + "^2 mod " + str(n) + " = " + str(value))
-    return value
-
-
-def multiply(value, n, a):
-    temp = value
-    value = (value * a) % n
-    print(str(temp) + " * " + str(a) + " mod " + str(n) + " = " + str(value))
-    return value
-
-
-def eukliedAlgo(n, e):
-    r = 1
-    while r != 0:
-        r = n % e
-        n = e
-        e = r
-    return n
-
-
-def eukliedAlgoRekursiv(n, e):
+# euklidischer Algorithmus
+def euklied_algo_recursiv(n, e):
     if e == 0:
         return n
     else:
-        ggt = eukliedAlgoRekursiv(e, n % e)
+        ggt = euklied_algo_recursiv(e, n % e)
         return ggt
 
 
+# Gibt das multiplikative Inverse von a modulo m zurück
 def inverse_mod(a, m):
     gcd, x, y = extended_euclidean_algorithm(a, m)
     if gcd != 1:
@@ -93,6 +57,7 @@ def inverse_mod(a, m):
         return x % m
 
 
+# Implementierung des erweiterten euklidischen Algorithmus
 def extended_euclidean_algorithm(a, b):
     if a == 0:
         return b, 0, 1
@@ -101,32 +66,7 @@ def extended_euclidean_algorithm(a, b):
         return gcd, y - (b // a) * x, x
 
 
-def binExponantationInK(a, k, n):
-    binary = bin(k)
-    length = len(binary) - 2
-    print(str(binary))
-    print(str(length))
-
-    if length == 1:
-        value = a % n
-    else:
-        value = a
-        i = 1
-        while i < length:
-            if binary[i + 2] == "0":
-                print("0 =>")
-                value = square(value, n)
-                print("")
-            else:
-                print("1 =>")
-                value = square(value, n)
-                value = multiply(value, n, a)
-                print("")
-            i = i + 1
-    print("Solution: " + str(value))
-    return value
-
-
+# Implementierung des Siebs des Eratosthenes
 def eratosthenes(limit):
     primes = []
     for number in range(2, limit + 1):
@@ -161,26 +101,12 @@ def eratosthenes2(limit):
     return primes
 
 
-def chinesischerRestsatz(a, modules):
-    for m in modules:
-        for mi in modules[modules.index(m) + 1:]:
-            if eukliedAlgo(m, mi) > 1:
-                return "Module sind nicht teilerfremd"
-
-    m = 1
-    for mi in modules:
-        m = m * mi
-
-    b = []
-    for mi in modules:
-        b.append(m / mi)
-
-
+# Entfernt negative Elemente aus einer Liste
 def remove_negs(num_list):
-    # Remove the negative numbers from the list num_list.
     return [item for item in num_list if item >= 0]
 
 
+# Gibt zu jeder Zahl das Quadrat modulo der Anzahl der Zahlen als Tupel (Quadrat, Wurzel) zurück
 def get_squares_with_roots(candidate_list):
     squares_with_roots = []
     for x in candidate_list:
@@ -188,5 +114,3 @@ def get_squares_with_roots(candidate_list):
         squares_with_roots.append((square, x))
 
     return squares_with_roots
-
-

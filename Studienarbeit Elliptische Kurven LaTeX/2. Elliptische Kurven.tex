@@ -592,10 +592,12 @@ Die Bits $d_4$ bis $d_0$ werden in absteigender Reihenfolge verarbeitet:
 
 Das darstellen von $d$ als binäre Zahl ermöglicht es, diese ausgehend von der ersten 1 ausgehend \textit{zusammenzubauen}. Jede Stelle im Binärsystem ist doppelt so wertig wie die vorherige, weshalb durch Verdoppeln die ganze Zahl um eine Stelle nach links geschoben wird. Durch diese Operation wird dann sozusagen eine 0 \textit{erzeugt}. Wenn nun eine 1 benötigt wird kann diese durch die Addition von 1 bzw. dem Startpunkt \textit{erzeugt} werden.\\
 
-Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht.\cite[280-284]{Paar.2016}
+Mittels dieses Algorithmus von die Komplexität der Berechnung des Punktes $T = dP$ von $O(d)$ auf $O(1,5 \cdot \log_{10}d)$ reduziert werden. Wodurch die Berechnung von $T$ auch für große $d$ verhältnismäßig schnell durchzuführen ist. Der Angreifer hat keine Möglichkeit die Berechnung von $d$ derart zu beschleunigen, was das DLP auch hier zu einer Einwegfunktion macht \cite[280-284]{Paar.2016}.\\
+
+Das DLP über elliptischen Kurven bilden die Grundelage für viele moderne kryptografischen Protokolle, wie den Signaturalgorithmus ECDSA, das Verschlüsselungsystem EC-ElGamal oder das Schlüsselaustauschverfahren ECDHKE. Letzteres wird im folgenden Kapitel genauer erläutert.
 
 \section{Elliptic-Curve-Diffie-Hellman Key Exchange (ECDHKE)}
-Der ECDHKE ist eine Anpassung des klassischen DHKE, wobei hier als zyklische Gruppe nicht $\mathbb{Z}_p^*$ sondern die Punktemenge einer elliptischen Kurve verknüpft durch die in Kapitel \ref{sec:Arithmetik} definierte Gruppenoperation. Wie in Kaptiel \ref{sec:DLPüberEC} gezeigt, kann auch in einer solchen zyklischen Gruppe bzw. Untergruppe ein DLP definiert werden, welches sogar deutlich schwieriger zu lösen ist, als das DLP über $\mathbb{Z}_p^*$.
+Der ECDHKE ist eine Anpassung des klassischen DHKE, wobei hier als zyklische Gruppe nicht $\mathbb{Z}_p^*$ sondern die Punktemenge einer elliptischen Kurve verknüpft durch die in Kapitel \ref{sec:Arithmetik} definierte Gruppenoperation. Wie in Kaptiel \ref{sec:DLPüberEC} gezeigt, kann auch in einer solchen zyklischen Gruppe bzw. Untergruppe ein DLP definiert werden, welches sogar deutlich schwieriger zu lösen ist, als das DLP über $\mathbb{Z}_p^*$.\\
 
 Die Konstruktion des ECDHKE funktioniert analog zu jener des DHKE, welche in Kapitel \ref{sec:DHKE} erläutert wurde. zunächst müssen wieder die Domain-Parameter festgelegt werden:
 
@@ -604,11 +606,11 @@ Die Konstruktion des ECDHKE funktioniert analog zu jener des DHKE, welche in Kap
 \item Wähle eine Primzahl $p$ und eine elliptische Kurve $$E: y^2 \equiv x^3 + a \cdot x +b \text{ mod } p$$
 \item Wähle ein primitives Element $P = (x_P, y_P)$
 \end{enumerate}
-Die Primzahl $p$, die Kurvenkoeffizienten $a$, $b$ und der Punkt $P$ bilden die sog. Domain-Parameter.
+Die Primzahl $p$, die Kurvenkoeffizienten $a$, $b$ und der Punkt $P$ bilden die sog. Domain-Parameter.\\
 
 Die Wahl dieser Parameter hat großen Einfluss auf die Anzahl der Gruppenelemente und damit auf die Sicherheit des Protokolls. Die Bestimmung geeigneter Parameter ist relativ rechenaufwändig, weshalb dies in der Praxis nicht jedes mal neu gemacht wird, sondern z.B. von der NIST vorgegebene Parameter verwendet werden. Der Schlüsselaustausch erfolgt nun analog zum DHKE über endlichen Körpern:
 
-\paragraph{Diffie-Hellman-Schlüsselaustausch mit elliptischen Kurven (ECDH)}
+\paragraph{Diffie-Hellman-Schlüsselaustausch mit elliptischen Kurven (ECDHKE)}
 \begin{tabbing}
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \= \qquad \qquad \qquad \= \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \kill
 \textbf{Alice} \> \> \textbf{Bob}\\

@@ -1,18 +1,4 @@
-import math
 import numpy as np
-import matplotlib.pyplot as plt
-import supportAlgos
-from drawEC import DrawCurves
-
-
-# Prüft, ob eine Zahl prim ist
-def is_prime(n):
-    if n <= 1:
-        return False
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            return False
-    return True
 
 
 class EllipticCurveInR:
@@ -68,6 +54,3 @@ class EllipticCurveInR:
         # plt.plot(x, f2)
         # plt.tight_layout()
         # plt.show()
-
-
-

@@ -9,8 +9,6 @@ class EllipticCurveInFp:
         self.p = p
 
     def get_all_points_on_curve(self):
-        x_values = []
-        points = []
         if not self.is_elliptic_curve_correct():
             return False
         # Berechnen der Quadrate und zugehörige Wurzeln in F_p
@@ -21,6 +19,7 @@ class EllipticCurveInFp:
             if tupel[0] not in squares:
                 squares.append(tupel[0])
         # Prüfe für jedes x in F_p, ob es eingesetzt ein Quadrat ergibt
+        x_values = []
         for x in range(self.p):
             if (x ** 3 + self.a * x + self.b) % self.p in squares:
                 x_values.append(x)
@@ -59,7 +58,7 @@ class EllipticCurveInFp:
         return (y ** 2 - x ** 3 - self.a * x - self.b) % self.p == 0
 
     def add(self, P, Q):
-
+        # Zu addierende Punkt müssen auf der Kurve liegen
         if not self.is_point_on_curve(P):
             return None
         if not self.is_point_on_curve(Q):

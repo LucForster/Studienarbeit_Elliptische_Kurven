@@ -1,6 +1,4 @@
 import numpy as np
-import math
-from decimal import Decimal
 import random
 
 
@@ -10,6 +8,7 @@ class DHKE:
         self.k_priv = None
         self.k_pub = None
 
+    # Generiert ein Schlüsselpaar auf Basis eines Generators
     def gen_key_pair(self, start_element):
         group_order = self.cyclic_group.get_element_order(start_element)
 
@@ -24,6 +23,7 @@ class DHKE:
 
         return k_priv, k_pub
 
+    # Berechnet auf Basis des öffentlichen Schlüssels des Kommunikationspartners einen gemeinsam geheimen Schlüssel
     def calc_common_key(self, k_pub):
         common_key = self.cyclic_group.scalar_dot_element(self.k_priv, k_pub)
         return common_key

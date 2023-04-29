@@ -1,9 +1,53 @@
 %3. Implementierung in Python
 \chapter{Implementierung in Python}\label{sec:python}
-Im Folgenden werden die Umsetzungen der angesprochenen Algorithmen sowie die Arithmetik der elliptischen Kurven in Python thematisiert.
+In diesem Kapitel wird die Umsetzung der theoretische Behandelten Konzepte in Python thematisiert. Im Zuge dessen, werden auch die verwendeten Bibliotheken und die Programmiersprache Python kurz thematisiert.\\
+
+Python ist eine höhere Programmiersprache, die in den späten 1980er Jahren entwickelt wurde. Sie wurde entworfen, um die Programmierung einfach, lesbar und zugänglich zu machen. Python ist bekannt für seine klare Syntax und seine Fähigkeit, komplexe Aufgaben mit wenigen Codezeilen zu erledigen. Die Programmiersprache ist zudem sehr flexibel und kann in vielen Bereichen eingesetzt werden, z.B. Webentwicklung, Datenanalyse, wissenschaftliche Programmierung, maschinelles Lernen, Automatisierung, Spieleentwicklung und vieles mehr. Python hat eine große Gemeinschaft von Entwicklern und bietet eine breite Palette von Bibliotheken und Frameworks, die für verschiedene Zwecke verwendet werden können\cite{GuidovanRossum.28.04.2023}. Aufgrund der genannten Eigenschaften wurde für die Umsetzung dieses Projekts Python eingesetzt.\\
+
+Die Bibliothek Numpy wurde verwendet um innerhalb des Programms Berechnungen durchzuführen, welche nicht durch die Standard-Pythonbibliothek bereitgestellt werden. Numpy ist eine Python-Bibliothek, die für numerische Berechnungen und Datenanalyse verwendet wird. Numpy bietet leistungsstarke Funktionen für Arrays und Matrizen sowie für mathematische Funktionen wie lineare Algebra, Fourier-Transformationen und Statistik. Numpy wurde für die Arbeit mit großen Datensätzen und für die schnelle Berechnung von mathematischen Operationen entwickelt. Numpy verwendet C-Code im Hintergrund, um eine höhere Leistung zu erreichen, was sie zu einer beliebten Wahl für wissenschaftliche Berechnungen macht. Numpy wird oft mit anderen Bibliotheken wie Pandas, Scipy und Matplotlib kombiniert, um umfassende Datenaufbereitungs- und Datenanalyse-Tools bereitzustellen \cite{TravisE.Oliphant.o.J.}. In dieser Arbeit wurde nur ein Bruchteil der durch Numpy gebotenen Funktionalitäten genutzt.\\
+
+Zur grafischen Darstellung der elliptischen Kurven wurde die Bibliothek Matbplotlib verwendet. Dies ist eine Python-Bibliothek für die Erstellung von Plots und Diagrammen. Matplotlib ist sehr flexibel und kann für eine Vielzahl von Anwendungen eingesetzt werden, z.B. für die Erstellung von wissenschaftlichen Diagrammen, Finanzdiagrammen, 2D- und 3D-Diagrammen und animierten Diagrammen. Matplotlib ist sehr einfach zu verwenden und bietet eine Vielzahl von Optionen für die Gestaltung von Diagrammen, z.B. Farben, Linienstilen und Textformatierung. Matplotlib wird oft zusammen mit Numpy und anderen Bibliotheken verwendet, um Datenvisualisierung und explorative Datenanalyse zu ermöglichen \cite{JohnD.Hunter.2007}.
+
+Das entwickelte Programm ermöglicht es ermöglicht es elliptische Kurven zu definieren und grafisch darzustellen. Darüber hinaus kann auf Basis einer elliptischen Kurve eine zyklische Gruppe erzeugt werden, welche wiederum die Basis für einen Diffie-Hellman-Key-Exchange darstellt. In der \textit{main.py} werden einige Beispiele für elliptische Kurven mit verschiedener Punkteanzahl gegeben. Zudem werden die implementierten Klassen beispielhaft genutzt um einen DHKE durchzuführen.
+
 
 \section{Klasse: ellipticCurveInFp}
 Die Klasse \textit{ellipticCurveInFp} ermöglicht es eine elliptische Kurve der Form $$y^2 = x^3 + ax + b \in \mathbb{F}_p$$ zu definieren. Im Zuge dessen werden verschiedene Methoden bereitgestellt.
+
+\subsection{Methode: get\_all\_points\_on\_curve()}
+Mittels des in Kapitel \ref{sec:brute_force} vorgestellte Verfahrens ermittelt diese Funktion alle auf der elliptischen Kurve befindlichen Punkte.
+
+\vspace{\baselineskip}
+\begin{lstlisting}[caption={Methode: get\_all\_points\_on\_curve()}, captionpos=b]
+def get_all_points_on_curve(self):
+    if not self.is_elliptic_curve_correct():
+        return False
+    # Berechnen der Quadrate und zugehoerige Wurzeln in F_p
+    squares_with_roots = supportAlgos.get_squares_with_roots(range(self.p))
+    # Liste mit Quadraten erstellen
+    squares = []
+    for tupel in squares_with_roots:
+        if tupel[0] not in squares:
+            squares.append(tupel[0])
+    # Pruefe fuer jedes x in F_p, ob es eingesetzt ein Quadrat ergibt
+    x_values = []
+    for x in range(self.p):
+        if (x ** 3 + self.a * x + self.b) % self.p in squares:
+            x_values.append(x)
+    # Ermitteln der Punkte auf der Kruve
+    points = []
+    for x in x_values:
+        y_quad = (x ** 3 + self.a * x + self.b) % self.p
+        for tupel in squares_with_roots:
+            if y_quad == tupel[0]:
+                points.append((x, tupel[1]))
+    # Neutrales Element hinzufuegen
+    points.append(("N", "N"))
+    return points
+\end{lstlisting}
+\vspace{\baselineskip}
+
+Zunächst wird geprüft, ob die elliptische Kurve korrekt definiert ist. Durch die Funktion \textit{get\_squares\_with\_roots()} wird zu jeder Zahl von $0$ bis $p-1$ das Quadrat in $\mathbb{F}_p$ berechnet. Die errechneten Quadrate werden in einer Liste gespeichert. Anschließend wird jedes $x > p$ in die Gleichung der elliptischen Kurve eingesetzt um zu prüfen ob das Ergebnis einem der errechneten Quadrate entspricht. Jene $x$-Werte auf die das zutrifft, werden in einer Liste gespeichert. Anschließend werden für jeden dieser $x$-Werte die zugehörigen $y$-Werte ermittelt und die Kombination als Punkte in einer Liste gespeichert. Im letzten Schritt wird der Liste der unendlich ferne Punkt hinzugefügt und die List zurückgegeben.
 \subsection{Methode: is\_elliptic\_curve\_correct()}
 Diese Methode prüft alle Eigenschaften, die zur Definition einer Elliptischen Kurve erforderlich sind und gibt entsprechend \textit{True} oder \textit{False} zurück.
 
