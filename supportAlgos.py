@@ -71,7 +71,6 @@ def eratosthenes(limit):
     primes = []
     for number in range(2, limit + 1):
         primes.append(number)
-    # print(primes)
 
     for prime in primes:
         for number in primes[primes.index(prime) + 1:]:
